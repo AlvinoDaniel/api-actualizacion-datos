@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CarpertasOficio extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'carpeta_id',
+        'departamento_id',
+    ];
+
 }

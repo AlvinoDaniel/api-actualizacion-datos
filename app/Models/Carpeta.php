@@ -6,21 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Departamento;
 
-class Personal extends Model
+class Carpeta extends Model
 {
     use HasFactory;
 
     protected $fillable=[
-        'nombres',
-        'apellidos',
-        'cedula_identidad',
-        'cargo',
-        'correo',
-        'firma',
+        'nombre',
         'departamento_id',
     ];
 
-    public function departamento()
+    public function creador()
     {
         return $this->hasOne(Departamento::class);
     }

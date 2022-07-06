@@ -17,8 +17,8 @@ class CreateCarpertasOficiosTable extends Migration
             $table->id();
             $table->foreignId('oficio_id')
             ->constrained('oficios');
-            $table->foreignId('departamento_id')
-            ->constrained('departamentos');
+            $table->foreignId('carpeta_id')
+            ->constrained('carpetas');
             $table->timestamps();
         });
     }
