@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Oficio;
+use App\Models\Documento;
 use App\Models\Personal;
 use App\Models\Carpeta;
 use App\Models\Plantilla;
@@ -15,11 +15,13 @@ class Departamento extends Model
 
     protected $fillable=[
         'nombre',
-        'abreviacion',
+        'siglas',
+        'codigo',
+        'correo',
     ];
 
-    public function oficios() {
-        return $this->belongsTo(Oficio::class);
+    public function Documentos() {
+        return $this->belongsTo(Documento::class);
     }
     
     public function carpetas() {
@@ -32,7 +34,7 @@ class Departamento extends Model
     
     public function recibidos()
     {
-        return $this->belongsToMany(Oficio::class, 'oficios_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps();
+        return $this->belongsToMany(Documento::class, 'documentos_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps();
     }
     
     public function personal() {

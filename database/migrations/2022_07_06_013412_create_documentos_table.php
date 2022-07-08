@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOficiosDepartamentosTable extends Migration
+class CreateDocumentosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateOficiosDepartamentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('oficios_departamentos', function (Blueprint $table) {
+        Schema::create('documentos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('oficio_id')
-                ->constrained('oficios');
+            $table->mediumText('asunto');
+            $table->bigInteger('nro_documento');
+            $table->longText('contenido');
+            $table->string('tipo_documento');
+            $table->string('estatus');
+            $table->date('fecha_enviado');
             $table->foreignId('departamento_id')
                 ->constrained('departamentos');
-            $table->boolean('leido')->default(false);
-            $table->boolean('copia')->default(false);
-            $table->date('fecha_leido');
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateOficiosDepartamentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oficios_departamentos');
+        Schema::dropIfExists('documentos');
     }
 }

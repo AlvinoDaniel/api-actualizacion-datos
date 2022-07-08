@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartamentosTable extends Migration
+class CreateCarpertasDocumentosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateDepartamentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('departamentos', function (Blueprint $table) {
+        Schema::create('carpertas_documentos', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
-            $table->string('nombre');
-            $table->string('siglas');
-            $table->string('correo');
-            $table->json('configuracion');
+            $table->foreignId('documento_id')
+            ->constrained('documentos');
+            $table->foreignId('carpeta_id')
+            ->constrained('carpetas');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateDepartamentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departamentos');
+        Schema::dropIfExists('carpertas_documentos');
     }
 }

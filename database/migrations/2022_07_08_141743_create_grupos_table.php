@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarpertasOficiosTable extends Migration
+class CreateGruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCarpertasOficiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('carpertas_oficios', function (Blueprint $table) {
+        Schema::create('grupos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('oficio_id')
-            ->constrained('oficios');
-            $table->foreignId('carpeta_id')
-            ->constrained('carpetas');
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->foreignId('departamento_id')
+            ->constrained('departamentos');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateCarpertasOficiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carpertas_oficios');
+        Schema::dropIfExists('grupos');
     }
 }

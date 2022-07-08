@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Departamento;
-use App\Models\OficiosDepartamento;
+use App\Models\DocumentosDepartamento;
 
-class Oficio extends Model
+class Documento extends Model
 {
     use HasFactory;
 
     protected $fillable=[
         'asunto',
-        'nro_oficio',
+        'nro_documento',
         'contenido',
-        'tipo_oficio',
+        'tipo_documento',
         'estatus',
         'fecha_enviado',
         'departamento_id',
@@ -28,17 +28,17 @@ class Oficio extends Model
 
     public function destino()
     {
-        return $this->hasOne(OficiosDepartamento::class)->where('copia', false);
+        return $this->hasOne(documentosDepartamento::class)->where('copia', false);
     }
     
     public function enviados()
     {
-        return $this->belongsToMany(Departamento::class, 'oficios_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps()->wherePivot('copia', false);
+        return $this->belongsToMany(Departamento::class, 'documentos_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps()->wherePivot('copia', false);
     }
 
     public function copias()
     {
-        return $this->belongsToMany(Departamento::class, 'oficios_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps()->wherePivot('copia', true);
+        return $this->belongsToMany(Departamento::class, 'documentos_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps()->wherePivot('copia', true);
     }
           
 }
