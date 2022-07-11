@@ -4,28 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use App\Models\Documento;
-use App\Models\Departamento;
+use App\Models\Carpeta;
 
-class DocumentosDepartamento extends Pivot
+class CarpertasDocumento extends Model
 {
     use HasFactory;
 
     protected $fillable=[
-        'documento_id',
+        'carpeta_id',
         'departamento_id',
-        'leido',
-        'copia',
-        'fecha_leido',
     ];
+
+    public function carpeta() {
+        return $this->belongsTo(Carpeta::class);
+    }
 
     public function documento() {
         return $this->belongsTo(Documento::class);
     }
 
-    public function departamento() {
-        return $this->belongsTo(Departamento::class);
-    }
-    
 }

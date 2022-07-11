@@ -15,6 +15,11 @@ class CreateDocumentosExternosTable extends Migration
     {
         Schema::create('documentos_externos', function (Blueprint $table) {
             $table->id();
+            $table->string('correo_destino');
+            $table->string('persona_destino');
+            $table->string('institucion_destino');
+            $table->foreignId('documento_id')
+            ->constrained('documentos');
             $table->timestamps();
         });
     }

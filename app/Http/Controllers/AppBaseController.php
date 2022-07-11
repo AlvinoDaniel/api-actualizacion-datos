@@ -31,15 +31,21 @@ class AppBaseController extends Controller
         ], 200);
     }
 
-    public function sendError($error, $code = 404)
+    public function sendError($error, $code = 404, $data)
     {
-        return Response::json([
+        $dataResponse = [
             'success'   => false,
             'errors' => [
                 'message'   => $error,
                 'code_error'=> $code
             ]
-        ], $code);
+        ];
+
+        if(isset($data)){
+            $dataResponse['data'] = $data;
+        }
+
+        return Response::json($dataResponse, $code);
     }
 
     public function sendSuccess($message)

@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
         ]);
 
         $admin->assignRole('administrador');
-        $standar->assignRole('estandar');
+        $standar->assignRole('jefe');
+        $standar->assignRole('secretario');
     }
 }

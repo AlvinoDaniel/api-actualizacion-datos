@@ -23,7 +23,12 @@ class RolesTableSeeder extends Seeder
         ]);
 
         $estandar = Role::create([
-            'name' => 'estandar',
+            'name' => 'jefe',
+            'guard_name' => 'api'
+        ]);
+
+        $estandar = Role::create([
+            'name' => 'secretaria',
             'guard_name' => 'api'
         ]);
 
