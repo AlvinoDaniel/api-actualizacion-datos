@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Carpeta;
-use App\Repositories\CarpetaRepository;
+use App\Interfaces\CarpetaRepositoryInterface;
 use App\Http\Requests\CarpetaRequest;
 
 class CarpetaController extends AppBaseController
 {
     private $repository;
 
-    public function __construct(CarpetaRepository $carpetaRepository)
+    public function __construct(CarpetaRepositoryInterface $carpetaRepository)
     {
         $this->repository = $carpetaRepository;
     }
@@ -25,7 +25,7 @@ class CarpetaController extends AppBaseController
     public function index()
     {
         try {
-            $carpetas = $this->repository->getCarpetas();
+            $carpetas = $this->repository->all();
             $message = 'Lista de Carpetas';
             return $this->sendResponse(['carpetas' => $carpetas], $message);
         } catch (\Throwable $th) {
@@ -79,7 +79,7 @@ class CarpetaController extends AppBaseController
     {
 
         try {      
-            $this->repository->updateCarpeta($request->all(), $id)
+            $this->repository->updateCarpeta($request->all(), $id);
             return $this->sendSuccess('Actividad Actualizada exitosamente.');
         } catch (\Throwable $th) {
             dd($th);
