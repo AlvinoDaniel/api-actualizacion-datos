@@ -10,6 +10,8 @@ class Personal extends Model
 {
     use HasFactory;
 
+    const NAME = 'Personal';
+
     protected $fillable=[
         'nombres',
         'apellidos',

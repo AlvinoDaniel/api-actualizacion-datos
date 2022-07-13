@@ -11,6 +11,7 @@ class CarpertasDocumento extends Model
 {
     use HasFactory;
 
+
     protected $fillable=[
         'carpeta_id',
         'departamento_id',

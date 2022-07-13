@@ -9,6 +9,8 @@ class Grupo extends Model
 {
     use HasFactory;
 
+    const NAME = 'Grupo';
+
     protected $fillable=[
         'nombre',
         'descripcion',

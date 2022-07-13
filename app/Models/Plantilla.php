@@ -10,6 +10,8 @@ class Plantilla extends Model
 {
     use HasFactory;
 
+    const NAME = 'Plantilla';
+
     protected $fillable=[
         'asunto',
         'contenido',

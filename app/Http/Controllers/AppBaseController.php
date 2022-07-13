@@ -31,7 +31,7 @@ class AppBaseController extends Controller
         ], 200);
     }
 
-    public function sendError($error, $code = 404, $data)
+    public function sendError($error, $code = 404, $data = null)
     {
         $dataResponse = [
             'success'   => false,
@@ -41,7 +41,7 @@ class AppBaseController extends Controller
             ]
         ];
 
-        if(isset($data)){
+        if($data){
             $dataResponse['data'] = $data;
         }
 

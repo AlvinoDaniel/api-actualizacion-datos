@@ -25,11 +25,11 @@ class CarpetaController extends AppBaseController
     public function index()
     {
         try {
-            $carpetas = $this->repository->all();
+            $carpetas = $this->repository->all(["usuario", "laravel"]);
             $message = 'Lista de Carpetas';
             return $this->sendResponse(['carpetas' => $carpetas], $message);
         } catch (\Throwable $th) {
-            return $this->sendError("Ocurrio un error al intentar obtener el listado de carpetas del Departamento.");
+            return $this->sendError($th->getMessage());
         }
     }
 

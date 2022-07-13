@@ -13,6 +13,8 @@ class Departamento extends Model
 {
     use HasFactory;
 
+    const NAME = 'Departamento';
+    
     protected $fillable=[
         'nombre',
         'siglas',

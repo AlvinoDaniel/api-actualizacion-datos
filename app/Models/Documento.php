@@ -11,6 +11,8 @@ class Documento extends Model
 {
     use HasFactory;
 
+    const NAME = 'Documento';
+
     protected $fillable=[
         'asunto',
         'nro_documento',

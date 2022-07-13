@@ -10,6 +10,8 @@ class Carpeta extends Model
 {
     use HasFactory;
 
+    const NAME = 'Carpeta';
+
     protected $fillable=[
         'nombre',
         'departamento_id',

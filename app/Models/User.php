@@ -15,6 +15,8 @@ class User extends Authenticatable
 
     protected $guard_name = 'api';
 
+    const NAME = 'Usuario';
+
     /**
      * The attributes that are mass assignable.
      *
