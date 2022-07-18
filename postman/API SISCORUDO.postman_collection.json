@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "484f1607-5665-4378-8e07-ee3f6477fe9a",
+		"name": "API SISCORUDO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username_email",
+									"value": "admin",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}auth/login",
+							"host": [
+								"{{API_SISCORUDO}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ME",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_SISCORUDO}}auth/me",
+							"host": [
+								"{{API_SISCORUDO}}auth"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CARPETAS",
+			"item": [
+				{
+					"name": "LISTAR_TODAS",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "CREAR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Principal",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}carpetas",
+							"host": [
+								"{{API_SISCORUDO}}carpetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACTUALIZAR",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_SISCORUDO}}carpetas/1",
+							"host": [
+								"{{API_SISCORUDO}}carpetas"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_SISCORUDO}}carpetas/1",
+							"host": [
+								"{{API_SISCORUDO}}carpetas"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
