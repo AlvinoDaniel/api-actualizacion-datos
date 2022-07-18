@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Departamento;
+use App\Models\User;
 
 class Personal extends Model
 {
     use HasFactory;
 
     const NAME = 'Personal';
+
+    protected $table = 'personal';
 
     protected $fillable=[
         'nombres',
@@ -22,9 +25,13 @@ class Personal extends Model
         'departamento_id',
     ];
 
-    public function departamento()
+    public function usuario()
     {
-        return $this->hasOne(Departamento::class);
+        return $this->hasOne(User::class);
+    }
+
+    public function Documentos() {
+        return $this->belongsTo(Documento::class);
     }
 
 

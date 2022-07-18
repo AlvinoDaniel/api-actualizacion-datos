@@ -6,5 +6,5 @@ use App\Interfaces\BaseRepositoryInterface;
 
 interface CarpetaRepositoryInterface extends BaseRepositoryInterface 
 {
-   
+   public function allCarpetas();
 }

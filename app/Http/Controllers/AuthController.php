@@ -39,7 +39,7 @@ class AuthController extends AppBaseController
 
       try {
          $user = User::where('email', $request->username_email)
-                  ->orWhere('username', $request->username_email)
+                  ->orWhere('usuario', $request->username_email)
                   ->first();
          if(!$user){
             return $this->sendError('El Email/Usuario no existe en nuestros registros.');
@@ -52,21 +52,21 @@ class AuthController extends AppBaseController
          $token = $user->createToken('TokenCultorApi-'.$user->name)->plainTextToken; 
          $message = 'Usuario Autenticado exitosamente.';
 
-         $this->generateLog(
-            '200',
-            $message,
-            $tipo_accion,
-            'success'
-         );
+         // $this->generateLog(
+         //    '200',
+         //    $message,
+         //    $tipo_accion,
+         //    'success'
+         // );
          return $this->sendResponse(['token' => $token ], $message);
 
       } catch (\Throwable $th) {
-         $this->generateLog(
-            $th->getCode(),
-            $th->getMessage(),
-            $tipo_accion,
-            'error'
-         );
+         // $this->generateLog(
+         //    $th->getCode(),
+         //    $th->getMessage(),
+         //    $tipo_accion,
+         //    'error'
+         // );
          return $this->sendError('Ocurrio un error, contacte al administrador');
       }
    }
@@ -81,10 +81,10 @@ class AuthController extends AppBaseController
     */
    public function me()
    {
-      $user = Auth::user();
-      $user['rol']= $user->getRoleNames();
-      // unset($user['rol']);
-      return $this->sendResponse([ 'user' => new UserAuthCollection(collect([$user])) ], 'Datos de Usuario Logeado');
+      $user = Auth::user()->load(['personal', 'roles']);
+      // $user = Auth::user()->personal->departamento_id;
+      return $this->sendResponse([ 'user' => new UserAuthCollection([$user]) ], 'Datos de Usuario Logeado');
+      // return $this->sendResponse([ 'user' => $user ], 'Datos de Usuario Logeado');
    }
 
      /**
@@ -100,25 +100,12 @@ class AuthController extends AppBaseController
     */
 
     public function logout(){
-      $tipo_accion =  'Cerrar Sesion';
       $user = Auth::user();
       try {
           //Auth::user()->currentAccessToken()->delete();
          $user->tokens()->delete();
-         $this->generateLog(
-            '200',
-            'Sesión cerrada con exito.',
-            $tipo_accion,
-            'success'
-         );
          return $this->sendSuccess('Sesión cerrada con exito.');
       } catch (\Throwable $th) {
-         $this->generateLog(
-            $th->getCode(),
-            $th->getMessage(),
-            $tipo_accion,
-            'error'
-         );
          return $this->sendError('Ocurrio un error al intentar cerrar la sesion.', 422);
       }
   }

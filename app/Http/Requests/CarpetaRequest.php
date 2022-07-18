@@ -24,8 +24,8 @@ class CarpetaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'        => 'required|unique:actividades_artisticas',
-            'departamento_id'   => 'required|exists:departamento,id',
+            'nombre'    => 'required',
         ];
+        // 'departamento_id'   => 'required|exists:departamento,id',
     }
 }

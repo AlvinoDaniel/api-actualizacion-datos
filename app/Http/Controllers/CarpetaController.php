@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Carpeta;
 use App\Interfaces\CarpetaRepositoryInterface;
 use App\Http\Requests\CarpetaRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CarpetaController extends AppBaseController
 {
@@ -25,7 +25,7 @@ class CarpetaController extends AppBaseController
     public function index()
     {
         try {
-            $carpetas = $this->repository->all(["usuario", "laravel"]);
+            $carpetas = $this->repository->allCarpetas();
             $message = 'Lista de Carpetas';
             return $this->sendResponse(['carpetas' => $carpetas], $message);
         } catch (\Throwable $th) {
@@ -41,35 +41,23 @@ class CarpetaController extends AppBaseController
      */
     public function store(CarpetaRequest $request)
     {
-        $tipo_accion = 'Registrar carpeta';
         $data = [
             'nombre'            =>  $request->nombre,
-            'departamento_id'   => $request->departamento_id
+            'departamento_id'   => Auth::user()->personal->departamento_id
         ];
         try {
-            $carpeta = $this->repository->createCarpeta($data);
-            $this->generateLog(
-                '200',
-                'Se registro la carpeta: '.$carpeta->nombre,
-                $tipo_accion,
-                'success'
-             );
-            return $this->sendSuccess('Carpeta Registrada exitosamente.');
+            $carpeta = $this->repository->registrar($data);
+            return $this->sendResponse(
+                $carpeta,
+                'Carpeta Registrada exitosamente.'
+            );
         } catch (\Throwable $th) {
-            dd($th);
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
             return $this->sendError('Ocurrio un error al intentar registrar la carpeta');
         }
     }
 
     /**
-     * Actualizar actividad artistica.
+     * Actualizar carpeta de un Departamento.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -77,20 +65,33 @@ class CarpetaController extends AppBaseController
      */
     public function update(CarpetaRequest $request, $id)
     {
+        $data = [
+            'nombre'            =>  $request->nombre,
+            'departamento_id'   => Auth::user()->personal->departamento_id
+        ];
 
         try {      
-            $this->repository->updateCarpeta($request->all(), $id);
-            return $this->sendSuccess('Actividad Actualizada exitosamente.');
+            $this->repository->actualizar($data, $id);
+            return $this->sendSuccess('Carpeta Actualizada exitosamente.');
         } catch (\Throwable $th) {
-            dd($th);
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
             return $this->sendError('Ocurrio un error al intentar actualizar la carpeta del departamento');
+        }
+    }
+
+    /**
+     * Actualizar carpeta de un Departamento.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        try {      
+            $this->repository->delete($id);
+            return $this->sendSuccess('Carpeta Eliminada exitosamente.');
+        } catch (\Throwable $th) {
+            return $this->sendError('Ocurrio un error al intentar eliminar la carpeta');
         }
     }
 

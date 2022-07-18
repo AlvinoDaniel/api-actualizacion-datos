@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Artisan;
+use Illuminate\Support\Facades\Artisan as FacadesArtisan;
 
 class Install extends Command
 {
@@ -42,6 +43,9 @@ class Install extends Command
         Artisan::call('key:generate');
 
         $this->info("Construyendo la base de datos!");
+        //publicando migraciones de Spatie
+        Artisan::call('vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"');
+        $this->info("Publicacion de Spatie Ejecutada!");
         //ejecutar las migraciones
         Artisan::call('migrate');
         $this->info("Migraciones Ejecutadas!");

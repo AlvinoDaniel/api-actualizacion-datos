@@ -34,7 +34,6 @@ class Baserepository implements BaseRepositoryInterface {
 
   public function registrar(array $data){
     $model = $this->model->create($data);
-
     return $model;
   }
 
@@ -45,7 +44,7 @@ class Baserepository implements BaseRepositoryInterface {
   }
 
   public function delete($id){
-    return $this->find($id)->delete();
+    return $this->findById($id)->delete();
   }
 
 }
