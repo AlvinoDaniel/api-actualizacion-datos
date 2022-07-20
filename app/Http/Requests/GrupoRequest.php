@@ -25,8 +25,7 @@ class GrupoRequest extends FormRequest
     {
         return [
             'nombre'            => 'required',
-            'departamentos'     => 'required|array',
-            'departamentos.*.id'   => 'integer|exists:departamentos,id',
+            'departamentos'     => 'required|string',
         ];
     }
 }

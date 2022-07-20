@@ -35,12 +35,12 @@ class GrupoRepository extends BaseRepository implements GrupoRepositoryInterface
   }
 
   /**
-   * Agregar departamentos en un grupo
+   * Registrar grupo de un Departamento
    * @param Array $departamentos 
    * @param Integer $id_grupo 
    */
-  public function agregarDepartamentos($departamentos, $id_grupo){
-   // dd($departamentos);
+  public function registrarGrupo($data){
+    
       foreach ($departamentos as $key => $dpto) {
          GruposDepartamento::create([
             'grupo_id'        => $id_grupo,
