@@ -47,6 +47,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 $files = array(
                     "carpeta",
+                    "grupos",
                 );
 
                 require base_path('routes/api.php');

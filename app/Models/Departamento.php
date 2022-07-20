@@ -8,6 +8,7 @@ use App\Models\Documento;
 use App\Models\Personal;
 use App\Models\Carpeta;
 use App\Models\Plantilla;
+use App\Models\Grupo;
 
 class Departamento extends Model
 {
@@ -37,6 +38,11 @@ class Departamento extends Model
     public function recibidos()
     {
         return $this->belongsToMany(Documento::class, 'documentos_deparatamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps();
+    }
+
+    public function grupos()
+    {
+        return $this->belongsToMany(Grupo::class, 'grupos_deparatamentos');
     }
     
     public function personal() {
