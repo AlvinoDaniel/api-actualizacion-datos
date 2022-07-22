@@ -14,8 +14,11 @@ Route::group([
     Route::controller(GrupoController::class)->group(function () {
       Route::get('/', 'index');
       Route::post('/', 'store');
-      // Route::post('/{id}', 'update');
-      // Route::delete('/{id}', 'delete');
+      Route::get('/{id}', 'show');
+      Route::post('/{id}', 'update');
+      Route::post('/departamento/{id}', 'addDepartamento');
+      Route::delete('/{id}', 'destroy');
+      Route::delete('/departamento/{id}', 'destroyDepartamento');
     });   
   });
 });

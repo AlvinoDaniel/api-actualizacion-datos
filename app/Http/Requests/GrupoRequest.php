@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class GrupoRequest extends FormRequest
 {
@@ -24,7 +26,12 @@ class GrupoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'            => 'required',
+            'nombre'            => [
+                'required',
+                Rule::unique('grupos')->where(function ($query) {
+                    return $query->where('departamento_id', Auth::user()->personal->departamento_id);
+                })
+            ],
             'departamentos'     => 'required|string',
         ];
     }
