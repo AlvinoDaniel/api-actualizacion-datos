@@ -71,11 +71,11 @@ class GrupoRepository extends BaseRepository implements GrupoRepositoryInterface
       try {
          $grupo = Grupo::with('departamentos')->find($id);
          if(!$grupo) {
-            throw new Exception('El grupo con id '.$id.' no existe.');
+            throw new Exception('El grupo con id '.$id.' no existe.',422);
          }         
          return $grupo;
       } catch (\Throwable $th) {
-         throw new Exception('Hubo un error al intentar obtener el Grupo.');
+        throw new Exception($th->getMessage(), $th->getCode());
       }
    }
 

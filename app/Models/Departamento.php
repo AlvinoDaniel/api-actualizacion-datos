@@ -21,6 +21,7 @@ class Departamento extends Model
         'siglas',
         'codigo',
         'correo',
+        'configuracion',
     ];
 
     public function Documentos() {

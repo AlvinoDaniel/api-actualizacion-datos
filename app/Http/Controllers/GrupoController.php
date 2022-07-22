@@ -12,6 +12,7 @@ use App\Models\Departamento;
 use App\Models\Grupo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Exception;
 
 
 class GrupoController extends AppBaseController
@@ -61,7 +62,7 @@ class GrupoController extends AppBaseController
                 'Grupo Registrado exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError('Hubo un error al intentar Registrar el Grupo.');
+            return $this->sendError($th->getMessage());
         }
     }
 
@@ -80,7 +81,11 @@ class GrupoController extends AppBaseController
                 'Grupo Obtenido.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage());
+            return $this->sendError(
+                $th->getCode() > 0 
+                    ? $th->getMessage() 
+                    : 'Hubo un error al intentar Actualizar el Departamento'
+            );
         }
     }
 
@@ -153,14 +158,14 @@ class GrupoController extends AppBaseController
     public function destroyDepartamento(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'departamento_id'     => 'required',
+            'departamento_id'     => 'required|exists:departamentos,id',
         ]);
         if ($validator->fails()) {            
             return $this->sendError($validator->errors(),422);
         }  
 
         try {
-            $this->repository->eliminarDepartamentoGrupo($id, $departamento_id);
+            $this->repository->eliminarDepartamentoGrupo($id, $request->departamento_id);
             return $this->sendSuccess(
                 'Departamento Eliminado Exitosamente.'
             );

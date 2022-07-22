@@ -83,7 +83,24 @@
 					"name": "LISTAR_TODAS",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_SISCORUDO}}carpetas",
+							"host": [
+								"{{API_SISCORUDO}}carpetas"
+							]
+						}
 					},
 					"response": []
 				},
@@ -125,7 +142,7 @@
 				{
 					"name": "ACTUALIZAR",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Accept",
@@ -138,6 +155,16 @@
 								"type": "default"
 							}
 						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Depto",
+									"type": "default"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{API_SISCORUDO}}carpetas/1",
 							"host": [
@@ -153,6 +180,43 @@
 				{
 					"name": "ELIMINAR",
 					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}carpetas/1",
+							"host": [
+								"{{API_SISCORUDO}}carpetas"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DEPARTAMENTOS",
+			"item": [
+				{
+					"name": "LISTAR_TODAS",
+					"request": {
 						"method": "GET",
 						"header": [
 							{
@@ -167,11 +231,377 @@
 							}
 						],
 						"url": {
+							"raw": "{{API_SISCORUDO}}departamentos",
+							"host": [
+								"{{API_SISCORUDO}}departamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREAR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Planificacion",
+									"type": "default"
+								},
+								{
+									"key": "permiso_secretaria",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "correo",
+									"value": "planificacion.re.udo@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "codigo",
+									"value": "pnfcc20125",
+									"type": "default"
+								},
+								{
+									"key": "siglas",
+									"value": "PNF",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}departamentos",
+							"host": [
+								"{{API_SISCORUDO}}departamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACTUALIZAR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Planificacion rectorado",
+									"type": "default"
+								},
+								{
+									"key": "correo",
+									"value": "planificacion.re.udo@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "codigo",
+									"value": "PN78664",
+									"type": "default"
+								},
+								{
+									"key": "siglas",
+									"value": "PN",
+									"type": "default"
+								},
+								{
+									"key": "permiso_secretaria",
+									"value": "0",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}departamentos/4",
+							"host": [
+								"{{API_SISCORUDO}}departamentos"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}departamentos/3",
+							"host": [
+								"{{API_SISCORUDO}}departamentos"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GRUPOS",
+			"item": [
+				{
+					"name": "LISTAR_TODAS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_SISCORUDO}}grupos/15",
+							"host": [
+								"{{API_SISCORUDO}}grupos"
+							],
+							"path": [
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREAR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Principal",
+									"type": "default"
+								},
+								{
+									"key": "descripcion",
+									"value": "Grupo Principal",
+									"type": "default"
+								},
+								{
+									"key": "departamentos",
+									"value": "1,2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}grupos",
+							"host": [
+								"{{API_SISCORUDO}}grupos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACTUALIZAR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Depto",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
 							"raw": "{{API_SISCORUDO}}carpetas/1",
 							"host": [
 								"{{API_SISCORUDO}}carpetas"
 							],
 							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}carpetas/1",
+							"host": [
+								"{{API_SISCORUDO}}carpetas"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR DPTO",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"departamento_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}grupos/departamento/1",
+							"host": [
+								"{{API_SISCORUDO}}grupos"
+							],
+							"path": [
+								"departamento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AGREGAR DPTO",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|TpLTJDto19VxyPIBlBeTLBX1Q9SOWMM5Qli3PNH6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"departamento_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_SISCORUDO}}grupos/departamento/1",
+							"host": [
+								"{{API_SISCORUDO}}grupos"
+							],
+							"path": [
+								"departamento",
 								"1"
 							]
 						}

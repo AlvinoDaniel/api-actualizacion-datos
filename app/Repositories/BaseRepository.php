@@ -18,14 +18,13 @@ class Baserepository implements BaseRepositoryInterface {
   }
 
   public function all(array $relations = []){
-    throw new ModelNotFoundException($this->model);
     return $this->model->with($relations)->get();
   }
 
   public function findById($id){
     $model = $this->model->find($id);
     if(null === $model){
-      throw new ModelNotFoundException($this->model::NAME.' No existe en nuestros registros.');
+      throw new ModelNotFoundException($this->model::NAME.' No existe en nuestros registros.',422);
     }
 
     return $model;
@@ -33,18 +32,32 @@ class Baserepository implements BaseRepositoryInterface {
   }
 
   public function registrar(array $data){
-    $model = $this->model->create($data);
-    return $model;
+    try {
+      $model = $this->model->create($data);
+      return $model;
+    } catch (\Throwable $th) {
+      throw new Exception($th->getMessage());
+    }
   }
 
   public function actualizar(array $data, $id){
-    $model = $this->findById($id);
-
-    return $model->update($data);
+    try {
+      $model = $this->findById($id);
+      $model->update($data);
+      $model->refresh();
+      return $model;
+      
+    } catch (\Throwable $th) {
+      throw new Exception($th->getMessage(), $th->getCode());
+    }
   }
 
   public function delete($id){
-    return $this->findById($id)->delete();
+    try {
+      return $this->findById($id)->delete();
+    } catch (\Throwable $th) {
+      throw new Exception($th->getMessage(), $th->getCode());
+    }
   }
 
 }
