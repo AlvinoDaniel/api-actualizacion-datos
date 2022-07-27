@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\User;
+use App\Interfaces\UserRepositoryInterface;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -22,10 +23,10 @@ class UserController extends AppBaseController
 {
     private $repository;
 
-    public function __construct(PersonalRepositoryInterface $personalRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->middleware('auth:api');
-        $this->repository = $personalRepository;
+        $this->repository = $userRepository;
     }
 
     /**
@@ -73,7 +74,8 @@ class UserController extends AppBaseController
                 'Usuario Registrado exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError('Hubo un error al intentar Registrar el Usuario');
+            return $this->sendError($th->getMessage());
+            // 'Hubo un error al intentar Registrar el Usuario'
         }
     }
 
@@ -166,28 +168,19 @@ class UserController extends AppBaseController
     */
 
     public function delete($id){
-        $tipo_accion = 'Eliminar Usuario'; 
-
         try {
-            $user = User::find($id);
-
-            if(!$user){
-                return $this->sendError('El usuario que desea eliminar no existe.');
-            }
-
+            $user = $this->repository->findById($id);
             $user->syncRoles([]);
-            $user->delete();
-            return $this->sendSuccess('Usuario Eliminado exitosamente.');
-
+            $this->repository->delete($id);
+            return $this->sendSuccess(
+                'Usuario Eliminado Exitosamente.'
+            );
         } catch (\Throwable $th) {
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-             $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
-            return $this->sendError('Ocurrio un error al intentar eliminar el usuario');
+            return $this->sendError(
+                $th->getCode() > 0 
+                    ? $th->getMessage() 
+                    : 'Hubo un error al intentar Eliminar el Usuario'
+            );
         }
     }
 

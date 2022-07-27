@@ -50,6 +50,7 @@ class RouteServiceProvider extends ServiceProvider
                     "grupos",
                     "departamentos",
                     "personal",
+                    "users",
                 );
 
                 require base_path('routes/api.php');

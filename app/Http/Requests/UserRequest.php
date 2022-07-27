@@ -30,13 +30,18 @@ class UserRequest extends FormRequest
                 "email",
                 Rule::unique('users')->ignore($this->route('id'))
             ], 
-            'username'  => [
+            'usuario'  => [
                 "required",
                 Rule::unique('users')->ignore($this->route('id'))
             ],       
-            'password'  => 'required|min:5',
-            'status'    => 'nullable|boolean',
-            'rol'  => 'required|exists:roles,name',
+            'personal_id'  => [
+                "required",
+                "exists:personal,id",
+            ],       
+            // Rule::unique('users')->ignore($this->route('id'))
+            'password'      => 'required|min:5',
+            'status'        => 'nullable|boolean',
+            'rol'           => 'required|exists:roles,name',
         ];
     }
 }
