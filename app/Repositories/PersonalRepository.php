@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\DepartamentoRepositoryInterface;
+use App\Interfaces\PersonalRepositoryInterface;
 use App\Repositories\BaseRepository;
-use App\Models\Departamento;
+use App\Models\Personal;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
 
-class DepartamentoRepository extends BaseRepository implements DepartamentoRepositoryInterface {
+class PersonalRepository extends BaseRepository implements PersonalRepositoryInterface {
 
   /**
    * @var Model
@@ -22,9 +22,9 @@ class DepartamentoRepository extends BaseRepository implements DepartamentoRepos
    * 
    * @param Model $model
    */
-  public function __construct(Departamento $departamento)
+  public function __construct(Personal $personal)
   {
-      $this->model = $departamento;
+      $this->model = $personal;
   }
 
   /**

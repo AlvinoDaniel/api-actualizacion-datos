@@ -24,7 +24,7 @@ class Departamento extends Model
         'configuracion',
     ];
 
-    public function Documentos() {
+    public function documentos() {
         return $this->belongsTo(Documento::class);
     }
     

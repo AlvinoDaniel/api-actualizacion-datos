@@ -20,10 +20,12 @@ use Artisan;
 
 class UserController extends AppBaseController
 {
-    public function __construct()
+    private $repository;
+
+    public function __construct(PersonalRepositoryInterface $personalRepository)
     {
         $this->middleware('auth:api');
-        $this->middleware('role:administrador');
+        $this->repository = $personalRepository;
     }
 
     /**
@@ -34,21 +36,12 @@ class UserController extends AppBaseController
      *
     */
     public function index(){
-        $tipo_accion = 'Listar Usuarios';
-        $user_logueado = Auth::user();
         try {
-            $users = User::with('roles:id,name')->where('id', '!=', $user_logueado->id)->get();
-            $message = 'Lista de Usuarios.';
-            return $this->sendResponse(['users' => new UserCollection($users)], $message);
+            $usuarios = $this->repository->all(['personal']);
+            $message = 'Lista de Usuarios';
+            return $this->sendResponse(['usuarios' => $usuarios], $message);
         } catch (\Throwable $th) {
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
-            return $this->sendError('Ocurrio un error al intentar obtener el listado de Usuarios.');
+            return $this->sendError($th->getMessage());
         }
     }
 
@@ -69,41 +62,18 @@ class UserController extends AppBaseController
     */
 
     public function store(UserRequest $request){
-        $tipo_accion = 'Registro de Usuario';
-        $all_roles_in_database = Role::all()->pluck('name');
+        $data = $request->except(['status', 'rol']);
+        $data['status'] = empty($request->status) ? 0 : $request->status;
         $rol = $request->rol;
-        $HAS_ROL = in_array($rol, $all_roles_in_database->toArray());
-        $data = [
-            'password'  =>  $request->password,
-            'name'      =>  $request->name,
-            'email'     =>  $request->email,
-            'username'  =>  $request->username,
-            'apellido'  =>  $request->apellido
-        ];
-
-        if(!$HAS_ROL) {
-            return $this->sendError('El rol que desea asignar al usuario no existe.');
-        }        
-
         try {
-            $user = User::create($data);
+            $user = $this->repository->registrar($data);
             $user->assignRole($rol);
-            $this->generateLog(
-                '200',
-                'Se registro el usuario: '.$user->email,
-                $tipo_accion,
-                'success'
-             );
-            return $this->sendSuccess('Usuario Registrado exitosamente.');
+            return $this->sendResponse(
+                $user,
+                'Usuario Registrado exitosamente.'
+            );
         } catch (\Throwable $th) {
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
-            return $this->sendError('Ocurrio un error al intentar registrar el usuario');
+            return $this->sendError('Hubo un error al intentar Registrar el Usuario');
         }
     }
 
@@ -121,54 +91,25 @@ class UserController extends AppBaseController
      *
     */
 
-    public function update(UpdateUserRequest $request,$id){
-        $tipo_accion = 'Actualizar Usuario';
-        $rol = $request->rol;
-        $ITEMS_UPDATE = $request->except('rol');
+    public function update(UserRequest $request,$id){
         
-        $all_roles_in_database = Role::all()->pluck('name');
-        $HAS_ROL = in_array($rol, $all_roles_in_database->toArray());
-        if(!$HAS_ROL) {
-            return $this->sendError('El rol que desea asignar al usuario no existe.');
-        }     
-
+        $data = $request->except(['status', 'rol']);
+        $data['status'] = empty($request->status) ? 0 : $request->status;
+        $rol = $request->rol;
         try {
-            $user = User::find($id);
-
-            if(!$user){
-                return $this->sendError('El usuario que desea actualizar no existe.');
-            }
-
-            $validator = Validator::make($ITEMS_UPDATE, [
-                'email' => [Rule::unique('users')->ignore($user)],
-                'username' => [Rule::unique('users')->ignore($user)],
-            ]);
-
-            if ($validator->fails()) {            
-                return $this->sendError($validator->errors(), 422);
-            }
-
-            foreach ($ITEMS_UPDATE as $campo => $value) {
-                $user->update([$campo => $value]);
-            }
+            $user = $this->repository->actualizar($data, $id);
             $user->syncRoles($rol);
-            $this->generateLog(
-                '200',
-                'Se actualizo el usuario: '.$user->email,
-                $tipo_accion,
-                'success'
-             );
-            return $this->sendSuccess('Usuario Actualizado exitosamente.');
-        } catch (\Throwable $th) {
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
-            return $this->sendError('Ocurrio un error al intentar actualizar el usuario');
-        }
+                return $this->sendResponse(
+                    $user,
+                    'Usuario Actualzado exitosamente.'
+                );
+            } catch (\Throwable $th) {
+                return $this->sendError(
+                    $th->getCode() > 0 
+                        ? $th->getMessage() 
+                        : 'Hubo un error al intentar Actualizar el Usuario'
+                );
+            }
 
     }
 

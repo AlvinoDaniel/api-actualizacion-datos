@@ -49,6 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                     "carpeta",
                     "grupos",
                     "departamentos",
+                    "personal",
                 );
 
                 require base_path('routes/api.php');

@@ -21,6 +21,7 @@ class Personal extends Model
         'cedula_identidad',
         'cargo',
         'correo',
+        'nucleo',
         'firma',
         'departamento_id',
     ];
@@ -30,8 +31,8 @@ class Personal extends Model
         return $this->hasOne(User::class);
     }
 
-    public function Documentos() {
-        return $this->belongsTo(Documento::class);
+    public function departamento() {
+        return $this->belongsTo(Departamento::class);
     }
 
 
