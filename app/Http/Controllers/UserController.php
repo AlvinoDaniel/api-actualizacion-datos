@@ -17,6 +17,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Storage;
 use Artisan;
+use Exception;
 
 
 class UserController extends AppBaseController
@@ -52,7 +53,7 @@ class UserController extends AppBaseController
      * [Se asigna el usuario a algún vendedor existente en el sistema.]
      *
      * @bodyParam  email email required Correo de usuario. Example: jose@gmail.com
-     * @bodyParam  username required pseudonimo del usuario. 
+     * @bodyParam  username required pseudonimo del usuario.
      * @bodyParam  password string required Contraseña de usuario.
      * @bodyParam  name string required Nombre del usuario.
      * @bodyParam  apellido string required Nombre del usuario.
@@ -67,6 +68,12 @@ class UserController extends AppBaseController
         $data['status'] = empty($request->status) ? 0 : $request->status;
         $rol = $request->rol;
         try {
+            if($rol === 'jefe'){
+                $hasJefe = $this->repository->verificarJefatura($data['personal_id']);
+                if(!$hasJefe){
+                    return $this->sendError("Ya existe un usuario Jefe en el Departamento.");
+                }
+            }
             $user = $this->repository->registrar($data);
             $user->assignRole($rol);
             return $this->sendResponse(
@@ -75,7 +82,6 @@ class UserController extends AppBaseController
             );
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage());
-            // 'Hubo un error al intentar Registrar el Usuario'
         }
     }
 
@@ -85,7 +91,7 @@ class UserController extends AppBaseController
      * [Se actualiza la infomacion de un usuario.]
      *
      * @bodyParam  email email Correo de usuario. Example: jose@gmail.com
-     * @bodyParam  username pseudonimo del usuario. 
+     * @bodyParam  username pseudonimo del usuario.
      * @bodyParam  name string Nombre del usuario.
      * @bodyParam  apellido string Nombre del usuario.
      * @bodyParam  rol array Nombre del rol que se desea asignar. Example: ["administrador","estandar"]
@@ -94,12 +100,18 @@ class UserController extends AppBaseController
     */
 
     public function update(UserRequest $request,$id){
-        
+
         $data = $request->except(['status', 'rol']);
         $data['status'] = empty($request->status) ? 0 : $request->status;
         $rol = $request->rol;
         try {
             $user = $this->repository->actualizar($data, $id);
+            if($rol === 'jefe' && !$user->hasRole('jefe')){
+                $hasJefe = $this->repository->verificarJefatura($data['personal_id']);
+                if(!$hasJefe){
+                    return $this->sendError("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
+                }
+            }
             $user->syncRoles($rol);
                 return $this->sendResponse(
                     $user,
@@ -107,8 +119,8 @@ class UserController extends AppBaseController
                 );
             } catch (\Throwable $th) {
                 return $this->sendError(
-                    $th->getCode() > 0 
-                        ? $th->getMessage() 
+                    $th->getCode() > 0
+                        ? $th->getMessage()
                         : 'Hubo un error al intentar Actualizar el Usuario'
                 );
             }
@@ -120,14 +132,14 @@ class UserController extends AppBaseController
      *
      * [Se actualiza la contrseña de un usuario.]
      *
-     * @bodyParam  newpassword 
+     * @bodyParam  newpassword
      * @bodyParam  repassword
      *
      *
     */
 
     public function update_password(Request $request,$id){
-        $tipo_accion = 'Actualizar Contraseña'; 
+        $tipo_accion = 'Actualizar Contraseña';
 
         try {
             $user = User::find($id);
@@ -140,7 +152,7 @@ class UserController extends AppBaseController
                 'newpassword' => 'required|min:5',
             ]);
 
-            if ($validator->fails()) {            
+            if ($validator->fails()) {
                 return $this->sendError($validator->errors(), 422);
             }
 
@@ -177,8 +189,8 @@ class UserController extends AppBaseController
             );
         } catch (\Throwable $th) {
             return $this->sendError(
-                $th->getCode() > 0 
-                    ? $th->getMessage() 
+                $th->getCode() > 0
+                    ? $th->getMessage()
                     : 'Hubo un error al intentar Eliminar el Usuario'
             );
         }
@@ -205,7 +217,7 @@ class UserController extends AppBaseController
         try {
             Artisan::call('backup:run');
             $files = array_reverse(Storage::disk('backup')->files('cultores'));
-            return Storage::disk('backup')->download($files[0]);            
+            return Storage::disk('backup')->download($files[0]);
         } catch (\Throwable $th) {
             $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
             $this->generateLog(
@@ -216,6 +228,6 @@ class UserController extends AppBaseController
             );
             return $this->sendError('Ocurrio un error al intentar crear el Respaldo');
         }
-    }  
+    }
 }
 

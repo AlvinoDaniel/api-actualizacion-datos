@@ -17,6 +17,13 @@ class UserRequest extends FormRequest
         return true;
     }
 
+    // public function messages()
+    // {
+    //     return [
+    //         'personal_id.unique' => 'El personal seleccionado ya tiene un usuario registrado.',
+    //     ];
+    // }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,24 +31,26 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        // dd(Rule::unique('users', 'personal_id')->ignore($this->route('id')));
         return [
+            'personal_id'  => [
+                "required",
+                "exists:personal,id",
+                Rule::unique('users', 'personal_id')->ignore($this->route('id'))
+            ],
             'email'  => [
                 "required",
                 "email",
                 Rule::unique('users')->ignore($this->route('id'))
-            ], 
+            ],
             'usuario'  => [
                 "required",
                 Rule::unique('users')->ignore($this->route('id'))
-            ],       
-            'personal_id'  => [
-                "required",
-                "exists:personal,id",
-            ],       
-            // Rule::unique('users')->ignore($this->route('id'))
+            ],
             'password'      => 'required|min:5',
             'status'        => 'nullable|boolean',
             'rol'           => 'required|exists:roles,name',
         ];
     }
+
 }

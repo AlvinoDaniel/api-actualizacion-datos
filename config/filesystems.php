@@ -49,9 +49,9 @@ return [
             'visibility' => 'private',
         ],
 
-        'fotos' => [
+        'firmas' => [
             'driver' => 'local',
-            'root' => storage_path('app/cultores'),
+            'root' => storage_path('app/firmas'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
@@ -82,7 +82,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('fotos') => storage_path('app/cultores'),
+        public_path('firmas') => storage_path('app/firmas'),
     ],
 
 ];

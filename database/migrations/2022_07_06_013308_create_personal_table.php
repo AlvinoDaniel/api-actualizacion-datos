@@ -21,9 +21,9 @@ class CreatePersonalTable extends Migration
             $table->string('cargo');
             $table->string('nucleo');
             $table->string('correo')->nullable();
-            $table->binary('firma')->nullable();
+            $table->string('firma')->nullable();
             $table->foreignId('departamento_id')
-                ->constrained('departamentos');                
+                ->constrained('departamentos');
             $table->timestamps();
         });
     }

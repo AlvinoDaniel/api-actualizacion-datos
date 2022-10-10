@@ -21,7 +21,7 @@ class CreateDocumentosDepartamentosTable extends Migration
                 ->constrained('departamentos');
             $table->boolean('leido')->default(false);
             $table->boolean('copia')->default(false);
-            $table->date('fecha_leido');
+            $table->date('fecha_leido')->nullable()->default(null);
             $table->timestamps();
         });
     }

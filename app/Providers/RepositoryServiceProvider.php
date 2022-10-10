@@ -15,6 +15,8 @@ use App\Interfaces\PersonalRepositoryInterface;
 use App\Repositories\PersonalRepository;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
+use App\Interfaces\ConfiguracionRepositoryInterface;
+use App\Repositories\ConfiguracionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DepartamentoRepositoryInterface::class, DepartamentoRepository::class);
         $this->app->bind(PersonalRepositoryInterface::class, PersonalRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(ConfiguracionRepositoryInterface::class, ConfiguracionRepository::class);
     }
 
     /**

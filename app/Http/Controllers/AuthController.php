@@ -22,7 +22,7 @@ class AuthController extends AppBaseController
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    
+
     /**
      * Login de usuario
      *
@@ -45,11 +45,11 @@ class AuthController extends AppBaseController
             return $this->sendError('El Email/Usuario no existe en nuestros registros.');
          }
 
-         if (!Hash::check($request->password, $user->password)) {
-            return $this->sendError('Las credenciales no concuerdan. Email o Contraseña inválida');
-         }
+        //  if (!Hash::check($request->password, $user->password)) {
+        //     return $this->sendError('Las credenciales no concuerdan. Email o Contraseña inválida');
+        //  }
 
-         $token = $user->createToken('TokenCultorApi-'.$user->name)->plainTextToken; 
+         $token = $user->createToken('TokenCultorApi-'.$user->name)->plainTextToken;
          $message = 'Usuario Autenticado exitosamente.';
 
          // $this->generateLog(
@@ -128,30 +128,17 @@ class AuthController extends AppBaseController
 
    public  function changePassword(ChangePasswordRequest $request)
    {
-      $tipo_accion = 'Cambio de Contraseña';
       $user = Auth::user();
       $password = Hash::make($request->password);
       if(Hash::check($request->password, $user->password)) {
          try {
             $user->update(['password'=>$request->newpassword]);
-            $this->generateLog(
-               '200',
-               'Se actualizo su contraseña Exitosamente',
-               $tipo_accion,
-               'success'
-            );
             return $this->sendSuccess('Se actualizo su contraseña Exitosamente');
          } catch (\Throwable $th) {
-            $this->generateLog(
-               $th->getCode(),
-               $th->getMessage(),
-               $tipo_accion,
-               'error'
-            );
             return $this->sendError('Lo sentimos, hubo un error al intentar regustrar su nueva contraseña.', 422);
          }
       } else {
          return $this->sendError('La contraseña actual no coincide con nuestros registros.', 422);
-      }        
+      }
    }
 }

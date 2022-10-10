@@ -11,7 +11,7 @@ use App\Models\Departamento;
 class DocumentosDepartamento extends Pivot
 {
     use HasFactory;
-
+    protected $table = 'documentos_departamentos';
     protected $fillable=[
         'documento_id',
         'departamento_id',
@@ -27,5 +27,5 @@ class DocumentosDepartamento extends Pivot
     public function departamento() {
         return $this->belongsTo(Departamento::class);
     }
-    
+
 }

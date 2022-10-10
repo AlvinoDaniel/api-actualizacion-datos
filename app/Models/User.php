@@ -17,6 +17,9 @@ class User extends Authenticatable
     protected $guard_name = 'api';
 
     const NAME = 'Usuario';
+    const ROLE_ADMIN        = 'administrador';
+    const ROLE_JEFE         = 'jefe';
+    const ROLE_SECRETARIA   = 'secretaria';
 
     /**
      * The attributes that are mass assignable.
@@ -43,11 +46,28 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value){
         $this->attributes['password'] = \Hash::make($value);
-    }    
+    }
 
     public function personal()
     {
         return $this->belongsTo(Personal::class);
+    }
+
+    public function isJefe()
+    {
+        return $this->hasRole('jefe');
+    }
+
+    public function GET_JEFE() {
+        $jefe = User::whereHas('personal' , function (Builder $query) use($personal) {
+            $query->where('departamento_id', $this->id);
+          })
+          ->whereHas('roles', function (Builder $query) {
+            $query->where('name', 'jefe');
+          })
+          ->first();
+
+        return $jefe;
     }
 
 }

@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        
+
         $this->routes(function () {
             Route::prefix('api')
             ->middleware('api')
@@ -47,16 +47,19 @@ class RouteServiceProvider extends ServiceProvider
 
                 $files = array(
                     "carpeta",
+                    "configuracion",
                     "grupos",
                     "departamentos",
                     "personal",
                     "users",
+                    "documentos",
+                    "bandeja"
                 );
 
                 require base_path('routes/api.php');
 
                 foreach ($files as $file) {
-                    require base_path('routes/API/'.$file.'.php');                        
+                    require base_path('routes/API/'.$file.'.php');
                 }
                 // require base_path('routes/API/settings.php');
                 // require base_path('routes/API/cultor.php');

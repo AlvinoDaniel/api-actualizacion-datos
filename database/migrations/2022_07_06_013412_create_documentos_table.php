@@ -16,11 +16,11 @@ class CreateDocumentosTable extends Migration
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
             $table->mediumText('asunto');
-            $table->bigInteger('nro_documento');
+            $table->bigInteger('nro_documento')->nullable();
             $table->longText('contenido');
             $table->string('tipo_documento');
             $table->string('estatus');
-            $table->date('fecha_enviado');
+            $table->date('fecha_enviado')->nullable();
             $table->foreignId('departamento_id')
                 ->constrained('departamentos');
             $table->timestamps();
