@@ -81,9 +81,20 @@ class AuthController extends AppBaseController
     */
    public function me()
    {
-      $user = Auth::user()->load(['personal', 'roles']);
+      $user = Auth::user()->load(['personal.departamento', 'roles']);
       // $user = Auth::user()->personal->departamento_id;
-      return $this->sendResponse([ 'user' => new UserAuthCollection([$user]) ], 'Datos de Usuario Logeado');
+      $data = [
+        'id'                => $user->id,
+        'fullName'          => $user->personal->nombres.' '.$user->personal->apellidos,
+        'email'             => $user->email,
+        'usuario'           => $user->usuario,
+        'status'            => $user->status,
+        'departamento_id'   => $user->personal->departamento_id,
+        'departamento'      => $user->personal->departamento->nombre,
+        'rol_id'            => $user->roles[0]->id,
+        'rol'               => $user->roles[0]->name,
+    ];
+      return $this->sendResponse([ 'user' => $data ], 'Datos de Usuario Logeado');
       // return $this->sendResponse([ 'user' => $user ], 'Datos de Usuario Logeado');
    }
 

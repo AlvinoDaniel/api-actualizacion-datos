@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Departamento;
 use App\Models\Documento;
 use App\Http\Requests\BandejaRequest;
+use App\Http\Resources\BandejaRecibidosCollection;
+use App\Http\Resources\BandejaEnviadosCollection;
 use Exception;
 
 class BandejaController extends AppBaseController
@@ -29,7 +31,7 @@ class BandejaController extends AppBaseController
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => $departamento->documentos
+                    'documentos' => new BandejaEnviadosCollection($departamento->documentos),
                 ],
                 $message);
         } catch (\Throwable $th) {
@@ -96,7 +98,7 @@ class BandejaController extends AppBaseController
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => $departamento->recibidos
+                    'documentos' => new BandejaRecibidosCollection($departamento->recibidos)
                 ],
                 $message);
         } catch (\Throwable $th) {
