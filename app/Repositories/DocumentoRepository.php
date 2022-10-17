@@ -92,7 +92,7 @@ class DocumentoRepository {
             return $documento;
         } catch (\Throwable $th) {
             DB::rollBack();
-            throw new Exception('Hubo un error al intentar Guardar el documento.');
+            throw new Exception($th->getMessage());
             // throw new Exception($th->getMessage());
         }
     }

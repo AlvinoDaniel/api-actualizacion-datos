@@ -11,6 +11,7 @@ use App\Models\Documento;
 use App\Http\Requests\BandejaRequest;
 use App\Http\Resources\BandejaRecibidosCollection;
 use App\Http\Resources\BandejaEnviadosCollection;
+use App\Http\Resources\BandejaPorCorregirCollection;
 use Exception;
 
 class BandejaController extends AppBaseController
@@ -54,7 +55,7 @@ class BandejaController extends AppBaseController
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => $departamento->documentos
+                    'documentos' =>new BandejaPorCorregirCollection($departamento->documentos)
                 ],
                 $message);
         } catch (\Throwable $th) {
@@ -77,7 +78,7 @@ class BandejaController extends AppBaseController
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => $departamento->documentos
+                    'documentos' => new BandejaPorCorregirCollection($departamento->documentos)
                 ],
                 $message);
         } catch (\Throwable $th) {
