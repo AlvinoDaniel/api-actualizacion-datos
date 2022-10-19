@@ -190,7 +190,7 @@ class DocumentoRepository {
             if(!$documento) {
                 throw new Exception('El documento con id '.$id.' no existe.',422);
             }
-            if($documento->leido === false){
+            if($documento->leido === 0){
                 $documento->update(['leido' => true]);
             }
         } catch (\Throwable $th) {
