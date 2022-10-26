@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->boolean('status');
             $table->foreignId('personal_id')
                 ->constrained('personal');
+            $table->foreignId('departamento_id')
+                ->constrained('departamentos');
             $table->rememberToken();
             $table->timestamps();
         });

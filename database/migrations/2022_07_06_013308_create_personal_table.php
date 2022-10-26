@@ -15,15 +15,17 @@ class CreatePersonalTable extends Migration
     {
         Schema::create('personal', function (Blueprint $table) {
             $table->id();
-            $table->string('nombres');
-            $table->string('apellidos');
+            $table->string('nombres_apellidos');
             $table->string('cedula_identidad');
             $table->string('cargo');
-            $table->string('nucleo');
+            $table->foreignId('cod_nucleo')
+            ->constrained('nucleo');
+            $table->boolena('jefe')->default(0);
+            $table->string('descripcion_cargo')->nullable();
             $table->string('correo')->nullable();
             $table->string('firma')->nullable();
-            $table->foreignId('departamento_id')
-                ->constrained('departamentos');
+            // $table->foreignId('departamento_id')
+            //     ->constrained('departamentos');
             $table->timestamps();
         });
     }
