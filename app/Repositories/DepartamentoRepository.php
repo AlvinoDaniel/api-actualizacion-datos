@@ -19,7 +19,7 @@ class DepartamentoRepository extends BaseRepository implements DepartamentoRepos
 
   /**
    * Base Repository Construct
-   * 
+   *
    * @param Model $model
    */
   public function __construct(Departamento $departamento)
@@ -32,7 +32,7 @@ class DepartamentoRepository extends BaseRepository implements DepartamentoRepos
    */
   public function alldepartamentos(){
       $departamento = Auth::user()->personal->departamento_id;
-      return departamento::whereDepartamentoId($departamento)->with('departamentos')->get();
-  }  
-        
+      return Departamento::where('id','<>' ,$departamento)->get();
+  }
+
 }

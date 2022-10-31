@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersonalTable extends Migration
+class CreatePersonalMigracionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,14 @@ class CreatePersonalTable extends Migration
      */
     public function up()
     {
-        Schema::create('personal', function (Blueprint $table) {
+        Schema::create('personal_migracion', function (Blueprint $table) {
             $table->id();
-            $table->string('nombres_apellidos');
+            $table->string('nombres');
             $table->string('cedula_identidad');
             $table->string('cargo');
-            $table->foreignId('cod_nucleo')
-            ->constrained('nucleo');
-            $table->boolean('jefe')->default(0);
-            $table->string('descripcion_cargo')->nullable();
+            $table->string('cod_nucleo');
             $table->string('correo')->nullable();
-            $table->string('firma')->nullable();
-            $table->foreignId('departamento_id')
-                ->constrained('departamentos');
+            $table->string('grado_instruccion')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +32,6 @@ class CreatePersonalTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal');
+        Schema::dropIfExists('personal_migracion');
     }
 }

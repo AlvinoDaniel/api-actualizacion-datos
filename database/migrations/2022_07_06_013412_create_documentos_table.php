@@ -20,7 +20,7 @@ class CreateDocumentosTable extends Migration
             $table->longText('contenido');
             $table->string('tipo_documento');
             $table->string('estatus');
-            $table->date('fecha_enviado')->nullable();
+            $table->dateTime('fecha_enviado')->nullable();
             $table->foreignId('departamento_id')
                 ->constrained('departamentos');
             $table->timestamps();

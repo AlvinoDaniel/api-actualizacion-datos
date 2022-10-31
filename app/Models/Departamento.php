@@ -22,8 +22,10 @@ class Departamento extends Model
         'siglas',
         'codigo',
         'correo',
-        'configuracion',
+        'cod_nucleo',
     ];
+
+    protected $with = ['jefe'];
 
     public function documentos() {
         return $this->hasMany(Documento::class, 'departamento_id');
@@ -48,19 +50,11 @@ class Departamento extends Model
     }
 
     public function personal() {
-        return $this->belongsTo(Personal::class);
+        return $this->hasMany(Personal::class);
     }
 
-    public function GET_JEFE() {
-        $jefe = User::whereHas('personal' , function (Builder $query) use($personal) {
-            $query->where('departamento_id', $this->id);
-          })
-          ->whereHas('roles', function (Builder $query) {
-            $query->where('name', 'jefe');
-          })
-          ->first();
-
-        return $jefe;
+    public function jefe() {
+        return $this->hasOne(Personal::class)->where('jefe', 1);
     }
 
 }

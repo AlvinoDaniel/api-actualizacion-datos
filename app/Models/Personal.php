@@ -16,12 +16,13 @@ class Personal extends Model
     protected $table = 'personal';
 
     protected $fillable=[
-        'nombres',
-        'apellidos',
+        'nombres_apellidos',
         'cedula_identidad',
         'cargo',
         'correo',
-        'nucleo',
+        'jefe',
+        'descripcion_cargo',
+        'cod_nucleo',
         'firma',
         'departamento_id',
     ];

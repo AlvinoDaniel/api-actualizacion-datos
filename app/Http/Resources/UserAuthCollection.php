@@ -17,13 +17,13 @@ class UserAuthCollection extends ResourceCollection
         return $this->collection->map(function ($item){
             return [
                 'id'                => $item->id,
-                'fullName'          => $item->personal->nombres.' '.$item->personal->apellidos,
+                'fullName'          => $item->personal->nombres_apellidos,
                 'email'             => $item->email,
                 'usuario'           => $item->usuario,
                 'status'            => $item->status,
                 'departamento_id'   => $item->personal->departamento_id,
-                'rol_id'            => $item->roles[0]->id,               
-                'rol'               => $item->roles[0]->name,               
+                'rol_id'            => $item->roles[0]->id,
+                'rol'               => $item->roles[0]->name,
             ];
         });
     }

@@ -21,7 +21,6 @@ class CreateDepartamentosTable extends Migration
             $table->string('correo');
             $table->foreignId('cod_nucleo')
             ->constrained('nucleo');
-            $table->json('configuracion');
             $table->timestamps();
         });
     }
