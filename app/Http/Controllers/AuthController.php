@@ -85,7 +85,7 @@ class AuthController extends AppBaseController
       // $user = Auth::user()->personal->departamento_id;
       $data = [
         'id'                => $user->id,
-        'fullName'          => $user->personal->nombres.' '.$user->personal->apellidos,
+        'fullName'          => $user->personal->nombres_apellidos,
         'email'             => $user->email,
         'usuario'           => $user->usuario,
         'status'            => $user->status,
