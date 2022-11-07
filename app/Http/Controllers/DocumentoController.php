@@ -121,16 +121,31 @@ class DocumentoController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $relaciones = null;
+        if (isset($request->estatus)) {
+            switch ($request->estatus) {
+                case 'temporal':
+                    $relaciones = ['temporal'];
+                    break;
+                case 'enviado':
+                    $relaciones = ['enviados', 'dptoCopias'];
+                    break;
+
+                default:
+                    $relaciones = [];
+                    break;
+            }
+        }
         try {
-            $documento = $this->repository->obtenerDocumento($id);
+            $documento = $this->repository->obtenerDocumento($id, $relaciones);
             if($documento->departamento_id !== Auth::user()->personal->departamento_id){
                 $this->repository->leidoDocumento($id);
             }
             return $this->sendResponse(
                 $documento,
-                'Documento Obtenido.'
+                $request->estatus
             );
         } catch (\Throwable $th) {
             return $this->sendError(

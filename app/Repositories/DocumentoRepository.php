@@ -168,10 +168,10 @@ class DocumentoRepository {
    * Obtener un grupo de un Departamento
    * @param Integer $id
    */
-   public function obtenerDocumento($id){
+   public function obtenerDocumento($id, $relaciones){
     try {
 
-       $documento = Documento::find($id);
+       $documento = Documento::with($relaciones)->find($id);
        if(!$documento) {
           throw new Exception('El documento con id '.$id.' no existe.',422);
        }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Departamento;
 use App\Models\DocumentosDepartamento;
 use App\Models\DocumentosTemporal;
+use App\Models\Anexo;
 
 class Documento extends Model
 {
@@ -28,11 +29,16 @@ class Documento extends Model
         'copias'
     ];
 
-    protected $with = ['enviados', 'propietario', 'dptoCopias', 'temporal'];
+    protected $with = ['propietario', 'anexos'];
 
     public function propietario()
     {
         return $this->belongsTo(Departamento::class, 'departamento_id');
+    }
+
+    public function anexos()
+    {
+        return $this->hasMany(Anexo::class);
     }
 
     public function destino()
@@ -54,11 +60,6 @@ class Documento extends Model
     {
         return $this->hasOne(documentosTemporal::class);
 
-        // return [
-        //     'destino'   => explode(',',trim($temporal->departamentos_destino)),
-        //     'copias'    => explode(',',trim($temporal->departamentos_copias)),
-        //     'copia'    => $temporal->tieneCopia,
-        // ];
     }
 
 }

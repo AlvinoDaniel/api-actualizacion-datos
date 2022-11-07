@@ -51,7 +51,14 @@ return [
 
         'firmas' => [
             'driver' => 'local',
-            'root' => storage_path('app/firmas'),
+            'root' => storage_path('app/public/firmas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'anexos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/anexos'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
@@ -81,8 +88,9 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
-        public_path('firmas') => storage_path('app/firmas'),
+        // public_path('storage') => storage_path('app/public'),
+        public_path('firmas') => storage_path('app/public/firmas'),
+        public_path('anexos') => storage_path('app/public/anexos'),
     ],
 
 ];

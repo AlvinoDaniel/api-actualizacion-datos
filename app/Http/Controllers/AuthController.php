@@ -89,8 +89,7 @@ class AuthController extends AppBaseController
         'email'             => $user->email,
         'usuario'           => $user->usuario,
         'status'            => $user->status,
-        'departamento_id'   => $user->personal->departamento_id,
-        'departamento'      => $user->personal->departamento->nombre,
+        'departamento'      => $user->personal->departamento,
         'rol_id'            => $user->roles[0]->id,
         'rol'               => $user->roles[0]->name,
     ];
