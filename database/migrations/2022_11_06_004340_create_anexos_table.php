@@ -15,6 +15,7 @@ class CreateAnexosTable extends Migration
     {
         Schema::create('anexos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->string('urlAnexo');
             $table->foreignId('documento_id')
                 ->constrained('documentos');

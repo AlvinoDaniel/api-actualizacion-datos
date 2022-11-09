@@ -16,6 +16,8 @@ Route::group([
       Route::post('/crear-temporal', 'storeTemporal');
       Route::get('/{id}', 'show');
       Route::post('/actualizar/{id}', 'update');
+      Route::post('/eliminar-anexo/{id}', 'destroyAnexo');
+      Route::post('/agregar-anexo', 'addAnexo');
     });
   });
 });

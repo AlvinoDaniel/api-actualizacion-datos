@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\DocumentoRequest;
+use App\Http\Requests\AnexoRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Documento;
@@ -67,6 +68,9 @@ class DocumentoController extends AppBaseController
                 $this->validarDepartamentos($departamentos_copias);
             }
             $documento = $this->repository->crearDocumento($data, $departamentos_destino, $dataCopia);
+            if($request->hasFile('anexos')) {
+                $this->repository->attachAnexos($request->file('anexos'), $documento->id);
+            }
             return $this->sendResponse(
                 $documento,
                 'Documento enviado exitosamente'
@@ -106,6 +110,9 @@ class DocumentoController extends AppBaseController
                 $this->validarDepartamentos($departamentos_copias);
             }
             $documento = $this->repository->crearTemporalDocumento($data, $dataTemporal);
+            if($request->hasFile('anexos')) {
+                $this->repository->attachAnexos($request->file('anexos'), $documento->id);
+            }
             return $this->sendResponse(
                 $documento,
                 'Documento guardado exitosamente'
@@ -192,6 +199,9 @@ class DocumentoController extends AppBaseController
                 $this->validarDepartamentos($departamentos_copias);
             }
             $documento = $this->repository->updateTemporalDocumento($data, $dataTemporal, $id);
+            if($request->hasFile('anexos')) {
+                $this->repository->attachAnexos($request->file('anexos'), $documento->id);
+            }
             $mensaje = $request->estatus === Documento::ESTATUS_ENVIADO ? 'Documento enviado exitosamente' : 'Documento guardado exitosamente';
             return $this->sendResponse(
                 $documento,
@@ -213,5 +223,54 @@ class DocumentoController extends AppBaseController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove Anexo
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addAnexo(AnexoRequest $request)
+    {
+        try {
+            if($request->hasFile('anexos')) {
+                $anexos =  $this->repository->attachAnexos($request->file('anexos'), $request->documento_id);
+                return $this->sendResponse(
+                    $anexos,
+                    'Anexo creado Exitosamente.'
+                );
+            }
+            else {
+                throw new Exception('Los anexos deben ser de tipo Archivo',422);
+            }
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getCode() > 0 ? $th->getMessage() : 'Hubo un error al intentar Agregar el Anexo.',
+                $th->getCode()
+            );
+        }
+    }
+    /**
+     * Remove Anexo
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAnexo($id)
+    {
+        try {
+            $this->repository->deleteAnexo($id);
+            return $this->sendSuccess(
+                'Anexo Eliminado Exitosamente.'
+            );
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getCode() > 0
+                    ? $th->getMessage()
+                    : 'Hubo un error al intentar Elminar el Anexo.',
+                $th->getCode()
+            );
+        }
     }
 }

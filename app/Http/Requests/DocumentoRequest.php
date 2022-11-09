@@ -25,7 +25,7 @@ class DocumentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'asunto'                => "required",
+            // 'asunto'                => "required",
             'contenido'             => "required",
             'tipo_documento'        => "required",
             'departamentos_destino' => "required|string",

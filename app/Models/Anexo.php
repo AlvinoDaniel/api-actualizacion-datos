@@ -11,6 +11,7 @@ class Anexo extends Model
     use HasFactory;
 
     protected $fillable=[
+        'nombre',
         'urlAnexo',
         'documento_id',
     ];

@@ -2,13 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Repositories\BaseRepository;
-use App\Models\Documento;
-use App\Models\DocumentosDepartamento;
-use App\Models\DocumentosTemporal;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Exception;
+use App\Models\Anexo;
+use App\Models\Documento;
+use Illuminate\Support\Facades\DB;
+use App\Models\DocumentosTemporal;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\BaseRepository;
+use App\Models\DocumentosDepartamento;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentoRepository {
 
@@ -94,6 +96,47 @@ class DocumentoRepository {
             DB::rollBack();
             throw new Exception($th->getMessage());
             // throw new Exception($th->getMessage());
+        }
+    }
+    public function attachAnexos($files, $id_documento) {
+        try {
+            DB::beginTransaction();
+            foreach ($files as $anexo) {
+                $fileName = $anexo->getClientOriginalName();
+                $isExist = Storage::disk('anexos')->exists('/'.$id_documento.'/'.$fileName);
+                if(!$isExist){
+                    $path = Storage::disk('anexos')->putFileAs('/'.$id_documento, $anexo, $fileName);
+                    $adjuntos[] = Anexo::create([
+                        'documento_id' => $id_documento,
+                        'nombre' => $fileName,
+                        'urlAnexo' => $path
+                    ]);
+                }
+            }
+            DB::commit();
+            $data = Anexo::where('documento_id', $id_documento)->get();
+            return $data;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new Exception($th->getMessage());
+        }
+    }
+
+    public function deleteAnexo($id) {
+        $anexo = Anexo::find($id);
+        if(!$anexo) {
+            throw new Exception('El anexo con id '.$id.' no existe.',422);
+        }
+        $documento_id = $anexo->documento_id;
+        try {
+            //Elimina el archivo fisico
+            Storage::disk('anexos')->delete($anexo->urlAnexo);
+
+             //eliminar el registro de la base de datos
+            $anexo->delete();
+
+        } catch (\Throwable $th) {
+            throw new Exception($th->getMessage());
         }
     }
     /**
