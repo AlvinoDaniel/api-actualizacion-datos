@@ -15,6 +15,7 @@ class Documento extends Model
 
     const NAME = 'Documento';
     const ESTATUS_ENVIADO = 'enviado';
+    const ESTATUS_ENVIADO_ALL = 'enviado_all';
     const ESTATUS_BORRADOR = 'borrador';
     const ESTATUS_POR_CORREGIR = 'por_corregir';
 

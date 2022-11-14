@@ -175,6 +175,7 @@ class DocumentoController extends AppBaseController
     {
         $status = [
             'enviar' => Documento::ESTATUS_ENVIADO,
+            'enviar_all' => Documento::ESTATUS_ENVIADO_ALL,
             'borrador' => Documento::ESTATUS_BORRADOR,
             'corregir' => Documento::ESTATUS_POR_CORREGIR,
         ];

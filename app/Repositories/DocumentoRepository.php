@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Anexo;
 use App\Models\Documento;
+use App\Models\Departamento;
 use Illuminate\Support\Facades\DB;
 use App\Models\DocumentosTemporal;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,7 @@ class DocumentoRepository {
      * Crear Documento
      */
     public function crearDocumento($data, $destino, $dataCopias){
-        $ultimo_registro = Documento::select('nro_documento')->orderBy('id')->get()->last();
+        $ultimo_registro = Documento::select('nro_documento')->where('estatus','enviado')->orderBy('id')->get()->last();
         if($ultimo_registro){
             $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
         }
@@ -145,7 +147,7 @@ class DocumentoRepository {
     public function updateTemporalDocumento($data, $dataTemporal, $id){
         $documento = Documento::find($id);
         if(!$documento){
-            throw new Exception('El departamento con id '.$id.' no existe.');
+            throw new Exception('El documento con id '.$id.' no existe.');
             return;
         }
         try {
@@ -157,7 +159,20 @@ class DocumentoRepository {
             }
 
             if($data['estatus'] === Documento::ESTATUS_ENVIADO){
-                $departamentos_destino = explode(',',trim($dataTemporal['departamentos_destino']));
+                $ultimo_registro = Documento::select('nro_documento')->where('estatus','enviado')->where('id','<>', $id)->orderBy('id')->get()->last();
+                if($ultimo_registro){
+                    $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
+                }
+                else {
+                    $id_nuevo = str_pad('0', 4, '0', STR_PAD_LEFT);
+                }
+
+                if($dataTemporal['departamentos_destino'] === 'all') {
+                    $propietario = Auth::user()->personal->departamento_id;
+                    $departamentos_destino = DB::table('departamentos')->where('id','<>', $propietario)->pluck('id');
+                } else {
+                    $departamentos_destino = explode(',',trim($dataTemporal['departamentos_destino']));
+                }
                 $departamentos_copias = $dataTemporal['tieneCopia'] ? explode(',',trim($dataTemporal['departamentos_copias'])) : [];
 
                 foreach ($departamentos_destino as $dpto_destino) {
@@ -181,6 +196,8 @@ class DocumentoRepository {
                 }
                 $temporal = DocumentosTemporal::where('documento_id', $id)->first();
                 $temporal->delete();
+                $documento->update(['nro_documento' => $id_nuevo]);
+                $documento->update(['fecha_enviado' => Carbon::now()]);
 
             } else {
                 foreach ($data as $campo => $value) {

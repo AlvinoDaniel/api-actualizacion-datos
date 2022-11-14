@@ -33,7 +33,7 @@ class DocumentoRequest extends FormRequest
             'copias'                => "required|boolean",
             'estatus'                => [
                 "required",
-                Rule::in(['enviar', 'borrador', 'corregir'])
+                Rule::in(['enviar', 'borrador', 'corregir', 'enviar_all'])
             ],
         ];
     }

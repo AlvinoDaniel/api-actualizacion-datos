@@ -14,6 +14,8 @@ trait DepartamentoTrait {
    * @param Array $dptos
    */
    public function validarDepartamentos($dptos){
+    if(in_array('all', $dptos)) return true;
+
     foreach ($dptos as $departamento_id) {
        $dpto = Departamento::find($departamento_id);
        if(!$dpto){
