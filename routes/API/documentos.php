@@ -18,6 +18,7 @@ Route::group([
       Route::post('/actualizar/{id}', 'update');
       Route::post('/eliminar-anexo/{id}', 'destroyAnexo');
       Route::post('/agregar-anexo', 'addAnexo');
+      Route::get('/descargar-anexo/{id}', 'downloadAnexo');
     });
   });
 });

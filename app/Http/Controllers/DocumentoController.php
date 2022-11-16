@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Response;
+use Carbon\Carbon;
+use App\Models\Anexo;
+use App\Models\Documento;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\DocumentoRequest;
+use App\Traits\DepartamentoTrait;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AnexoRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Models\Documento;
 use App\Models\DocumentosDepartamento;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\DocumentoRequest;
 use App\Repositories\DocumentoRepository;
-use App\Traits\DepartamentoTrait;
-use Carbon\Carbon;
+use App\Http\Controllers\AppBaseController;
 
 use Exception;
 
@@ -270,6 +273,30 @@ class DocumentoController extends AppBaseController
                 $th->getCode() > 0
                     ? $th->getMessage()
                     : 'Hubo un error al intentar Elminar el Anexo.',
+                $th->getCode()
+            );
+        }
+    }
+
+    public function downloadAnexo($id) {
+        try {
+            $anexo = Anexo::find($id);
+            if(!$anexo) {
+                throw new Exception('El anexo con id '.$id.' no existe.',422);
+            }
+
+            $fileAnexo = Storage::disk('anexos')->url($anexo->urlAnexo);
+
+            return response(Storage::disk('anexos')->get($anexo->urlAnexo))->withHeaders([
+                'Content-Description' => 'File Transfer',
+                'Content-Type' => mime_content_type($anexo->nombre),
+            ]);
+
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getCode() > 0
+                    ? $th->getMessage()
+                    : 'Hubo un error al intentar Descargar el Archivo.',
                 $th->getCode()
             );
         }
