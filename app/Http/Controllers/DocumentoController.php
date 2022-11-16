@@ -285,12 +285,7 @@ class DocumentoController extends AppBaseController
                 throw new Exception('El anexo con id '.$id.' no existe.',422);
             }
 
-            $fileAnexo = Storage::disk('anexos')->url($anexo->urlAnexo);
-
-            return response(Storage::disk('anexos')->get($anexo->urlAnexo))->withHeaders([
-                'Content-Description' => 'File Transfer',
-                'Content-Type' => mime_content_type($anexo->nombre),
-            ]);
+            return Storage::disk('anexos')->download($anexo->urlAnexo);
 
         } catch (\Throwable $th) {
             return $this->sendError(
