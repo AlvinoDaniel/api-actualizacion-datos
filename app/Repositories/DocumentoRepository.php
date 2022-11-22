@@ -251,7 +251,7 @@ class DocumentoRepository {
                 throw new Exception('El documento con id '.$id.' no existe.',422);
             }
             if($documento->leido === 0){
-                $documento->update(['leido' => true]);
+                $documento->update(['leido' => true, 'fecha_leido' =>  Carbon::now()]);
             }
         } catch (\Throwable $th) {
         throw new Exception($th->getMessage(), $th->getCode());
