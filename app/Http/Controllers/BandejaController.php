@@ -7,6 +7,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Departamento;
+use App\Models\DocumentosDepartamento;
 use App\Models\Documento;
 use App\Http\Requests\BandejaRequest;
 use App\Http\Resources\BandejaRecibidosCollection;
@@ -51,6 +52,7 @@ class BandejaController extends AppBaseController
             $departamento_user = Auth::user()->personal->departamento_id;
             $departamento = Departamento::with(['documentos' => function ($query) {
                 $query->where('estatus', Documento::ESTATUS_BORRADOR);
+                $query->where('user_id', Auth::user()->id);
             }])->find( $departamento_user);
             $message = 'Lista de Documentos';
             return $this->sendResponse(
@@ -100,6 +102,29 @@ class BandejaController extends AppBaseController
             return $this->sendResponse(
                 [
                     'documentos' => new BandejaRecibidosCollection($departamento->recibidos)
+                ],
+                $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+     /**
+     * OBTENER CANTIDAD DE DOCUMENTOS NO LEIDOS
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function bandeja()
+    {
+        try {
+            $departamento_user = Auth::user()->personal->departamento_id;
+            $departamento = DocumentosDepartamento::where('departamento_id', $departamento_user)
+                ->where('leido', 0)
+                ->get();
+            $message = 'bandeja';
+            return $this->sendResponse(
+                [
+                    'recibidos' => count($departamento)
                 ],
                 $message);
         } catch (\Throwable $th) {

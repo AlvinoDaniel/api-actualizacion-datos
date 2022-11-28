@@ -16,6 +16,7 @@ Route::group([
       Route::get('/recibidos', 'recibidos');
       Route::get('/borradores', 'borradores');
       Route::get('/por-corregir', 'corregir');
+      Route::get('/count', 'bandeja');
     });
   });
 });

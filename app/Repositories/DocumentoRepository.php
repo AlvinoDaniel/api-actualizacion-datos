@@ -45,7 +45,11 @@ class DocumentoRepository {
             $id_nuevo = str_pad('0', 4, '0', STR_PAD_LEFT);
         }
 
+
+        $data['user_id'] = Auth::user()->id;
+
         $data['nro_documento'] = $id_nuevo;
+
 
         try {
             DB::beginTransaction();
@@ -86,6 +90,7 @@ class DocumentoRepository {
 
         try {
             DB::beginTransaction();
+            $data['user_id'] = Auth::user()->id;
             $documento = Documento::create($data);
 
             $dataTemporal['documento_id'] = $documento->id;

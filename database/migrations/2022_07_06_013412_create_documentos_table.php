@@ -23,6 +23,8 @@ class CreateDocumentosTable extends Migration
             $table->dateTime('fecha_enviado')->nullable();
             $table->foreignId('departamento_id')
                 ->constrained('departamentos');
+            $table->foreignId('user_id')
+                ->constrained('users');
             $table->timestamps();
         });
     }

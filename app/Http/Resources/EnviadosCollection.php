@@ -18,6 +18,7 @@ class EnviadosCollection extends ResourceCollection
             return [
                 'id'                => $item->id,
                 'nombre'            => $item->nombre,
+                'jefe'              => $item->jefe->nombres_apellidos,
                 'siglas'            => $item->siglas,
                 'leido'             => $item->pivot->leido,
                 'copia'             => $item->pivot->copia,

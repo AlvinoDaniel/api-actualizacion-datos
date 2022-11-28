@@ -25,8 +25,8 @@ class BandejaPorCorregirCollection extends ResourceCollection
                 'asunto'          => $item->asunto,
                 'tipo_documento'  => $item->tipo_documento,
                 'estatus'         => $item->estatus,
-                'fecha_enviado'   => $item->fecha_enviado,
-                // 'enviados'        => $dptoDestino,
+                'fecha_creado'    => $item->created_at,
+                'anexos'          => count($item->anexos),
                 'enviados'        => Departamento::whereIn('id', $dptoDestino)->get(),
                 'dpto_copias'     => $item->temporal->tieneCopia === 1 ? Departamento::whereIn('id', $dptoCopias)->get() : []
             ];

@@ -23,6 +23,7 @@ class BandejaEnviadosCollection extends ResourceCollection
                 'estatus'         => $item->estatus,
                 'fecha_enviado'   => $item->fecha_enviado,
                 'enviados'        => new EnviadosCollection($item->enviados),
+                'anexos'          => count($item->anexos),
                 'dpto_copias'     => new EnviadosCollection($item->dptoCopias),
             ];
         });

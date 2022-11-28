@@ -27,7 +27,8 @@ class Documento extends Model
         'estatus',
         'fecha_enviado',
         'departamento_id',
-        'copias'
+        'copias',
+        'user_id',
     ];
 
     protected $with = ['propietario', 'anexos'];
