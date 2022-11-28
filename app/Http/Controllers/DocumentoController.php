@@ -49,11 +49,15 @@ class DocumentoController extends AppBaseController
      */
     public function store(DocumentoRequest $request)
     {
+        $estatus = [
+            'enviar'        => Documento::ESTATUS_ENVIADO,
+            'enviar_all'    => Documento::ESTATUS_ENVIADO_ALL,
+        ];
         $data = [
             'asunto'            =>  $request->asunto,
             'contenido'         =>  $request->contenido,
             'tipo_documento'    =>  $request->tipo_documento,
-            'estatus'           =>  Documento::ESTATUS_ENVIADO,
+            'estatus'           =>  $estatus[$request->estatus],
             'departamento_id'   =>  Auth::user()->personal->departamento_id,
             'fecha_enviado'     =>  Carbon::now(),
             'copia'             =>  $request->copias

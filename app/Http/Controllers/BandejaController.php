@@ -29,6 +29,7 @@ class BandejaController extends AppBaseController
             $departamento_user = Auth::user()->personal->departamento_id;
             $departamento = Departamento::with(['documentos' => function ($query) {
                 $query->where('estatus', Documento::ESTATUS_ENVIADO);
+                $query->orWhere('estatus', Documento::ESTATUS_ENVIADO_ALL);
             }])->find( $departamento_user);
             $message = 'Lista de Documentos';
             return $this->sendResponse(
