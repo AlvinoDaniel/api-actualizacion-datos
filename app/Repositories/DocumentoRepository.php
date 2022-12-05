@@ -6,6 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Anexo;
 use App\Models\Documento;
+use Illuminate\Support\Arr;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\DB;
 use App\Models\DocumentosTemporal;
@@ -239,6 +240,18 @@ class DocumentoRepository {
        $documento = Documento::with($relaciones)->find($id);
        if(!$documento) {
           throw new Exception('El documento con id '.$id.' no existe.',422);
+       }
+       $url = $documento->propietario->jefe->firma;
+       $existFile = $url !== null ? Storage::disk('firmas')->exists($url) : null;
+       if($existFile){
+            $image = Storage::disk('firmas')->get($url);
+            $mimeType = Storage::disk('firmas')->mimeType($url);
+            $imageConverted = base64_encode($image);
+            $imageToBase64 = "data:{$mimeType};base64,{$imageConverted}";
+
+            Arr::add($documento->propietario->jefe, 'baseUrlFirma', $imageToBase64);
+       } else {
+            Arr::add($documento->propietario->jefe, 'baseUrlFirma', null);
        }
        return $documento;
     } catch (\Throwable $th) {
