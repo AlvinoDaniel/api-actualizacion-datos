@@ -15,7 +15,8 @@ class CreateNucleoTable extends Migration
     {
         Schema::create('nucleo', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
+            $table->string('codigo_1');
+            $table->string('codigo_2');
             $table->string('nombre');
             $table->timestamps();
         });
