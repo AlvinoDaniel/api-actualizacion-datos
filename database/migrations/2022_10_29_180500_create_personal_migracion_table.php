@@ -18,7 +18,7 @@ class CreatePersonalMigracionTable extends Migration
             $table->string('nombres');
             $table->string('cedula_identidad');
             $table->string('cargo');
-            $table->string('cod_nucleo');
+            $table->string('cod_nucleo',2);
             $table->string('correo')->nullable();
             $table->string('grado_instruccion')->nullable();
             $table->timestamps();
