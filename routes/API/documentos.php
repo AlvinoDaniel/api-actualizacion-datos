@@ -19,6 +19,8 @@ Route::group([
       Route::post('/eliminar-anexo/{id}', 'destroyAnexo');
       Route::post('/agregar-anexo', 'addAnexo');
       Route::get('/descargar-anexo/{id}', 'downloadAnexo');
+      Route::get('/generar-documento/{id}', 'genareteDocument');
+      Route::delete('/eliminar-documento/{id}', 'destroyDocument');
     });
   });
 });

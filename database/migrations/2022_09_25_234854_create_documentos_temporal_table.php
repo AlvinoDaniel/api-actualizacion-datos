@@ -20,6 +20,7 @@ class CreateDocumentosTemporalTable extends Migration
             $table->string('departamentos_destino');
             $table->string('departamentos_copias')->nullable();
             $table->boolean('tieneCopia')->default(false);
+            $table->boolean('leido')->default(false);
             $table->timestamps();
         });
     }

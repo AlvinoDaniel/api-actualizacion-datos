@@ -17,12 +17,12 @@ class UserRequest extends FormRequest
         return true;
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'personal_id.unique' => 'El personal seleccionado ya tiene un usuario registrado.',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'cedula_identidad.unique' => 'El personal seleccionado ya tiene un usuario registrado.',
+        ];
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -35,7 +35,7 @@ class UserRequest extends FormRequest
         return [
             'personal_id'  => [
                 "required",
-                "exists:personal,id",
+                "exists:personal_migracion,id",
                 Rule::unique('users', 'personal_id')->ignore($this->route('id'))
             ],
             'email'  => [
@@ -50,6 +50,20 @@ class UserRequest extends FormRequest
             'password'      => 'required|min:5',
             'status'        => 'nullable|boolean',
             'rol'           => 'required|exists:roles,name',
+            'cedula_identidad'  => [
+                "required",
+                "numeric",
+                Rule::unique('personal')->ignore($this->route('id'))
+            ],
+            'departamento_id'   => [
+                "required",
+                "exists:departamentos,id",
+            ],
+            'nombres_apellidos'   => "required",
+            'cargo'     => "required",
+            'nucleo'    => "required",
+            'correo'    => "nullable|email",
+            'firma'     => "nullable|image",
         ];
     }
 

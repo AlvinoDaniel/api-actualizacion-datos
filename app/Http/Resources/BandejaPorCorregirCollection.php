@@ -25,6 +25,7 @@ class BandejaPorCorregirCollection extends ResourceCollection
                 'asunto'          => $item->asunto,
                 'tipo_documento'  => $item->tipo_documento,
                 'estatus'         => $item->estatus,
+                'leido'           => $item->temporal->leido,
                 'fecha_creado'    => $item->created_at,
                 'anexos'          => count($item->anexos),
                 'enviados'        => Departamento::whereIn('id', $dptoDestino)->get(),

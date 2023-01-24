@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Models\Departamento;
-use App\Models\DocumentosDepartamento;
-use App\Models\Documento;
-use App\Http\Requests\BandejaRequest;
-use App\Http\Resources\BandejaRecibidosCollection;
-use App\Http\Resources\BandejaEnviadosCollection;
-use App\Http\Resources\BandejaPorCorregirCollection;
 use Exception;
+use App\Models\Documento;
+use App\Models\Departamento;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BandejaRequest;
+use App\Models\DocumentosDepartamento;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\BandejaEnviadosCollection;
+use App\Http\Resources\BandejaRecibidosCollection;
+use App\Http\Resources\BandejaPorCorregirCollection;
 
 class BandejaController extends AppBaseController
 {
@@ -119,13 +120,21 @@ class BandejaController extends AppBaseController
     {
         try {
             $departamento_user = Auth::user()->personal->departamento_id;
-            $departamento = DocumentosDepartamento::where('departamento_id', $departamento_user)
+
+            $recibidos = DocumentosDepartamento::where('departamento_id', $departamento_user)
                 ->where('leido', 0)
                 ->get();
+
+            $por_corregir = Documento::whereHas('temporal', function (Builder $query) {
+                    $query->where('leido', 0);
+                })->where('departamento_id', $departamento_user)->get();
+
             $message = 'bandeja';
+
             return $this->sendResponse(
                 [
-                    'recibidos' => count($departamento)
+                    'recibidos' => count($recibidos),
+                    'por_corregir' => count($por_corregir),
                 ],
                 $message);
         } catch (\Throwable $th) {

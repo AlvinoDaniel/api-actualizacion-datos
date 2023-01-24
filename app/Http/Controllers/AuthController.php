@@ -45,9 +45,9 @@ class AuthController extends AppBaseController
             return $this->sendError('El Email/Usuario no existe en nuestros registros.');
          }
 
-        //  if (!Hash::check($request->password, $user->password)) {
-        //     return $this->sendError('Las credenciales no concuerdan. Email o Contraseña inválida');
-        //  }
+         if (!Hash::check($request->password, $user->password)) {
+            return $this->sendError('Las credenciales no concuerdan. Email o Contraseña inválida',);
+         }
 
          $token = $user->createToken('TokenCultorApi-'.$user->name)->plainTextToken;
          $message = 'Usuario Autenticado exitosamente.';

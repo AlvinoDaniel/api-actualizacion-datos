@@ -17,6 +17,7 @@ class CreateNucleoTable extends Migration
             $table->id();
             $table->string('codigo_1',1);
             $table->string('codigo_2',1);
+            $table->string('codigo_concatenado',2);
             $table->string('nombre');
             $table->timestamps();
         });

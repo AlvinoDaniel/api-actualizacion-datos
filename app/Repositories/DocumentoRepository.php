@@ -241,6 +241,7 @@ class DocumentoRepository {
        if(!$documento) {
           throw new Exception('El documento con id '.$id.' no existe.',422);
        }
+       $documento->propietario->load('nucleo');
        $url = $documento->propietario->jefe->firma;
        $existFile = $url !== null ? Storage::disk('firmas')->exists($url) : null;
        if($existFile){
@@ -258,7 +259,7 @@ class DocumentoRepository {
       throw new Exception($th->getMessage(), $th->getCode());
     }
    }
-        /**
+    /**
      * Cambiar el estatus de Leido del documento
      * @param Integer $id
      */
@@ -273,6 +274,49 @@ class DocumentoRepository {
             }
         } catch (\Throwable $th) {
         throw new Exception($th->getMessage(), $th->getCode());
+        }
+    }
+    /**
+     * Cambiar el estatus de Leido del documento
+     * @param Integer $id
+     */
+    public function leidoDocumentoTemporal($id){
+        $ES_JEFE = Auth::user()->isJefe();
+        try {
+            $documento = DocumentosTemporal::where('documento_id',$id)->first();
+            if(!$documento) {
+                throw new Exception('El documento con id '.$id.' no existe.',422);
+            }
+            if($documento->leido === 0 && $ES_JEFE){
+                $documento->update(['leido' => 1]);
+            }
+        } catch (\Throwable $th) {
+        throw new Exception($th->getMessage(), $th->getCode());
+        }
+    }
+
+    public function eliminarDocumento($id) {
+        $documento = Documento::find($id);
+        if(!$documento) {
+          throw new Exception('El documento con id '.$id.' no existe.',422);
+        }
+
+        try {
+            // DB::beginTransaction();
+
+            DocumentosTemporal::where('documento_id', $documento->id)->delete();
+            $anexos = Anexo::where('documento_id', $documento->id)->delete();
+            //Elimina los archivos fisico
+            if($anexos > 0){
+                Storage::disk('anexos')->deleteDirectory($documento->id);
+            }
+            $documento->delete();
+            return $anexos;
+
+            // DB::commit();
+        } catch (\Throwable $th) {
+            // DB::rollBack();
+            throw new Exception($th->getMessage());
         }
     }
 

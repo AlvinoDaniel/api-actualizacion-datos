@@ -86,8 +86,8 @@ class PersonalController extends AppBaseController
             );
         } catch (\Throwable $th) {
             return $this->sendError(
-                $th->getCode() > 0 
-                    ? $th->getMessage() 
+                $th->getCode() > 0
+                    ? $th->getMessage()
                     : 'Hubo un error al intentar Actualizar el Personal'
             );
         }
@@ -108,10 +108,24 @@ class PersonalController extends AppBaseController
             );
         } catch (\Throwable $th) {
             return $this->sendError(
-                $th->getCode() > 0 
-                    ? $th->getMessage() 
+                $th->getCode() > 0
+                    ? $th->getMessage()
                     : 'Hubo un error al intentar Actualizar el Departamento'
             );
+        }
+    }
+
+    public function search(Request $request) {
+        $cedula = $request->cedula;
+
+        try {
+            $result = $this->repository->searchPersonal($cedula);
+            return $this->sendResponse(
+                $result,
+                'Resultado de la Busqueda.'
+            );
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
         }
     }
 }

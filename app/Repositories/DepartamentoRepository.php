@@ -31,8 +31,18 @@ class DepartamentoRepository extends BaseRepository implements DepartamentoRepos
    * Listar todas las departamentos de un departamento
    */
   public function alldepartamentos(){
-      $departamento = Auth::user()->personal->departamento_id;
-      return Departamento::where('id','<>' ,$departamento)->get();
+      $departamento = Auth::user()->personal->departamento;
+      return Departamento::where('id','<>' ,$departamento->id)
+        ->where('cod_nucleo',$departamento->cod_nucleo)
+        ->get();
+
+  }
+  /**
+   * Listar todas las departamentos de un Nucleo
+   */
+  public function departamentsByNucleo($nucleo){
+      return Departamento::where('cod_nucleo', $nucleo)
+        ->get();
   }
 
 }

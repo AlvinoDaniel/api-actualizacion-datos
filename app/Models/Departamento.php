@@ -10,6 +10,7 @@ use App\Models\Carpeta;
 use App\Models\Plantilla;
 use App\Models\Grupo;
 use App\Models\User;
+use App\Models\Nucleo;
 
 class Departamento extends Model
 {
@@ -57,4 +58,7 @@ class Departamento extends Model
         return $this->hasOne(Personal::class)->where('jefe', 1);
     }
 
+    public function nucleo() {
+        return $this->hasOne(Nucleo::class, 'codigo_concatenado', 'cod_nucleo');
+    }
 }

@@ -154,9 +154,15 @@ class DocumentoController extends AppBaseController
         }
         try {
             $documento = $this->repository->obtenerDocumento($id, $relaciones);
+
+            if($request->estatus === 'temporal'){
+                $this->repository->leidoDocumentoTemporal($id);
+            }
+
             if($documento->departamento_id !== Auth::user()->personal->departamento_id){
                 $this->repository->leidoDocumento($id);
             }
+
             return $this->sendResponse(
                 $documento,
                 $request->estatus
@@ -282,6 +288,29 @@ class DocumentoController extends AppBaseController
         }
     }
 
+    /**
+     * Remove Anexo
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyDocument($id)
+    {
+        try {
+            $data = $this->repository->eliminarDocumento($id);
+            return $this->sendSuccess(
+                'Documento Eliminado Exitosamente.'
+            );
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage()
+                // $th->getCode() > 0
+                //     ? $th->getMessage()
+                //     : 'Hubo un error al intentar Elminar el Anexo.',
+                // $th->getCode()
+            );
+        }
+    }
+
     public function downloadAnexo($id) {
         try {
             $anexo = Anexo::find($id);
@@ -300,4 +329,57 @@ class DocumentoController extends AppBaseController
             );
         }
     }
+
+    function getNames($data, $estatus){
+
+        if($estatus === 'enviado_all'){
+            return 'COMUNIDAD UNIVERSITARIA';
+        }
+
+        $nombres = [];
+        foreach ($data as $value) {
+            array_push($nombres, $value->nombre);
+        }
+
+        return implode(', ',$nombres);
+    }
+
+    public function genareteDocument($id){
+        try {
+            $relaciones = ['enviados', 'dptoCopias'];
+            $documento = $this->repository->obtenerDocumento($id, $relaciones);
+            $hasCopias = count($documento->dptoCopias) > 0;
+            $copiasNombres = [];
+            if($hasCopias){
+                foreach ($documento->dptoCopias as $value) {
+                   array_push($copiasNombres, $value->nombre);
+                }
+            }
+            $pdf = \PDF::loadView('pdf.documento', [
+                'dptoPropietario'   => $documento->propietario->nombre,
+                'dptoSiglas'        => $documento->propietario->siglas,
+                'fechaEnviado'      => Carbon::create($documento->fecha_enviado)->format('d \d\e F \d\e Y'),
+                'dptoCopias'        => implode(', ',$copiasNombres),
+                'hasCopias'         => $hasCopias ,
+                'contenido'         => $documento->contenido,
+                'isCircular'        => $documento->tipo_documento === 'circular',
+                'isOficio'          => $documento->tipo_documento === 'oficio',
+                'nucleo'            => $documento->propietario->nucleo->nombre ?? '',
+                'propietarioJefe'   => $documento->propietario->jefe->nombres_apellidos,
+                'propietarioCargo'  => $documento->propietario->jefe->descripcion_cargo,
+                'baseUrlFirma'      => $documento->propietario->jefe->baseUrlFirma,
+                'destino'           => $documento->tipo_documento === 'circular' ? $this->getNames($documento->enviados, $documento->estatus) : $documento->enviados[0]->jefe,
+
+            ]);
+            return $pdf->download('Documento_Recibido.pdf');
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getMessage()
+                // $th->getCode() > 0
+                //     ? $th->getMessage()
+                //     : 'Hubo un error al intentar Obtener el documento'
+            );
+        }
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\User;
+use App\Models\Nivel;
 use App\Interfaces\UserRepositoryInterface;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
@@ -64,24 +65,47 @@ class UserController extends AppBaseController
     */
 
     public function store(UserRequest $request){
-        $data = $request->except(['status', 'rol']);
-        $data['status'] = empty($request->status) ? 0 : $request->status;
-        $rol = $request->rol;
+        $data = $request->all();
+        $isJefe = $request->rol === 'jefe';
         try {
-            if($rol === 'jefe'){
-                $hasJefe = $this->repository->verificarJefatura($data['personal_id']);
+            if($isJefe){
+                $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
                 if(!$hasJefe){
                     return $this->sendError("Ya existe un usuario Jefe en el Departamento.");
                 }
             }
-            $user = $this->repository->registrar($data);
-            $user->assignRole($rol);
+            $user = $this->repository->registrarUsuario($data);
             return $this->sendResponse(
                 $user,
                 'Usuario Registrado exitosamente.'
             );
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage());
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $user = $this->repository->findById($id);
+            $user->load(['personal']);
+            return $this->sendResponse(
+                $user,
+                'Usuario Obtenido'
+            );
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getMessage()
+                // $th->getCode() > 0
+                //     ? $th->getMessage()
+                //     : 'Hubo un error al intentar Obtener el documento'
+            );
         }
     }
 
@@ -101,18 +125,19 @@ class UserController extends AppBaseController
 
     public function update(UserRequest $request,$id){
 
-        $data = $request->except(['status', 'rol']);
-        $data['status'] = empty($request->status) ? 0 : $request->status;
+        $data = $request->all();
+        $data['hasFile'] = $request->hasFile('firma');
         $rol = $request->rol;
+
         try {
-            $user = $this->repository->actualizar($data, $id);
-            if($rol === 'jefe' && !$user->hasRole('jefe')){
+            $user = $this->repository->actualizarUsuario($data, $id);
+            if($isJefe && !$user->hasRole('jefe')){
                 $hasJefe = $this->repository->verificarJefatura($data['personal_id']);
                 if(!$hasJefe){
                     return $this->sendError("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
                 }
             }
-            $user->syncRoles($rol);
+
                 return $this->sendResponse(
                     $user,
                     'Usuario Actualzado exitosamente.'
@@ -213,6 +238,25 @@ class UserController extends AppBaseController
             return $this->sendError('Ocurrio un error al intentar obtener el listado de roles');
         }
     }
+
+    public function nivel(){
+
+        try {
+            $niveles = Nivel::all();
+            $message = 'Lista de Niveles.';
+            return $this->sendResponse(['niveles' => $niveles], $message);
+        } catch (\Throwable $th) {
+            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
+            $this->generateLog(
+                $th->getCode(),
+                $msg_error,
+                $tipo_accion,
+                'error'
+             );
+            return $this->sendError('Ocurrio un error al intentar obtener el listado de niveles');
+        }
+    }
+
     public function backupDownload(){
         try {
             Artisan::call('backup:run');

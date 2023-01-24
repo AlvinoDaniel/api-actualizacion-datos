@@ -29,13 +29,12 @@ class PersonalRequest extends FormRequest
                 "required",
                 "numeric",
                 Rule::unique('personal')->ignore($this->route('id'))
-            ],            
+            ],
             'departamento_id'   => [
                 "required",
                 "exists:departamentos,id",
-            ],            
-            'nombres'   => "required",
-            'apellidos' => "required",
+            ],
+            'nombres_apellidos'   => "required",
             'cargo'     => "required",
             'nucleo'    => "required",
             'correo'    => "nullable|email",

@@ -17,6 +17,7 @@ class DocumentosTemporal extends Model
         'departamentos_destino',
         'departamentos_copias',
         'tieneCopia',
+        'leido',
     ];
 
     public function documento() {

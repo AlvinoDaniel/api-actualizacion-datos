@@ -9,6 +9,7 @@ use App\Http\Requests\DepartamentoRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Departamento;
+use App\Models\Nucleo;
 use Exception;
 
 class DepartamentoController extends AppBaseController
@@ -121,4 +122,39 @@ class DepartamentoController extends AppBaseController
             );
         }
     }
+
+     /**
+     * Listar todos los departamentos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allNucleos()
+    {
+        try {
+            $nucleos = Nucleo::all();
+            $message = 'Lista de Nucleos';
+            return $this->sendResponse(['nucleos' => $nucleos], $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+
+    /**
+     * Listar todos los departamentos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function departamentsByNucleo(Request $request)
+    {
+        $nucleo = $request->nucleo;
+        try {
+            $departamentos = $this->repository->departamentsByNucleo($nucleo);
+            $message = 'Lista de Departamentos';
+            return $this->sendResponse(['departamentos' => $departamentos], $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
 }

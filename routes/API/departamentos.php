@@ -17,6 +17,19 @@ Route::group([
     //   Route::get('/{id}', 'show');
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
-    });   
+    });
+  });
+});
+
+Route::group([
+	'middleware'  => 'api',
+  'prefix'      => 'nucleo'
+], function () {
+
+  Route::middleware(['auth:sanctum'])->group(function () {
+    Route::controller(DepartamentoController::class)->group(function () {
+      Route::get('/', 'allNucleos');
+      Route::get('/byDepartamentos', 'departamentsByNucleo');
+    });
   });
 });

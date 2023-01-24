@@ -6,8 +6,8 @@ use App\Http\Controllers\PersonalController;
 
 
 Route::group([
-	'middleware'  => 'api',
-  'prefix'      => 'personal'
+    'middleware'  => 'api',
+    'prefix'      => 'personal'
 ], function () {
 
   Route::middleware(['auth:sanctum'])->group(function () {
@@ -16,6 +16,7 @@ Route::group([
       Route::post('/', 'store');
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
+      Route::get('/search', 'search');
     });
   });
 });
