@@ -13,7 +13,7 @@ Route::group([
 				Route::get('/', [UserController::class, 'index']);
             Route::get('backup', [UserController::class, 'backupDownload']);
             Route::post('/', [UserController::class, 'store']);
-            Route::post('/{id}', [UserController::class, 'update']);
+            Route::post('/{id}/personal/{personal}', [UserController::class, 'update']);
             Route::post('/actualizar/{id}/contrasena', [UserController::class, 'update_password']);
             Route::get('/roles', [UserController::class, 'roles']);
             Route::get('/niveles', [UserController::class, 'nivel']);

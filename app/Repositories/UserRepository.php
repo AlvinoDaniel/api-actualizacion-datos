@@ -142,28 +142,28 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     }
 
     try {
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
         foreach ($personalData as $campo => $value) {
             if(!empty($value)){
-                $documento->update([$campo => $value]);
+                $personal->update([$campo => $value]);
             }
         }
 
         foreach ($userData as $campo => $value) {
             if(!empty($value)){
-                $documento->update([$campo => $value]);
+                $user->update([$campo => $value]);
             }
         }
 
         $user->syncRoles($rol);
 
-        return $user;
+        return $personalData;
 
-        DB::commit();
+        // DB::commit();
     } catch (\Throwable $th) {
-        DB::rollBack();
-        throw new Exception('Hubo un error al intentar Registrar el Usuario.');
+        // DB::rollBack();
+        throw new Exception($th->getMessage());
         //throw $th;
     }
 

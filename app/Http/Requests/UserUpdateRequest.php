@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,6 @@ class UserRequest extends FormRequest
     {
         return true;
     }
-
     public function messages()
     {
         return [
@@ -42,13 +41,12 @@ class UserRequest extends FormRequest
                 "required",
                 Rule::unique('users')->ignore($this->route('id'))
             ],
-            'password'      => 'required|min:5',
             'status'        => 'nullable|boolean',
             'rol'           => 'required|exists:roles,name',
             'cedula_identidad'  => [
                 "required",
                 "numeric",
-                Rule::unique('personal')->ignore($this->route('id'))
+                Rule::unique('personal')->ignore($this->route('personal'))
             ],
             'departamento_id'   => [
                 "required",

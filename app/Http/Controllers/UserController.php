@@ -9,7 +9,7 @@ use App\Models\Nivel;
 use App\Interfaces\UserRepositoryInterface;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -94,7 +94,7 @@ class UserController extends AppBaseController
     {
         try {
             $user = $this->repository->findById($id);
-            $user->load(['personal']);
+            $user->load(['personal', 'roles']);
             return $this->sendResponse(
                 $user,
                 'Usuario Obtenido'
@@ -123,16 +123,16 @@ class UserController extends AppBaseController
      *
     */
 
-    public function update(UserRequest $request,$id){
+    public function update(UserUpdateRequest $request,$id){
 
         $data = $request->all();
         $data['hasFile'] = $request->hasFile('firma');
         $rol = $request->rol;
-
+        $isJefe = $request->rol === 'jefe';
         try {
             $user = $this->repository->actualizarUsuario($data, $id);
             if($isJefe && !$user->hasRole('jefe')){
-                $hasJefe = $this->repository->verificarJefatura($data['personal_id']);
+                $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
                 if(!$hasJefe){
                     return $this->sendError("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
                 }
@@ -144,9 +144,10 @@ class UserController extends AppBaseController
                 );
             } catch (\Throwable $th) {
                 return $this->sendError(
-                    $th->getCode() > 0
-                        ? $th->getMessage()
-                        : 'Hubo un error al intentar Actualizar el Usuario'
+                    $th->getMessage()
+                    // $th->getCode() > 0
+                    //     ? $th->getMessage()
+                    //     : 'Hubo un error al intentar Actualizar el Usuario'
                 );
             }
 

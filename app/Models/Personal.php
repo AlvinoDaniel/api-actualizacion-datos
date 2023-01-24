@@ -41,7 +41,7 @@ class Personal extends Model
 
     public function nivel()
     {
-        return $this->belongsTo(Nivel::class, 'grado_instruccion', id);
+        return $this->hasOne(Nivel::class, 'id', 'grado_instruccion');
     }
 
     public function departamento() {

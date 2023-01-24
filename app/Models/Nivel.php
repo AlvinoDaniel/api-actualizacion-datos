@@ -18,6 +18,6 @@ class Nivel extends Model
 
     public function personal()
     {
-        return $this->hasOne(Personal::class);
+        return $this->belongsTo(Personal::class);
     }
 }
