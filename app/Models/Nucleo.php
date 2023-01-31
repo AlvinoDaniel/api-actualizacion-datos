@@ -16,6 +16,7 @@ class Nucleo extends Model
         'codigo_1',
         'codigo_2',
         'codigo_concatenado',
+        'direccion',
     ];
 
     public function departamento() {

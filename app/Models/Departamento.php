@@ -26,7 +26,7 @@ class Departamento extends Model
         'cod_nucleo',
     ];
 
-    protected $with = ['jefe'];
+    protected $with = ['jefe', 'nucleo'];
 
     public function documentos() {
         return $this->hasMany(Documento::class, 'departamento_id');

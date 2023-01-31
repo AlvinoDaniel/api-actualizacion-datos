@@ -268,7 +268,7 @@
       </div>
       <div class="page-footer">
         <span class="font-bold">DEL PUEBLO VENIMOS / HACIA EL PUEBLO VAMOS</span>
-        <span style="font-size:10px">Calle el Parque. Transversal con Avenida Gran Mariscal. Quinta Villa Angelitos. Cumaná – Edo. Sucre. Teléfonos 0293-4008220 / 4008221</span>
+        <span style="font-size:10px">{{$nucleoDireccion}}</span>
       </div>
     </div>
   </div>

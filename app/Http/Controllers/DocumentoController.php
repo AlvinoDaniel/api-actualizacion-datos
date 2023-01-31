@@ -365,6 +365,7 @@ class DocumentoController extends AppBaseController
                 'isCircular'        => $documento->tipo_documento === 'circular',
                 'isOficio'          => $documento->tipo_documento === 'oficio',
                 'nucleo'            => $documento->propietario->nucleo->nombre ?? '',
+                'nucleoDireccion'   => $documento->propietario->nucleo->direccion ?? '',
                 'propietarioJefe'   => $documento->propietario->jefe->nombres_apellidos,
                 'propietarioCargo'  => $documento->propietario->jefe->descripcion_cargo,
                 'baseUrlFirma'      => $documento->propietario->jefe->baseUrlFirma,
