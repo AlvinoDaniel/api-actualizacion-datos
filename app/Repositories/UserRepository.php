@@ -130,6 +130,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     ];
 
     $roles = $data['rol'];
+    $hasRolJefe = in_array('jefe', $roles);
+    if($hasRolJefe && !$user->hasRole('jefe')){
+        $hasJefe = $this->verificarJefatura($data['departamento_id']);
+        if(!$hasJefe){
+            throw new Exception("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
+        }
+    }
 
     if($data['hasFile']){
         $firma = $data['firma'];

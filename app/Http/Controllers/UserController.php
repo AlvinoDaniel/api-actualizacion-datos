@@ -131,12 +131,12 @@ class UserController extends AppBaseController
         $isJefe = in_array('jefe', $roles);
         try {
             $user = $this->repository->actualizarUsuario($data, $id);
-            if($isJefe && !$user->hasRole('jefe')){
-                $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
-                if(!$hasJefe){
-                    return $this->sendError("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
-                }
-            }
+            // if($isJefe && !$user->hasRole('jefe')){
+            //     $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
+            //     if(!$hasJefe){
+            //         return $this->sendError("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
+            //     }
+            // }
 
                 return $this->sendResponse(
                     $user,
