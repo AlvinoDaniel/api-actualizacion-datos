@@ -75,9 +75,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         'status'                => 1,
     ];
 
-    $rol = $data['rol'];
+    $roles = $data['rol'];
+    $hasRolJefe = in_array('jefe', $roles);
 
-    if($rol === 'jefe'){
+    if($hasRolJefe){
         $firma = $data['firma'];
         $personalData['descripcion_cargo'] = $data['cargo_jefe'];
         $fileName = $firma->getClientOriginalName();
@@ -94,7 +95,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         $userData['personal_id'] = $personal->id;
 
         $user = User::create($userData);
-        $user->assignRole($rol);
+        $user->assignRole($roles);
 
         return $user;
 
@@ -128,7 +129,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         'password'              => $data['password'],
     ];
 
-    $rol = $data['rol'];
+    $roles = $data['rol'];
 
     if($data['hasFile']){
         $firma = $data['firma'];
@@ -156,7 +157,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
             }
         }
 
-        $user->syncRoles($rol);
+        $user->syncRoles($roles);
 
         return $personalData;
 

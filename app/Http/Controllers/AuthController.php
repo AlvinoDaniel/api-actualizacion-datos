@@ -82,6 +82,8 @@ class AuthController extends AppBaseController
    public function me()
    {
       $user = Auth::user()->load(['personal.departamento', 'roles']);
+      $rolesCollection = collect($user->roles);
+      $pluckedRoles = $rolesCollection->pluck('name');
       // $user = Auth::user()->personal->departamento_id;
       $data = [
         'id'                => $user->id,
@@ -91,7 +93,7 @@ class AuthController extends AppBaseController
         'status'            => $user->status,
         'departamento'      => $user->personal->departamento,
         'rol_id'            => $user->roles[0]->id,
-        'rol'               => $user->roles[0]->name,
+        'rol'               => $pluckedRoles->all(),
     ];
       return $this->sendResponse([ 'user' => $data ], 'Datos de Usuario Logeado');
       // return $this->sendResponse([ 'user' => $user ], 'Datos de Usuario Logeado');

@@ -20,6 +20,8 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'cedula_identidad.unique' => 'El personal seleccionado ya tiene un usuario registrado.',
+            'rol.*.exists' => 'Uno de los Roles seleccionado no existe.',
+            'rol.between' => 'Solo puede asignar máximo 2 roles por usuario.',
         ];
     }
 
@@ -42,7 +44,8 @@ class UserUpdateRequest extends FormRequest
                 Rule::unique('users')->ignore($this->route('id'))
             ],
             'status'        => 'nullable|boolean',
-            'rol'           => 'required|exists:roles,name',
+            'rol'           => 'required|array|between:1,2',
+            'rol.*'         => 'exists:roles,name',
             'cedula_identidad'  => [
                 "required",
                 "numeric",

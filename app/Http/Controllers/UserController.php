@@ -66,7 +66,7 @@ class UserController extends AppBaseController
 
     public function store(UserRequest $request){
         $data = $request->all();
-        $isJefe = $request->rol === 'jefe';
+        $isJefe = in_array('jefe', $request->rol);
         try {
             if($isJefe){
                 $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
@@ -127,8 +127,8 @@ class UserController extends AppBaseController
 
         $data = $request->all();
         $data['hasFile'] = $request->hasFile('firma');
-        $rol = $request->rol;
-        $isJefe = $request->rol === 'jefe';
+        $roles = $request->rol;
+        $isJefe = in_array('jefe', $roles);
         try {
             $user = $this->repository->actualizarUsuario($data, $id);
             if($isJefe && !$user->hasRole('jefe')){
