@@ -44,7 +44,18 @@ class UserUpdateRequest extends FormRequest
                 Rule::unique('users')->ignore($this->route('id'))
             ],
             'status'        => 'nullable|boolean',
-            'rol'           => 'required|array|between:1,2',
+            'rol'           => [
+                "required", 
+                "array", 
+                "between:1,2",
+                function ($attribute, $value, $fail) {
+                    $hasAdmin = in_array('administrador', $value);
+                    $lengthRoles = count($value);
+                    if ($lengthRoles > 1 && !$hasAdmin) {
+                        $fail('Combinanción inválida, debe asignar como mínimo el rol administrativo');
+                    }
+                },
+            ],
             'rol.*'         => 'exists:roles,name',
             'cedula_identidad'  => [
                 "required",
