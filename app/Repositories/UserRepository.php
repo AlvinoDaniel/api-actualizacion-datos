@@ -64,7 +64,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         'correo'                => $data['email'],
         'cod_nucleo'            => $data['nucleo'],
         'departamento_id'       => $data['departamento_id'],
-        'grado_instruccion'     => $data['grado_instruccion'],
+        'nivel_id'     => $data['grado_instruccion'],
         'jefe'                  => $data['rol'] === 'jefe' ? 1 : 0,
     ];
 
@@ -118,7 +118,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         'correo'                => $data['email'],
         'cod_nucleo'            => $data['nucleo'],
         'departamento_id'       => $data['departamento_id'],
-        'grado_instruccion'     => $data['grado_instruccion'],
+        'nivel_id'              => $data['grado_instruccion'],
         'jefe'                  => $data['rol'] === 'jefe' ? 1 : 0,
         'descripcion_cargo'     => $data['cargo_jefe']
     ];
