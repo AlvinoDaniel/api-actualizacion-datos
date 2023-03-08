@@ -38,12 +38,15 @@ class DocumentoRepository {
      * Crear Documento
      */
     public function crearDocumento($data, $destino, $dataCopias){
-        $ultimo_registro = Documento::select('nro_documento')->where('estatus','enviado')->orderBy('id')->get()->last();
+        $ultimo_registro = Documento::select('nro_documento')
+            ->where('estatus','enviado')
+            ->where('departamento_id', $data['departamento_id'])
+            ->orderBy('id')->get()->last();
         if($ultimo_registro){
             $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
         }
         else {
-            $id_nuevo = str_pad('0', 4, '0', STR_PAD_LEFT);
+            $id_nuevo = str_pad('1', 4, '0', STR_PAD_LEFT);
         }
 
 
