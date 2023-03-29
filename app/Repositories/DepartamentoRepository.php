@@ -45,4 +45,15 @@ class DepartamentoRepository extends BaseRepository implements DepartamentoRepos
         ->get();
   }
 
+  public function departamentsForWritre(){
+    $user_nucleo = Auth::user()->personal->cod_nucleo;
+    $departamento = Auth::user()->personal->departamento;
+      return Departamento::with(['jefe' => function ($query) {
+          $query->where('jefe', 1);
+        }])
+        ->where('cod_nucleo', $user_nucleo)
+        ->where('id','<>' ,$departamento->id) 
+        ->get();
+  }
+
 }

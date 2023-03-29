@@ -17,6 +17,7 @@ Route::group([
     //   Route::get('/{id}', 'show');
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
+      Route::get('/list/redactar', 'departamentsWrite');
     });
   });
 });

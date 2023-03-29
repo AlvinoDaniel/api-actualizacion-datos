@@ -157,4 +157,15 @@ class DepartamentoController extends AppBaseController
         }
     }
 
+    public function departamentsWrite()
+    {
+        try {
+            $departamentos = $this->repository->departamentsForWritre();
+            $message = 'Lista de Departamentos';
+            return $this->sendResponse(['departamentos' => $departamentos], $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
 }
