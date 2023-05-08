@@ -34,9 +34,12 @@ class AuthController extends AppBaseController
      * @responseFile  responses/AuthController/login.post.json
      *
     */
-   public function login(LoginRequest $request){
+   public function login(LoginRequest $request, $conexion){
       $tipo_accion =  'Login';
-
+      $allowedConection = ['a','c'];
+      if (!in_array($conexion, $allowedConection)) {
+         return $this->sendError('Consulta no válida.');
+      }
       try {
          $user = User::where('email', $request->username_email)
                   ->orWhere('usuario', $request->username_email)
@@ -48,6 +51,15 @@ class AuthController extends AppBaseController
          if (!Hash::check($request->password, $user->password)) {
             return $this->sendError('Las credenciales no concuerdan. Email o Contraseña inválida',);
          }
+
+         if($conexion === 'a' && !$user->hasRole('administrador')){
+            return $this->sendError('El usuario no tiene los permisos para acceder a la Administracíon del Sistema.',);
+         }
+
+         if($conexion === 'c' && !$user->hasAnyRole(['jefe', 'secretaria'])){
+            return $this->sendError('El usuario no tiene los permisos para acceder al Sistema.',);
+         }
+
 
          $token = $user->createToken('TokenCultorApi-'.$user->name)->plainTextToken;
          $message = 'Usuario Autenticado exitosamente.';

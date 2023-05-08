@@ -20,7 +20,7 @@ Route::group([
 ], function () {
    Route::group([
       'prefix'=>'auth'],function(){
-         Route::post('login',[AuthController::class, 'login']);        
+         Route::post('login/{conexion}',[AuthController::class, 'login']);        
          Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/me', [AuthController::class, 'me'])->name('me');
             Route::get('/logout', [AuthController::class, 'logout']);
