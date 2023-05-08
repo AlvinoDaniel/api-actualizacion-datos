@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ResetPasswordRequest;
 
 class AuthController extends AppBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'sendResetPasswordEmail']]);
     }
 
 
@@ -152,5 +153,18 @@ class AuthController extends AppBaseController
       } else {
          return $this->sendError('La contraseña actual no coincide con nuestros registros.', 422);
       }
+   }
+
+   public function sendResetPasswordEmail(ResetPasswordRequest $request){
+    $user = User::where('email', $request->email)->first();
+
+    $reset_link_send = $user->sendPasswordResetLink();
+    if($reset_link_send){
+        return $this->sendResponse(['token' => $reset_link_send ], 'Se ha enviado el correo exitosamente.');
+
+    }
+
+    return $this->sendError('Lo sentimos, hubo un error al intentar enviar el email.');
+
    }
 }
