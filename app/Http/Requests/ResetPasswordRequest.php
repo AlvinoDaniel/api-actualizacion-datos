@@ -20,6 +20,7 @@ class ResetPasswordRequest extends FormRequest
     {
         return [
             'email.exists' => 'Email no pertenece a ningun usuario registrado.',
+            'identification.exists' => 'Cedula de Identidad no pertenece a ningun personal registrado.',
         ];
     }
 
@@ -35,7 +36,12 @@ class ResetPasswordRequest extends FormRequest
                 "required",
                 "email",
                 "exists:users,email",
-            ]
+            ],
+            'identification'  => [
+                "required",
+                "numeric",
+                "exists:personal,cedula_identidad",
+            ],
         ];
     }
 }

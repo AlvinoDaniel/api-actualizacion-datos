@@ -168,11 +168,15 @@ class AuthController extends AppBaseController
    }
 
    public function sendResetPasswordEmail(ResetPasswordRequest $request){
-    $user = User::where('email', $request->email)->first();
+    $user = User::with('personal')->where('email', $request->email)->first();
+    if($user->personal->cedula_identidad !== $request->identification){
+      return $this->sendError('Los datos suministrados no coinciden con ningun personal registrado.');
+    }
+    return $this->sendResponse(['reset' => $user ], 'Se ha enviado el correo exitosamente.');
 
     $reset_link_send = $user->sendPasswordResetLink();
     if($reset_link_send){
-        return $this->sendResponse(['token' => $reset_link_send ], 'Se ha enviado el correo exitosamente.');
+        return $this->sendResponse(['reset' => $reset_link_send ], 'Se ha enviado el correo exitosamente.');
 
     }
 
