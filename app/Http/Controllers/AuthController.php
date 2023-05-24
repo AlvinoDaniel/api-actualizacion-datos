@@ -9,12 +9,13 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Http\Resources\UserAuthCollection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
+// use App\Http\Resources\UserAuthCollection;
+// use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Collection;
+// use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ResetPasswordRequest;
+use Illuminate\Support\Facades\Crypt;
 
 class AuthController extends AppBaseController
 {
@@ -172,14 +173,19 @@ class AuthController extends AppBaseController
     if($user->personal->cedula_identidad !== $request->identification){
       return $this->sendError('Los datos suministrados no coinciden con ningun personal registrado.');
     }
-    return $this->sendResponse(['reset' => $user ], 'Se ha enviado el correo exitosamente.');
+    return $this->sendResponse([
+      'r' => true, 
+      'ur' => base64_encode($user->id) 
+   ], 'Se ha enviado el correo exitosamente.');
 
     $reset_link_send = $user->sendPasswordResetLink();
     if($reset_link_send){
-        return $this->sendResponse(['reset' => $reset_link_send ], 'Se ha enviado el correo exitosamente.');
+        return $this->sendResponse([
+         'r' => $reset_link_send, 
+         'ur' => Crypt::encryptString($user->id) 
+      ], 'Se ha enviado el correo exitosamente.');
 
     }
-
     return $this->sendError('Lo sentimos, hubo un error al intentar enviar el email.');
 
    }

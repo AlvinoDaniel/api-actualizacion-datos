@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-01-2023 a las 02:11:58
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 24-05-2023 a las 16:56:51
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `db_siscor_udo`
+-- Base de datos: `db_siscor_udo_2023`
 --
 
 -- --------------------------------------------------------
@@ -35,19 +35,6 @@ CREATE TABLE `anexos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexos`
---
-
-INSERT INTO `anexos` (`id`, `nombre`, `urlAnexo`, `documento_id`, `created_at`, `updated_at`) VALUES
-(1, 'daniel.docx', '10/daniel.docx', 10, '2022-11-08 03:40:58', '2022-11-08 03:40:58'),
-(3, 'tablas.jpg', '10/tablas.jpg', 10, '2022-11-08 23:48:46', '2022-11-08 23:48:46'),
-(4, 'Error.jpg', '10/Error.jpg', 10, '2022-11-08 23:52:57', '2022-11-08 23:52:57'),
-(8, 'DEILY.docx', '12/DEILY.docx', 12, '2022-11-13 23:46:53', '2022-11-13 23:46:53'),
-(9, 'image-20220302-140349.png', '12/image-20220302-140349.png', 12, '2022-11-13 23:47:29', '2022-11-13 23:47:29'),
-(11, 'image-20220302-140349.png', '17/image-20220302-140349.png', 17, '2022-11-14 04:02:00', '2022-11-14 04:02:00'),
-(12, 'image-20220707-130933.png', '17/image-20220707-130933.png', 17, '2022-11-14 04:02:00', '2022-11-14 04:02:00');
 
 -- --------------------------------------------------------
 
@@ -99,315 +86,62 @@ CREATE TABLE `departamentos` (
 --
 
 INSERT INTO `departamentos` (`id`, `codigo`, `nombre`, `siglas`, `correo`, `cod_nucleo`, `created_at`, `updated_at`) VALUES
-(1, '2100111640001', 'Biblioteca Oceanográfico', '', 'null', 21, NULL, NULL),
-(2, '2100112010001', 'Delegación de Presupuesto', '', 'null', 21, NULL, NULL),
-(3, '2100112020001', 'Delegación de Personal', '', 'null', 21, NULL, NULL),
-(4, '2100112030001', 'Delegación de Finanzas', '', 'null', 21, NULL, NULL),
-(5, '2100112031001', 'Contabilidad', '', 'null', 21, NULL, NULL),
-(6, '2100112033001', 'Bienes Muebles Inmuebles', 'DBN', 'null', 21, NULL, NULL),
-(7, '2100112034001', 'Librería Universitaria', '', 'null', 21, NULL, NULL),
-(8, '2100112040001', 'Comedor', '', 'null', 21, NULL, NULL),
-(9, '2100112050001', 'Servicios Generales', '', 'null', 21, NULL, NULL),
-(10, '2100112051001', 'Almacen', '', 'null', 21, NULL, NULL),
-(11, '2100112053001', 'Vigilancia', '', 'null', 21, NULL, NULL),
-(12, '2100112054001', 'Archivo y correspondencia', '', 'null', 21, NULL, NULL),
-(13, '2100112056001', 'Aseo y Limpieza', '', 'null', 21, NULL, NULL),
-(14, '2100112057001', 'Transporte', '', 'null', 21, NULL, NULL),
-(15, '1111007000001', 'Dirección Museo del Mar', '', 'null', 11, NULL, NULL),
-(16, '1110001000001', 'Comisión Electoral', 'CE', 'null', 11, NULL, NULL),
-(17, '1111000000001', 'Rectoría ', '', 'null', 11, NULL, NULL),
-(18, '1111020000001', 'Contraloría Interna', 'CI', 'null', 11, NULL, NULL),
-(19, '1111001000001', 'Dirección de Evaluación Institucional', '', 'null', 11, NULL, NULL),
-(20, '1111003000001', 'Dirección de Planta Física', '', 'null', 11, NULL, NULL),
-(21, '1111004000001', 'Dirección de Relaciones Inter-Institucionales', '', 'null', 11, NULL, NULL),
-(22, '1111006000001', 'Dirección de Cultura', '', 'null', 11, NULL, NULL),
-(23, '1211007000001', 'Dirección de Unidad de Enlace', '', 'null', 12, NULL, NULL),
-(24, '1111110000001', 'Coordinación General de Control de Estudios', '', 'null', 11, NULL, NULL),
-(25, '1111120000001', 'Coordinación General de Publicaciones', '', 'null', 11, NULL, NULL),
-(26, '1111210000001', 'Coordinación General de Postgrados', '', 'null', 11, NULL, NULL),
-(27, '1111202000001', 'Dirección Consejo de Investigación', '', 'null', 11, NULL, NULL),
-(28, '1111203000001', 'Dirección  de Curricula', '', 'null', 11, NULL, NULL),
-(29, '1111205000001', 'Dirección de Bibliotecas', '', 'null', 11, NULL, NULL),
-(30, '1111206000001', 'Dirección de Tecnología', '', 'null', 11, NULL, NULL),
-(31, '1111200010001', 'Comisión de Clasificación Docente', '', 'null', 11, NULL, NULL),
-(32, '1111200100001', 'Dirección Instituto de Biomedicina', '', 'null', 11, NULL, NULL),
-(33, '1111300000001', 'Vicerrectorado Administrativo', '', 'null', 11, NULL, NULL),
-(34, '1111300010001', 'Departamento de Comisión de Clasificación Pers. Profesional', 'CDPA', 'null', 11, NULL, NULL),
-(35, '1111302000001', 'Coordinación General de ASMOE', '', 'null', 11, NULL, NULL),
-(36, '1111310010001', 'Servicios Generales', '', 'null', 11, NULL, NULL),
-(37, '1111310001001', 'Sección de Compras', '', 'null', 11, NULL, NULL),
-(38, '1111311000001', 'Dirección de Personal', '', 'null', 11, NULL, NULL),
-(39, '1111311010001', 'Departamento de Evaluación y Control', '', 'null', 11, NULL, NULL),
-(40, '1111311030001', 'Departamento de Nómina', '', 'null', 11, NULL, NULL),
-(41, '1111311040001', 'Departamento de Organización y Estudio de Personal', '', 'null', 11, NULL, NULL),
-(42, '1111311060001', 'Departamento de Archivo y Estadísticas', 'AREP', 'null', 11, NULL, NULL),
-(43, '1111312010001', 'Delegación de Presupuesto', '', 'null', 11, NULL, NULL),
-(44, '1111314000001', 'Dirección de Computación', 'DC', 'null', 11, NULL, NULL),
-(45, '1111313021001', 'Sección de Registro de Bienes Muebles e Inmuebles', 'BN', 'null', 11, NULL, NULL),
-(46, '1111203000001', 'Dirección  de Curricula', '', 'null', 51, NULL, NULL),
-(47, '1111205000001', 'Dirección de Bibliotecas', '', 'null', 51, NULL, NULL),
-(48, '1111206000001', 'Dirección de Tecnología', '', 'null', 51, NULL, NULL),
-(49, '1111200010001', 'Comisión de Clasificación Docente', '', 'null', 51, NULL, NULL),
-(50, '1111200100001', 'Dirección Instituto de Biomedicina', '', 'null', 51, NULL, NULL),
-(51, '1111300000001', 'Vicerrectorado Administrativo', '', 'null', 51, NULL, NULL),
-(52, '1111300010001', 'Departamento de Comisión de Clasificación Pers. Profesional', 'CDPA', 'null', 51, NULL, NULL),
-(53, '1111302000001', 'Coordinación General de ASMOE', '', 'null', 51, NULL, NULL),
-(54, '1111310010001', 'Servicios Generales', '', 'null', 51, NULL, NULL),
-(55, '1111310001001', 'Sección de Compras', '', 'null', 51, NULL, NULL),
-(56, '1111311000001', 'Dirección de Personal', '', 'null', 51, NULL, NULL),
-(57, '1111311010001', 'Departamento de Evaluación y Control', '', 'null', 51, NULL, NULL),
-(58, '1111311030001', 'Departamento de Nómina', '', 'null', 51, NULL, NULL),
-(59, '1111311040001', 'Departamento de Organización y Estudio de Personal', '', 'null', 51, NULL, NULL),
-(60, '1111311060001', 'Departamento de Archivo y Estadísticas', 'AREP', 'null', 51, NULL, NULL),
-(61, '1111312010001', 'Delegación de Presupuesto', '', 'null', 51, NULL, NULL),
-(62, '1111311020001', 'Departamento de Servicio Social', '', 'null', 11, NULL, NULL),
-(63, '1111311050001', 'Departamento de Pasivos Laborales', '', 'null', 11, NULL, NULL),
-(64, '2100100000001', 'Consejo de Nucleo', 'CNNS', 'null', 21, NULL, NULL),
-(65, '2100110000001', 'Decanato', 'DNS', 'null', 21, NULL, NULL),
-(66, '2100110010001', 'Asesoría Jurídica', '', 'null', 21, NULL, NULL),
-(67, '2100110020001', 'Oficina de Información y Relaciones Públicas ', '', 'null', 21, NULL, NULL),
-(68, '2100110030001', 'Delegación de Cultura', '', 'null', 21, NULL, NULL),
-(69, '2100110040001', 'Delegación de Deportes', '', 'null', 21, NULL, NULL),
-(70, '2100110050001', 'Delegación de Planificación ', '', 'null', 21, NULL, NULL),
-(71, '2100110070001', 'Delegación de Recursos Humanos', '', 'null', 21, NULL, NULL),
-(72, '2100110090001', 'Delegación de Desarrollo Estudiantil', '', 'null', 21, NULL, NULL),
-(73, '2100110093001', 'Servicio de Orientación ', '', 'null', 21, NULL, NULL),
-(74, '21001100102001', 'Centro de Computación Administrativa', '', 'null', 21, NULL, NULL),
-(75, '2100111010001', 'Coordinación de Postgrado', '', 'null', 21, NULL, NULL),
-(76, '2100111100001', 'Escuela de Ciencias Básicas', '', 'null', 21, NULL, NULL),
-(77, '2100111130001', 'Departamento de Física', '', 'null', 21, NULL, NULL),
-(78, '2100111200001', 'Escuela de Humanidades y Educación', '', 'null', 21, NULL, NULL),
-(79, '2100111220001', 'Departamento de Filosifia y Letras', '', 'null', 21, NULL, NULL),
-(80, '2100111201001', 'Escuela Romulo Gallegos', '', 'null', 21, NULL, NULL),
-(81, '2100111320001', 'Departamento de Trabajo Social', '', 'null', 21, NULL, NULL),
-(82, '2100111400001', 'Escuela de Administración', '', 'null', 21, NULL, NULL),
-(83, '2100111500001', 'Dirección de Cursos Básicos', '', 'null', 21, NULL, NULL),
-(84, '2100111620001', 'Departamento de Biología Pesquera', '', 'null', 21, NULL, NULL),
-(85, '2100112000001', 'Coordinación Administrativa', '', 'null', 21, NULL, NULL),
-(86, '2100112021001', 'Nómina', '', 'null', 21, NULL, NULL),
-(87, '2100112032001', 'Tesoreria Caja', '', 'null', 21, NULL, NULL),
-(88, '2100112035001', 'Compras', '', 'null', 21, NULL, NULL),
-(89, '2100112052001', 'Mantenimiento', '', 'null', 21, NULL, NULL),
-(90, '2100112055001', 'Talleres', '', 'null', 21, NULL, NULL),
-(91, '1110010000001', 'Tribunal Académico', '', 'null', 11, NULL, NULL),
-(92, '1111010000001', 'Consultoría Jurídica', 'CJ', 'null', 11, NULL, NULL),
-(93, '1111002000001', 'Dirección de Planificación', '', 'null', 11, NULL, NULL),
-(94, '1111005000001', 'Dirección de Deportes', 'DGD', 'null', 11, NULL, NULL),
-(95, '1111100000001', 'Secretaría', '', 'null', 11, NULL, NULL),
-(96, '1111200000001', 'Vicerrectorado Académico', 'VRAC', 'null', 11, NULL, NULL),
-(97, '1111201000001', 'Coordinación General de Teleinformática', '', 'null', 11, NULL, NULL),
-(98, '1111204000001', 'Dirección de Desarrollo Estudiantil', 'DDB', 'null', 11, NULL, NULL),
-(99, '1111207000001', 'Dirección de Form. de Recursos Humanos', '', 'null', 11, NULL, NULL),
-(100, '1111200200001', 'Dirección de Sismología', '', 'null', 11, NULL, NULL),
-(101, '1111301000001', 'Dirección de Organización y Sistemas Institucionales', 'DOSI', 'null', 11, NULL, NULL),
-(102, '1111310000001', 'Coordinación General de Administración ', '', 'null', 11, NULL, NULL),
-(103, '1111310002001', 'Sección de Almacén', '', 'null', 11, NULL, NULL),
-(104, '1111312000001', 'Dirección de Presupuesto', 'DP', 'null', 11, NULL, NULL),
-(105, '1111312011001', 'Sección de Registro y Procesamiento de Datos', '', 'null', 11, NULL, NULL),
-(106, '1111312012001', 'Sección de Revisión y Control', '', 'null', 11, NULL, NULL),
-(107, '1111312013001', 'Sección de Control de Núcleos', '', 'null', 11, NULL, NULL),
-(108, '1111313000001', 'Dirección de Finanzas', 'DIF', 'null', 11, NULL, NULL),
-(109, '1111313010001', 'Departamento de Servicios Administrativos', '', 'null', 11, NULL, NULL),
-(110, '1111313011001', 'Sección de Caja', '', 'null', 11, NULL, NULL),
-(111, '1111313012001', 'Sección de Elaboración de Cheque', '', 'null', 11, NULL, NULL),
-(112, '1111313013001', 'Sección de Impuestos', '', 'null', 11, NULL, NULL),
-(113, '1111313020001', 'Departamento de Contabilidad', '', 'null', 11, NULL, NULL),
-(114, '1111313021001', 'Sección de Registro de Bienes Muebles e Inmuebles', 'BN', 'null', 11, NULL, NULL),
-(115, '1111314000001', 'Dirección de Computación', 'DC', 'null', 11, NULL, NULL),
-(116, '1110000000001', 'Consejo Universitario', 'CU', 'null', 11, NULL, NULL),
-(117, '2100110060001', 'Delegación de Relaciones Institucionales', '', 'null', 21, NULL, NULL),
-(118, '2100110080001', 'Delegación de Tecnología Educativa', '', 'null', 21, NULL, NULL),
-(119, '2100110091001', 'Servicio Social', '', 'null', 21, NULL, NULL),
-(120, '2100110092001', 'Servicios Médicos', '', 'null', 21, NULL, NULL),
-(121, '2100110094001', 'Areas  Extra Académicas', '', 'null', 21, NULL, NULL),
-(122, '21001100100001', 'Servicios de Computación', '', 'null', 21, NULL, NULL),
-(123, '21001100101001', 'Centro de Computación Académica', '', 'null', 21, NULL, NULL),
-(124, '21001100110001', 'Biblioteca Central ', '', 'null', 21, NULL, NULL),
-(125, '2100100000001', 'Consejo de Nucleo', 'CNNS', 'null', 21, NULL, NULL),
-(126, '2100110000001', 'Decanato', 'DNS', 'null', 21, NULL, NULL),
-(127, '2100110010001', 'Asesoría Jurídica', '', 'null', 21, NULL, NULL),
-(128, '2100110020001', 'Oficina de Información y Relaciones Públicas ', '', 'null', 21, NULL, NULL),
-(129, '2100110030001', 'Delegación de Cultura', '', 'null', 21, NULL, NULL),
-(130, '2100110040001', 'Delegación de Deportes', '', 'null', 21, NULL, NULL),
-(131, '2100110050001', 'Delegación de Planificación ', '', 'null', 21, NULL, NULL),
-(132, '2100110070001', 'Delegación de Recursos Humanos', '', 'null', 21, NULL, NULL),
-(133, '2100110090001', 'Delegación de Desarrollo Estudiantil', '', 'null', 21, NULL, NULL),
-(134, '2100110093001', 'Servicio de Orientación ', '', 'null', 21, NULL, NULL),
-(135, '21001100102001', 'Centro de Computación Administrativa', '', 'null', 21, NULL, NULL),
-(136, '2100111010001', 'Coordinación de Postgrado', '', 'null', 21, NULL, NULL),
-(137, '2100111100001', 'Escuela de Ciencias Básicas', '', 'null', 21, NULL, NULL),
-(138, '2100111130001', 'Departamento de Física', '', 'null', 21, NULL, NULL),
-(139, '2100111200001', 'Escuela de Humanidades y Educación', '', 'null', 21, NULL, NULL),
-(140, '2100111220001', 'Departamento de Filosifia y Letras', '', 'null', 21, NULL, NULL),
-(141, '2100111201001', 'Escuela Romulo Gallegos', '', 'null', 21, NULL, NULL),
-(142, '2100111320001', 'Departamento de Trabajo Social', '', 'null', 21, NULL, NULL),
-(143, '2100111400001', 'Escuela de Administración', '', 'null', 21, NULL, NULL),
-(144, '2100111500001', 'Dirección de Cursos Básicos', '', 'null', 21, NULL, NULL),
-(145, '2100111620001', 'Departamento de Biología Pesquera', '', 'null', 21, NULL, NULL),
-(146, '2100112000001', 'Coordinación Administrativa', '', 'null', 21, NULL, NULL),
-(147, '2100112021001', 'Nómina', '', 'null', 21, NULL, NULL),
-(148, '2100112032001', 'Tesoreria Caja', '', 'null', 21, NULL, NULL),
-(149, '2100112035001', 'Compras', '', 'null', 21, NULL, NULL),
-(150, '2100112052001', 'Mantenimiento', '', 'null', 21, NULL, NULL),
-(151, '2100112055001', 'Talleres', '', 'null', 21, NULL, NULL),
-(152, '1110010000001', 'Tribunal Académico', '', 'null', 11, NULL, NULL),
-(153, '1111010000001', 'Consultoría Jurídica', 'CJ', 'null', 11, NULL, NULL),
-(154, '1111002000001', 'Dirección de Planificación', '', 'null', 11, NULL, NULL),
-(155, '1111005000001', 'Dirección de Deportes', '', 'null', 11, NULL, NULL),
-(156, '1111100000001', 'Secretaría', '', 'null', 11, NULL, NULL),
-(157, '1111200000001', 'Vicerrectorado Académico', '', 'null', 11, NULL, NULL),
-(158, '1111201000001', 'Coordinación General de Teleinformática', '', 'null', 11, NULL, NULL),
-(159, '1111204000001', 'Dirección de Desarrollo Estudiantil', '', 'null', 11, NULL, NULL),
-(160, '1111207000001', 'Dirección de Form. de Recursos Humanos', '', 'null', 11, NULL, NULL),
-(161, '1111200200001', 'Dirección de Sismología', '', 'null', 11, NULL, NULL),
-(162, '1111301000001', 'Dirección de Organización y Sistemas Institucionales', 'DOSI', 'null', 11, NULL, NULL),
-(163, '1111310000001', 'Coordinación General de Administración ', '', 'null', 11, NULL, NULL),
-(164, '1111310002001', 'Sección de Almacén', '', 'null', 11, NULL, NULL),
-(165, '1111311020001', 'Departamento de Servicio Social', '', 'null', 11, NULL, NULL),
-(166, '1111311050001', 'Departamento de Pasivos Laborales', '', 'null', 11, NULL, NULL),
-(167, '1111312000001', 'Dirección de Presupuesto', 'PRES', 'null', 11, NULL, NULL),
-(168, '1111312011001', 'Sección de Registro y Procesamiento de Datos', '', 'null', 11, NULL, NULL),
-(169, '1111312012001', 'Sección de Revisión y Control', '', 'null', 11, NULL, NULL),
-(170, '1111312013001', 'Sección de Control de Núcleos', '', 'null', 11, NULL, NULL),
-(171, '1111313000001', 'Dirección de Finanzas', '', 'null', 11, NULL, NULL),
-(172, '1111313010001', 'Departamento de Servicios Administrativos', '', 'null', 11, NULL, NULL),
-(173, '1111313011001', 'Sección de Caja', '', 'null', 11, NULL, NULL),
-(174, '1111313012001', 'Sección de Elaboración de Cheque', '', 'null', 11, NULL, NULL),
-(175, '1111313013001', 'Sección de Impuestos', '', 'null', 11, NULL, NULL),
-(176, '1111313020001', 'Departamento de Contabilidad', '', 'null', 11, NULL, NULL),
-(177, '1111313021001', 'Sección de Registro de Bienes Muebles e Inmuebles', 'BN', 'null', 11, NULL, NULL),
-(178, '1111314000001', 'Dirección de Computación', 'DC', 'null', 11, NULL, NULL),
-(179, '1110000000001', 'Consejo Universitario', 'CU', 'null', 11, NULL, NULL),
-(180, '1111314000001', 'Dirección de Computación', 'DC', 'null', 11, NULL, NULL),
-(181, '1111313021001', 'Sección de Registro de Bienes Muebles e Inmuebles', 'BN', 'null', 11, NULL, NULL),
-(182, '2100110060001', 'Delegación de Relaciones Institucionales', '', 'null', 21, NULL, NULL),
-(183, '2100110080001', 'Delegación de Tecnología Educativa', '', 'null', 21, NULL, NULL),
-(184, '2100110091001', 'Servicio Social', '', 'null', 21, NULL, NULL),
-(185, '2100110092001', 'Servicios Médicos', '', 'null', 21, NULL, NULL),
-(186, '2100110094001', 'Areas  Extra Académicas', '', 'null', 21, NULL, NULL),
-(187, '21001100100001', 'Servicios de Computación', '', 'null', 21, NULL, NULL),
-(188, '21001100101001', 'Centro de Computación Académica', '', 'null', 21, NULL, NULL),
-(189, '21001100110001', 'Biblioteca Central ', '', 'null', 21, NULL, NULL),
-(190, '2100111000001', 'Coordinación Académica', '', 'null', 21, NULL, NULL),
-(191, '2100111020001', 'Control de Estudio', '', 'null', 21, NULL, NULL),
-(192, '2100111030001', 'Comisión de Investigación', '', 'null', 21, NULL, NULL),
-(193, '2100111110001', 'Departamento de Matemáticas', '', 'null', 21, NULL, NULL),
-(194, '2100111120001', 'Departamento de Química', '', 'null', 21, NULL, NULL),
-(195, '2100111140001', 'Departamento de Biología', '', 'null', 21, NULL, NULL),
-(196, '2100111150001', 'Departamento de Bioanálisis', '', 'null', 21, NULL, NULL),
-(197, '2100111210001', 'Departamento de Curricula y Administración  Educativa', '', 'null', 21, NULL, NULL),
-(198, '2100111230001', 'Departamento de Idiomas Modernos', '', 'null', 21, NULL, NULL),
-(199, '2100111240001', 'Departamento de Psicología e Investigación Educativa', '', 'null', 21, NULL, NULL),
-(200, '2100111300001', 'Escuela de Ciencias Sociales', '', 'null', 21, NULL, NULL),
-(201, '2100111310001', 'Departamento de Sociología', '', 'null', 21, NULL, NULL),
-(202, '2100111301001', 'Coordinación del Programa de Recursos Humanos', '', 'null', 21, NULL, NULL),
-(203, '2100111410001', 'Departamento de Administración', '', 'null', 21, NULL, NULL),
-(204, '2100111420001', 'Departamento de Contaduría', '', 'null', 21, NULL, NULL),
-(205, '2100111600001', 'Instituto Oceanógrafico', '', 'null', 21, NULL, NULL),
-(206, '2100111610001', 'Departamento de Biología Marina ', '', 'null', 21, NULL, NULL),
-(207, '2100111630001', 'Departamento de Oceanografía Físico-Química', '', 'null', 21, NULL, NULL),
-(208, '2100111000001', 'Coordinación Académica', '', 'null', 21, NULL, NULL),
-(209, '2100111020001', 'Control de Estudio', '', 'null', 21, NULL, NULL),
-(210, '2100111030001', 'Comisión de Investigación', '', 'null', 21, NULL, NULL),
-(211, '2100111110001', 'Departamento de Matemáticas', '', 'null', 21, NULL, NULL),
-(212, '2100111120001', 'Departamento de Química', '', 'null', 21, NULL, NULL),
-(213, '2100111140001', 'Departamento de Biología', '', 'null', 21, NULL, NULL),
-(214, '2100111150001', 'Departamento de Bioanálisis', '', 'null', 21, NULL, NULL),
-(215, '2100111210001', 'Departamento de Curricula y Administración  Educativa', '', 'null', 21, NULL, NULL),
-(216, '2100111230001', 'Departamento de Idiomas Modernos', '', 'null', 21, NULL, NULL),
-(217, '2100111240001', 'Departamento de Psicología e Investigación Educativa', '', 'null', 21, NULL, NULL),
-(218, '2100111300001', 'Escuela de Ciencias Sociales', '', 'null', 21, NULL, NULL),
-(219, '2100111310001', 'Departamento de Sociología', '', 'null', 21, NULL, NULL),
-(220, '2100111301001', 'Coordinación del Programa de Recursos Humanos', '', 'null', 21, NULL, NULL),
-(221, '2100111410001', 'Departamento de Administración', '', 'null', 21, NULL, NULL),
-(222, '2100111420001', 'Departamento de Contaduría', '', 'null', 21, NULL, NULL),
-(223, '2100111600001', 'Instituto Oceanógrafico', '', 'null', 21, NULL, NULL),
-(224, '2100111610001', 'Departamento de Biología Marina ', '', 'null', 21, NULL, NULL),
-(225, '2100111630001', 'Departamento de Oceanografía Físico-Química', '', 'null', 21, NULL, NULL),
-(226, '2100111640001', 'Biblioteca Oceanográfico', '', 'null', 21, NULL, NULL),
-(227, '2100112010001', 'Delegación de Presupuesto', '', 'null', 21, NULL, NULL),
-(228, '2100112020001', 'Delegación de Personal', '', 'null', 21, NULL, NULL),
-(229, '2100112030001', 'Delegación de Finanzas', '', 'null', 21, NULL, NULL),
-(230, '2100112031001', 'Contabilidad', '', 'null', 21, NULL, NULL),
-(231, '2100112033001', 'Bienes Muebles Inmuebles', 'DBN', 'null', 21, NULL, NULL),
-(232, '2100112034001', 'Librería Universitaria', '', 'null', 21, NULL, NULL),
-(233, '2100112040001', 'Comedor', '', 'null', 21, NULL, NULL),
-(234, '2100112050001', 'Servicios Generales', '', 'null', 21, NULL, NULL),
-(235, '2100112051001', 'Almacen', '', 'null', 21, NULL, NULL),
-(236, '2100112053001', 'Vigilancia', '', 'null', 21, NULL, NULL),
-(237, '2100112054001', 'Archivo y correspondencia', '', 'null', 21, NULL, NULL),
-(238, '2100112056001', 'Aseo y Limpieza', '', 'null', 21, NULL, NULL),
-(239, '2100112057001', 'Transporte', '', 'null', 21, NULL, NULL),
-(240, '1111007000001', 'Dirección Museo del Mar', 'MM', 'null', 11, NULL, NULL),
-(241, '1110001000001', 'Comisión Electoral', 'CE', 'null', 11, NULL, NULL),
-(242, '1111000000001', 'Rectoría ', '', 'null', 11, NULL, NULL),
-(243, '1111020000001', 'Contraloría Interna', 'CI', 'null', 11, NULL, NULL),
-(244, '1111001000001', 'Dirección de Evaluación Institucional', '', 'null', 11, NULL, NULL),
-(245, '1111003000001', 'Dirección de Planta Física', 'DPF', 'null', 11, NULL, NULL),
-(246, '1111004000001', 'Dirección de Relaciones Inter-Institucionales', '', 'null', 11, NULL, NULL),
-(247, '1111006000001', 'Dirección de Cultura', '', 'null', 11, NULL, NULL),
-(248, '1211007000001', 'Dirección de Unidad de Enlace', '', 'null', 12, NULL, NULL),
-(249, '1111110000001', 'Coordinación General de Control de Estudios', '', 'null', 11, NULL, NULL),
-(250, '1111120000001', 'Coordinación General de Publicaciones', '', 'null', 11, NULL, NULL),
-(251, '1111210000001', 'Coordinación General de Postgrados', '', 'null', 11, NULL, NULL),
-(252, '1111202000001', 'Dirección Consejo de Investigación', '', 'null', 11, NULL, NULL),
-(253, '1111203000001', 'Dirección  de Curricula', 'DIC', 'null', 11, NULL, NULL),
-(254, '1111205000001', 'Dirección de Bibliotecas', 'DB', 'null', 11, NULL, NULL),
-(255, '1111206000001', 'Dirección de Tecnología', '', 'null', 11, NULL, NULL),
-(256, '1111200010001', 'Comisión de Clasificación Docente', '', 'null', 11, NULL, NULL),
-(257, '1111200100001', 'Dirección Instituto de Biomedicina', '', 'null', 11, NULL, NULL),
-(258, '1111300000001', 'Vicerrectorado Administrativo', 'VRAD', 'null', 11, NULL, NULL),
-(259, '1111300010001', 'Departamento de Comisión de Clasificación Pers. Profesional', 'CDPA', 'null', 11, NULL, NULL),
-(260, '1111302000001', 'Coordinación General de ASMOE', '', 'null', 11, NULL, NULL),
-(261, '1111310010001', 'Servicios Generales', 'SGR', 'null', 11, NULL, NULL),
-(262, '1111310001001', 'Sección de Compras', '', 'null', 11, NULL, NULL),
-(263, '1111311000001', 'Dirección de Personal', '', 'null', 11, NULL, NULL),
-(264, '1111311010001', 'Departamento de Evaluación y Control', '', 'null', 11, NULL, NULL),
-(265, '1111311030001', 'Departamento de Nómina', '', 'null', 11, NULL, NULL),
-(266, '1111311040001', 'Departamento de Organización y Estudio de Personal', '', 'null', 11, NULL, NULL),
-(267, '1111311060001', 'Departamento de Archivo y Estadísticas', 'AREP', 'null', 11, NULL, NULL),
-(268, '1111312010001', 'Delegación de Presupuesto', '', 'null', 11, NULL, NULL),
-(269, '1111314000001', 'Dirección de Computación', 'DC', 'null', 11, NULL, NULL),
-(270, '1110010000001', 'Tribunal Académico', '', 'null', 51, NULL, NULL),
-(271, '1111010000001', 'Consultoría Jurídica', 'CJ', 'null', 51, NULL, NULL),
-(272, '1111002000001', 'Dirección de Planificación', '', 'null', 51, NULL, NULL),
-(273, '1111005000001', 'Dirección de Deportes', '', 'null', 51, NULL, NULL),
-(274, '1111100000001', 'Secretaría', '', 'null', 51, NULL, NULL),
-(275, '1111200000001', 'Vicerrectorado Académico', '', 'null', 51, NULL, NULL),
-(276, '1111201000001', 'Coordinación General de Teleinformática', '', 'null', 51, NULL, NULL),
-(277, '1111204000001', 'Dirección de Desarrollo Estudiantil', '', 'null', 51, NULL, NULL),
-(278, '1111207000001', 'Dirección de Form. de Recursos Humanos', '', 'null', 51, NULL, NULL),
-(279, '1111200200001', 'Dirección de Sismología', '', 'null', 51, NULL, NULL),
-(280, '1111301000001', 'Dirección de Organización y Sistemas Institucionales', 'DOSI', 'null', 51, NULL, NULL),
-(281, '1111310000001', 'Coordinación General de Administración ', '', 'null', 51, NULL, NULL),
-(282, '1111310002001', 'Sección de Almacén', '', 'null', 51, NULL, NULL),
-(283, '1111311020001', 'Departamento de Servicio Social', '', 'null', 51, NULL, NULL),
-(284, '1111311050001', 'Departamento de Pasivos Laborales', '', 'null', 51, NULL, NULL),
-(285, '1111312000001', 'Dirección de Presupuesto', 'PRES', 'null', 51, NULL, NULL),
-(286, '1111312011001', 'Sección de Registro y Procesamiento de Datos', '', 'null', 51, NULL, NULL),
-(287, '1111312012001', 'Sección de Revisión y Control', '', 'null', 51, NULL, NULL),
-(288, '1111312013001', 'Sección de Control de Núcleos', '', 'null', 51, NULL, NULL),
-(289, '1111313000001', 'Dirección de Finanzas', '', 'null', 51, NULL, NULL),
-(290, '1111313010001', 'Departamento de Servicios Administrativos', '', 'null', 51, NULL, NULL),
-(291, '1111313011001', 'Sección de Caja', '', 'null', 51, NULL, NULL),
-(292, '1111313012001', 'Sección de Elaboración de Cheque', '', 'null', 51, NULL, NULL),
-(293, '1111313013001', 'Sección de Impuestos', '', 'null', 51, NULL, NULL),
-(294, '1111313020001', 'Departamento de Contabilidad', '', 'null', 51, NULL, NULL),
-(295, '1111313021001', 'Sección de Registro de Bienes Muebles e Inmuebles', 'BN', 'null', 51, NULL, NULL),
-(296, '1111314000001', 'Dirección de Computación', 'DC', 'null', 11, NULL, NULL),
-(297, '1110000000001', 'Consejo Universitario', 'CU', 'null', 51, NULL, NULL),
-(298, '1111007000001', 'Dirección Museo del Mar', '', 'null', 51, NULL, NULL),
-(299, '1110001000001', 'Comisión Electoral', 'CE', 'null', 51, NULL, NULL),
-(300, '1111000000001', 'Rectoría ', '', 'null', 51, NULL, NULL),
-(301, '1111020000001', 'Contraloría Interna', 'CI', 'null', 51, NULL, NULL),
-(302, '1111001000001', 'Dirección de Evaluación Institucional', '', 'null', 51, NULL, NULL),
-(303, '1111003000001', 'Dirección de Planta Física', '', 'null', 51, NULL, NULL),
-(304, '1111004000001', 'Dirección de Relaciones Inter-Institucionales', '', 'null', 51, NULL, NULL),
-(305, '1111006000001', 'Dirección de Cultura', '', 'null', 51, NULL, NULL),
-(306, '1111110000001', 'Coordinación General de Control de Estudios', '', 'null', 51, NULL, NULL),
-(307, '1111120000001', 'Coordinación General de Publicaciones', '', 'null', 51, NULL, NULL),
-(308, '1111210000001', 'Coordinación General de Postgrados', '', 'null', 51, NULL, NULL),
-(309, '1111202000001', 'Dirección Consejo de Investigación', '', 'null', 51, NULL, NULL);
+(2, '1110001000001', 'Comisión Electoral', 'CE', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '1110010000001', 'Tribunal Académico', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '1111000000001', 'Rectoría ', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '1111001000001', 'Dirección de Evaluación Institucional', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '1111002000001', 'Dirección de Planificación', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '1111003000001', 'Dirección de Planta Física', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '1111004000001', 'Dirección de Relaciones Inter-Institucionales', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '1111005000001', 'Dirección de Deportes', 'DGD', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '1111006000001', 'Dirección de Cultura', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '1111007000001', 'Dirección Museo del Mar', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '1111010000001', 'Consultoría Jurídica', 'CJ', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '1111020000001', 'Contraloría Interna', 'CI', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '1111100000001', 'Secretaría', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '1111110000001', 'Coordinación General de Control de Estudios', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '1111120000001', 'Coordinación General de Publicaciones', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '1111200000001', 'Vicerrectorado Académico', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '1111200010001', 'Comisión de Clasificación Docente', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '1111200100001', 'Dirección Instituto de Biomedicina', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, '1111200200001', 'Dirección de Sismología', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, '1111201000001', 'Coordinación General de Teleinformática', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, '1111202000001', 'Dirección Consejo de Investigación', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, '1111203000001', 'Dirección  de Curricula', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, '1111204000001', 'Dirección de Desarrollo Estudiantil', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, '1111205000001', 'Dirección de Bibliotecas', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, '1111206000001', 'Dirección de Tecnología', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, '1111207000001', 'Dirección de Form. de Recursos Humanos', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, '1111210000001', 'Coordinación General de Postgrados', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, '1111300000001', 'Vicerrectorado Administrativo', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, '1111300010001', 'Departamento de Comisión de Clasificación Pers. Profesional', 'CDPA', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, '1111301000001', 'Dirección de Organización y Sistemas Institucionales', 'DOSI', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, '1111302000001', 'Coordinación General de ASMOE', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, '1111310000001', 'Coordinación General de Administración ', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, '1111310001001', 'Sección de Compras', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, '1111310002001', 'Sección de Almacén', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, '1111310010001', 'Servicios Generales', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, '1111311000001', 'Dirección de Personal', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, '1111311010001', 'Departamento de Evaluación y Control', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, '1111311020001', 'Departamento de Servicio Social', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, '1111311030001', 'Departamento de Nómina', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, '1111311040001', 'Departamento de Organización y Estudio de Personal', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, '1111311050001', 'Departamento de Pasivos Laborales', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, '1111311060001', 'Departamento de Archivo y Estadísticas', 'AREP', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, '1111312000001', 'Dirección de Presupuesto', 'PRES', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, '1111312010001', 'Delegación de Presupuesto', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, '1111312011001', 'Sección de Registro y Procesamiento de Datos', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, '1111312012001', 'Sección de Revisión y Control', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, '1111312013001', 'Sección de Control de Núcleos', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, '1111313000001', 'Dirección de Finanzas', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, '1111313010001', 'Departamento de Servicios Administrativos', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, '1111313011001', 'Sección de Caja', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, '1111313012001', 'Sección de Elaboración de Cheque', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, '1111313013001', 'Sección de Impuestos', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, '1111313020001', 'Departamento de Contabilidad', '', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, '1111313021001', 'Sección de Registro de Bienes Muebles e Inmuebles', 'BN', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, '1111314000001', 'Dirección de Computación', 'DC', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(311, '1110000000001', 'Consejo Universitario', 'CU', '', 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -434,33 +168,8 @@ CREATE TABLE `documentos` (
 --
 
 INSERT INTO `documentos` (`id`, `asunto`, `nro_documento`, `contenido`, `tipo_documento`, `estatus`, `fecha_enviado`, `departamento_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Probando Nuevo Documento', 0, '<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. <strong>Quibusdam quisquam modi officiis </strong>amet quo consequatur ipsa sequi laborum veniam mollitia cum voluptatem nisi fugiat non id reprehenderit, animi quia magni.</p>', 'oficio', 'enviado', '2022-10-29 00:00:00', 1, NULL, '2022-10-29 23:06:08', '2022-10-29 23:06:08'),
-(2, 'Probando la fecha', 1, '<p>The Laravel schema builder supports several types of indexes. The following example creates a new email column and specifies that its values should be unique. To create the index, we can chain the unique method onto the column definition:</p>', 'oficio', 'enviado', '2022-10-30 14:02:03', 2, NULL, '2022-10-30 17:02:03', '2022-10-30 17:02:03'),
-(3, 'Probando Todo', 2, '<p><strong>Simón José Antonio de la Santísima Trinidad Bolívar Palacios</strong><span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> (</span>Caracas<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, </span>24 de julio<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> de </span>1783nota 1​nota 2​<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">-</span>Santa Marta<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, </span>17 de diciembre<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> de </span>1830<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">), más conocido como </span><strong>Simón Bolívar</strong><span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> o </span><strong>el Libertador</strong><span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, fue un </span>militar<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> y </span>político<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> </span>venezolano<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> que lideró las campañas que dieron la independencia a varias naciones americanas (las actuales Venezuela, Colombia, Ecuador, Panamá, Perú y Bolivia), además fue fundador de la </span>Gran Colombia<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> y el nombre de </span>Bolivia<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> fue en honor a Bolívar. También fue legislador y redactor de constituciones, ambientalista y jurista. Se destacó como una figura destacada de la </span>emancipación hispanoamericana<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> frente al </span>Imperio español<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">. Contribuyó a inspirar y concretar de manera decisiva la independencia de </span>Venezuela<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, </span>Colombia<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, </span>Ecuador<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, </span>Panamá<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">,</span><sup>17</sup><span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">​ </span>Perú<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> y fue la inspiración en los revolucionarios de </span>Bolivia<span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\">, se le otorgó el título de </span><i>El Libertador</i><span style=\"background-color:rgb(255,255,255);color:rgb(32,33,34);\"> por sus acciones independentistas en Venezuela.</span></p>', 'oficio', 'enviado', '2022-11-05 14:41:49', 1, NULL, '2022-11-05 17:41:49', '2022-11-05 17:41:49'),
-(5, 'Probando el FormData', 1, '<p>Dado que for...in está construido para iterar propiedades de objeto, no se recomienda su uso con arreglos y opciones como Array.prototype.forEach() y existe for...of, ¿cuál podría ser el uso de for...in?</p><p>Es posible que se utilice de forma más práctica con fines de depuración, ya que es una forma fácil de comprobar las propiedades de un objeto (mediante la salida a la consola o de otro modo). Aunque los arreglos suelen ser más prácticos para almacenar datos, en situaciones en las que se prefiere un par clave-valor para trabajar con datos (con propiedades que actúan como la \"clave\"), puede haber casos en los que desees comprobar si alguna de esas claves cumple un valor particular.</p>', 'oficio', 'enviado', '2022-11-05 21:04:53', 1, NULL, '2022-11-06 00:04:53', '2022-11-06 00:04:53'),
-(6, 'Probando con la nueva logica', 2, '<p>The public disk included in your application\'s filesystems configuration file is intended for files that are going to be publicly accessible. By default, the public disk uses the local driver and stores its files in storage/app/public.</p><p>To make these files accessible from the web, you should create a symbolic link from public/storage to storage/app/public. Utilizing this folder convention will keep your publicly accessible files in one directory that can be easily shared across deployments when using zero down-time deployment systems like <u>Envoyer</u>.</p><p>To create the symbolic link, you may use the storage:link Artisan command:</p>', 'oficio', 'enviado', '2022-11-06 01:14:50', 1, NULL, '2022-11-06 04:14:50', '2022-11-06 04:14:50'),
-(9, 'documento con adjunto', 3, 'adjuntos', 'oficio', 'enviado', '2022-11-08 00:28:54', 1, NULL, '2022-11-08 03:28:54', '2022-11-08 03:28:54'),
-(10, 'documento con adjunto', 4, 'adjuntos', 'oficio', 'enviado', '2022-11-08 00:40:58', 1, NULL, '2022-11-08 03:40:58', '2022-11-08 03:40:58'),
-(12, 'Probando los Adjuntos en Borradores o Corregir', 5, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis eveniet deleniti quaerat velit in, saepe recusandae reiciendis aperiam vitae perferendis quo ab. Reiciendis possimus delectus nesciunt necessitatibus perferendis suscipit minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis eveniet deleniti quaerat velit in, saepe recusandae reiciendis aperiam vitae perferendis quo ab. Reiciendis possimus delectus nesciunt necessitatibus perferendis suscipit minus!</p>', 'circular', 'enviado', NULL, 2, NULL, '2022-11-13 23:46:53', '2022-11-14 03:06:03'),
-(13, 'Probando el Correlativo', 6, '<p>Probando el correlativo</p>', 'oficio', 'enviado', '2022-11-13 23:16:26', 2, NULL, '2022-11-14 03:16:26', '2022-11-14 03:16:26'),
-(14, 'Correlativo desde por corregir', 7, '<p>Correlativo desde por corregir</p>', 'oficio', 'enviado', NULL, 2, NULL, '2022-11-14 03:17:03', '2022-11-14 03:18:33'),
-(15, 'Una vez  mas correlativo desde corregir', 8, '<p>Una vez &nbsp;mas correlativo desde corregir</p>', 'oficio', 'enviado', NULL, 2, NULL, '2022-11-14 03:20:37', '2022-11-14 03:30:37'),
-(16, 'probando fecha desde corregir', 9, '<p>probando fecha desde corregir</p>', 'oficio', 'enviado', '2022-11-13 23:35:36', 2, NULL, '2022-11-14 03:35:18', '2022-11-14 03:35:36'),
-(17, 'anexos', 10, '<p>anexos</p>', 'oficio', 'enviado', '2022-11-14 00:02:00', 1, NULL, '2022-11-14 04:02:00', '2022-11-14 04:02:00'),
-(18, 'correlativo otr vez', 11, '<p>correlativo otr vez</p>', 'oficio', 'enviado', '2022-11-14 00:24:45', 2, NULL, '2022-11-14 04:24:11', '2022-11-14 04:24:45'),
-(19, 'hay vamos otra vez con el correlativo en por corregir', 12, '<p>hay vamos otra vez con el correlativo en por corregir</p>', 'oficio', 'enviado', '2022-11-14 00:30:48', 2, NULL, '2022-11-14 04:30:33', '2022-11-14 04:30:48'),
-(20, 'Probando Varios Departamentos', 13, '<p>Probando Varios Departamentos</p>', 'oficio', 'enviado', '2022-11-21 03:15:09', 2, NULL, '2022-11-21 07:15:09', '2022-11-21 07:15:09'),
-(21, 'Oficoo con Copias', 14, '<p>Oficoo con Copias</p>', 'oficio', 'enviado', '2022-11-27 02:58:16', 2, NULL, '2022-11-27 06:58:17', '2022-11-27 06:58:17'),
-(22, 'Copias', 0, '<p>Copias</p>', 'oficio', 'por_corregir', NULL, 2, NULL, '2022-11-27 07:04:14', '2022-11-27 07:04:14'),
-(23, 'dfdff', 0, '<p>dfdfdfdf</p>', 'oficio', 'borrador', NULL, 2, NULL, '2022-11-27 08:38:00', '2022-11-27 08:38:00'),
-(24, 'Probando la inclusion del usuario', 15, '<p>sadasdadsddsd</p>', 'oficio', 'enviado', '2022-11-27 04:51:47', 2, NULL, '2022-11-27 08:51:47', '2022-11-27 08:51:47'),
-(25, 'Probando inclusion de usuario', 16, '<p>Probando inclusion de usuario</p>', 'oficio', 'enviado', '2022-11-27 04:57:51', 2, 1, '2022-11-27 08:57:51', '2022-11-27 08:57:51'),
-(26, 'Probando los Borradores', 0, '<p>sdasdasdasasfsfaf</p>', 'oficio', 'borrador', NULL, 2, 2, '2022-11-27 08:59:51', '2022-11-27 08:59:51'),
-(27, 'Large Doc', 17, '<p style=\"text-align:justify;\">La vocación de Bolívar era el ejercicio de las armas. En enero de 1797, ingresó como cadete en el Batallón de Milicias de Blancos de los Valles de Aragua, del cual había sido Coronel años atrás su propio padre. No tenía aún 14 años cumplidos. En julio del año siguiente, cuando fue ascendido a Subteniente, se anotaba en su hoja de servicios: Valor: conocido; aplicación: sobresaliente. El adiestramiento práctico en los deberes militares lo combinaba Bolívar con el aprendizaje teórico de materias consideradas entonces la base de la formación castrense: las matemáticas, el dibujo topográfico, la física, etc., que aprendió en la Academia establecida en la propia casa de Bolívar por el sabio Capuchino fray Francisco de Andújar desde mediados de 1798, y a la cual asistían también varios amigos de Simón.</p><p style=\"text-align:justify;\">A comienzos de 1799, viajó a España. En Madrid, bajo la dirección de sus tíos Esteban y Pedro Palacios y la rectoría moral e intelectual del sabio Marqués de Ustáriz, se entregó con pasión al estudio. Recibió allí la educación propia de un gentilhombre que se destinaba al mundo y al ejercicio de las armas: amplió sus conocimientos de historia, de literatura clásica y moderna, y de matemáticas, inició el estudio del francés, y aprendió también la esgrima y el baile, haciendo en todo rápidos progresos. La frecuentación de tertulias y salones pulió su espíritu, enriqueció su idioma, y le dio mayor aplomo. En Madrid conoció a María Teresa Rodríguez del Toro y Alayza, de quien se enamoró. A fines de 1800 pensaba en constituir un hogar, asegurarse descendencia, y regresar a su país, para atender al fomento de sus propiedades. Hubo un compás de espera: en la primavera de 1801 viajó a Bilbao, donde permaneció casi todo el resto del año. Hizo luego un breve recorrido por Francia que le condujo hasta París y Amiens. En mayo de 1802 estaba de nuevo en Madrid, donde contrajo matrimonio, el día 26, con María Teresa. Los jóvenes esposos viajaron a Venezuela, pero poco duró la felicidad de Simón. María Teresa murió en enero de 1803. El joven viudo regresó a Europa a fines de ese mismo año, pasó por Cádiz y Madrid, y se estableció en París desde la primavera de 1804.</p><p style=\"text-align:justify;\">La vocación de Bolívar era el ejercicio de las armas. En enero de 1797, ingresó como cadete en el Batallón de Milicias de Blancos de los Valles de Aragua, del cual había sido Coronel años atrás su propio padre. No tenía aún 14 años cumplidos. En julio del año siguiente, cuando fue ascendido a Subteniente, se anotaba en su hoja de servicios: Valor: conocido; aplicación: sobresaliente. El adiestramiento práctico en los deberes militares lo combinaba Bolívar con el aprendizaje teórico de materias consideradas entonces la base de la formación castrense: las matemáticas, el dibujo topográfico, la física, etc., que aprendió en la Academia establecida en la propia casa de Bolívar por el sabio Capuchino fray Francisco de Andújar desde mediados de 1798, y a la cual asistían también varios amigos de Simón.</p><p style=\"text-align:justify;\">A comienzos de 1799, viajó a España. En Madrid, bajo la dirección de sus tíos Esteban y Pedro Palacios y la rectoría moral e intelectual del sabio Marqués de Ustáriz, se entregó con pasión al estudio. Recibió allí la educación propia de un gentilhombre que se destinaba al mundo y al ejercicio de las armas: amplió sus conocimientos de historia, de literatura clásica y moderna, y de matemáticas, inició el estudio del francés, y aprendió también la esgrima y el baile, haciendo en todo rápidos progresos. La frecuentación de tertulias y salones pulió su espíritu, enriqueció su idioma, y le dio mayor aplomo. En Madrid conoció a María Teresa Rodríguez del Toro y Alayza, de quien se enamoró. A fines de 1800 pensaba en constituir un hogar, asegurarse descendencia, y regresar a su país, para atender al fomento de sus propiedades. Hubo un compás de espera: en la primavera de 1801 viajó a Bilbao, donde permaneció casi todo el resto del año. Hizo luego un breve recorrido por Francia que le condujo hasta París y Amiens. En mayo de 1802 estaba de nuevo en Madrid, donde contrajo matrimonio, el día 26, con María Teresa. Los jóvenes esposos viajaron a Venezuela, pero poco duró la felicidad de Simón. María Teresa murió en enero de 1803. El joven viudo regresó a Europa a fines de ese mismo año, pasó por Cádiz y Madrid, y se estableció en París desde la primavera de 1804.</p><p style=\"text-align:justify;\">La vocación de Bolívar era el ejercicio de las armas. En enero de 1797, ingresó como cadete en el Batallón de Milicias de Blancos de los Valles de Aragua, del cual había sido Coronel años atrás su propio padre. No tenía aún 14 años cumplidos. En julio del año siguiente, cuando fue ascendido a Subteniente, se anotaba en su hoja de servicios: Valor: conocido; aplicación: sobresaliente. El adiestramiento práctico en los deberes militares lo combinaba Bolívar con el aprendizaje teórico de materias consideradas entonces la base de la formación castrense: las matemáticas, el dibujo topográfico, la física, etc., que aprendió en la Academia establecida en la propia casa de Bolívar por el sabio Capuchino fray Francisco de Andújar desde mediados de 1798, y a la cual asistían también varios amigos de Simón.</p><p style=\"text-align:justify;\">A comienzos de 1799, viajó a España. En Madrid, bajo la dirección de sus tíos Esteban y Pedro Palacios y la rectoría moral e intelectual del sabio Marqués de Ustáriz, se entregó con pasión al estudio. Recibió allí la educación propia de un gentilhombre que se destinaba al mundo y al ejercicio de las armas: amplió sus conocimientos de historia, de literatura clásica y moderna, y de matemáticas, inició el estudio del francés, y aprendió también la esgrima y el baile, haciendo en todo rápidos progresos. La frecuentación de tertulias y salones pulió su espíritu, enriqueció su idioma, y le dio mayor aplomo. En Madrid conoció a María Teresa Rodríguez del Toro y Alayza, de quien se enamoró. A fines de 1800 pensaba en constituir un hogar, asegurarse descendencia, y regresar a su país, para atender al fomento de sus propiedades. Hubo un compás de espera: en la primavera de 1801 viajó a Bilbao, donde permaneció casi todo el resto del año. Hizo luego un breve recorrido por Francia que le condujo hasta París y Amiens. En mayo de 1802 estaba de nuevo en Madrid, donde contrajo matrimonio, el día 26, con María Teresa. Los jóvenes esposos viajaron a Venezuela, pero poco duró la felicidad de Simón. María Teresa murió en enero de 1803. El joven viudo regresó a Europa a fines de ese mismo año, pasó por Cádiz y Madrid, y se estableció en París desde la primavera de 1804.</p>', 'oficio', 'enviado', '2022-12-04 23:23:53', 2, 2, '2022-12-05 03:23:53', '2022-12-05 03:23:53'),
-(28, 'PROBANDO LAS COPIAS', 18, '<h3>&nbsp;Lorem ipsum&nbsp;</h3><p>dolor sit amet consectetur adipisicing elit.<strong> Doloremque quae</strong> voluptatem modi placeat est iure voluptas. Quidem placeat quibusdam molestiae, deleniti nesciunt quae unde ipsam, obcaecati voluptate alias t<u>empore a! Lorem</u>, ipsum dolor sit amet consectetur adipisicing elit. Dolorum exercitationem officia, libero voluptates saepe cum beatae reiciendis, hic natus veniam aut consequuntur, similique eos ipsum atque?<span style=\"color:hsl(0, 75%, 60%);\"> Pariatur sunt ipsa optio!</span></p>', 'oficio', 'enviado', '2023-01-06 22:26:05', 1, 1, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(29, 'PDF PARA CIRCULAR', 19, '<p>Note that views which extend a Blade layout simply override sections from the layout. Content of the layout can be included in a child view using the @parent directive in a section, allowing you to append to the contents of a layout section such as a sidebar or footer.</p><p>Sometimes, such as when you are not sure if a section has been defined, you may wish to pass a default value to the @yield directive. You may pass the default value as the second argument:</p>', 'circular', 'enviado', '2023-01-07 00:46:33', 1, 1, '2023-01-07 04:46:33', '2023-01-07 04:46:33'),
-(30, 'COMUNIDAD', 20, '<p>HOLA COMUNADA QUE ONDA!</p>', 'circular', 'enviado_all', '2023-01-07 01:47:00', 1, 1, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(36, 'Probando la firma', 20, '<p>&nbsp; &nbsp; &nbsp; Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio rerum, fuga incidunt vel deserunt dicta ipsam libero neque iure maxime corporis cum, rem repudiandae! Vitae perferendis nobis amet optio sint.</p>', 'oficio', 'enviado', '2023-01-30 20:41:37', 5, 8, '2023-01-31 00:41:37', '2023-01-31 00:41:37');
+(54, 'Correlativo', 1, '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat magni consequatur corporis veritatis animi aspernatur rerum modi libero neque hic facilis aperiam provident, a distinctio assumenda voluptate reprehenderit ipsum e<span style=\"color:#f8f8f2;\">t.</span></p>', 'oficio', 'enviado', '2023-03-29 09:57:26', 2, 2, '2023-03-29 14:27:26', '2023-03-29 14:27:26'),
+(55, 'Correlativo Corregir', 1, '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat magni consequatur corporis veritatis animi aspernatur rerum modi libero neque hic facilis aperiam provident, a distinctio assumenda voluptate reprehenderit ipsum e<span style=\"color:#f8f8f2;\">t.</span></p>', 'oficio', 'enviado', '2023-03-29 09:59:13', 44, 1, '2023-03-29 14:28:14', '2023-03-29 14:29:13');
 
 -- --------------------------------------------------------
 
@@ -484,174 +193,8 @@ CREATE TABLE `documentos_departamentos` (
 --
 
 INSERT INTO `documentos_departamentos` (`id`, `documento_id`, `departamento_id`, `leido`, `copia`, `fecha_leido`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 1, 0, NULL, '2022-10-29 23:06:09', '2022-10-29 23:09:48'),
-(2, 2, 1, 1, 0, NULL, '2022-10-30 17:02:03', '2022-10-30 17:03:07'),
-(3, 3, 2, 1, 0, NULL, '2022-11-05 17:41:49', '2022-11-13 23:43:59'),
-(4, 5, 2, 1, 0, NULL, '2022-11-06 00:04:53', '2022-11-14 04:00:58'),
-(5, 6, 2, 1, 0, NULL, '2022-11-06 04:14:50', '2022-11-14 04:00:49'),
-(6, 7, 2, 0, 0, NULL, '2022-11-08 03:24:55', '2022-11-08 03:24:55'),
-(7, 8, 2, 0, 0, NULL, '2022-11-08 03:27:20', '2022-11-08 03:27:20'),
-(8, 9, 2, 1, 0, NULL, '2022-11-08 03:28:54', '2022-11-14 04:00:38'),
-(9, 10, 2, 1, 0, NULL, '2022-11-08 03:40:58', '2022-11-14 03:14:31'),
-(10, 12, 1, 0, 0, NULL, '2022-11-14 03:06:03', '2022-11-14 03:06:03'),
-(11, 12, 3, 0, 0, NULL, '2022-11-14 03:06:03', '2022-11-14 03:06:03'),
-(12, 13, 1, 1, 0, NULL, '2022-11-14 03:16:26', '2022-11-14 04:01:34'),
-(13, 14, 1, 1, 0, '2022-12-04', '2022-11-14 03:18:33', '2022-12-05 03:13:48'),
-(14, 15, 3, 0, 0, NULL, '2022-11-14 03:30:37', '2022-11-14 03:30:37'),
-(15, 16, 1, 1, 0, NULL, '2022-11-14 03:35:36', '2022-11-14 04:01:22'),
-(16, 17, 2, 1, 0, NULL, '2022-11-14 04:02:00', '2022-11-14 04:02:40'),
-(17, 18, 1, 0, 0, NULL, '2022-11-14 04:24:45', '2022-11-14 04:24:45'),
-(18, 19, 1, 1, 0, NULL, '2022-11-14 04:30:48', '2022-11-21 07:15:38'),
-(19, 20, 3, 0, 0, NULL, '2022-11-21 07:15:09', '2022-11-21 07:15:09'),
-(20, 21, 1, 1, 0, '2022-12-29', '2022-11-27 06:58:17', '2022-12-29 04:00:51'),
-(21, 21, 3, 0, 1, NULL, '2022-11-27 06:58:17', '2022-11-27 06:58:17'),
-(22, 24, 1, 1, 0, '2022-12-04', '2022-11-27 08:51:47', '2022-12-05 02:14:16'),
-(23, 25, 1, 1, 0, '2022-11-28', '2022-11-27 08:57:51', '2022-11-28 15:50:25'),
-(24, 27, 1, 1, 0, '2022-12-04', '2022-12-05 03:23:53', '2022-12-05 03:24:15'),
-(25, 28, 2, 0, 0, NULL, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(26, 28, 4, 0, 1, NULL, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(27, 28, 9, 0, 1, NULL, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(28, 28, 13, 0, 1, NULL, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(29, 28, 65, 0, 1, NULL, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(30, 28, 67, 0, 1, NULL, '2023-01-07 02:26:05', '2023-01-07 02:26:05'),
-(31, 29, 2, 0, 0, NULL, '2023-01-07 04:46:33', '2023-01-07 04:46:33'),
-(32, 29, 3, 0, 0, NULL, '2023-01-07 04:46:33', '2023-01-07 04:46:33'),
-(33, 29, 4, 0, 0, NULL, '2023-01-07 04:46:33', '2023-01-07 04:46:33'),
-(34, 29, 5, 0, 0, NULL, '2023-01-07 04:46:33', '2023-01-07 04:46:33'),
-(35, 30, 2, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(36, 30, 3, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(37, 30, 4, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(38, 30, 5, 1, 0, '2023-01-30', '2023-01-07 05:47:00', '2023-01-31 00:22:12'),
-(39, 30, 6, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(40, 30, 7, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(41, 30, 8, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(42, 30, 9, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(43, 30, 10, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(44, 30, 11, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(45, 30, 12, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(46, 30, 13, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(47, 30, 14, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(48, 30, 64, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(49, 30, 65, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(50, 30, 66, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(51, 30, 67, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(52, 30, 68, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(53, 30, 69, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(54, 30, 70, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(55, 30, 71, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(56, 30, 72, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(57, 30, 73, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(58, 30, 74, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(59, 30, 75, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(60, 30, 76, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(61, 30, 77, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(62, 30, 78, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(63, 30, 79, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(64, 30, 80, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(65, 30, 81, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(66, 30, 82, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(67, 30, 83, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(68, 30, 84, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(69, 30, 85, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(70, 30, 86, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(71, 30, 87, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(72, 30, 88, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(73, 30, 89, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(74, 30, 90, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(75, 30, 117, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(76, 30, 118, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(77, 30, 119, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(78, 30, 120, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(79, 30, 121, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(80, 30, 122, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(81, 30, 123, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(82, 30, 124, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(83, 30, 125, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(84, 30, 126, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(85, 30, 127, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(86, 30, 128, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(87, 30, 129, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(88, 30, 130, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(89, 30, 131, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(90, 30, 132, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(91, 30, 133, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(92, 30, 134, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(93, 30, 135, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(94, 30, 136, 0, 0, NULL, '2023-01-07 05:47:00', '2023-01-07 05:47:00'),
-(95, 30, 137, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(96, 30, 138, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(97, 30, 139, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(98, 30, 140, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(99, 30, 141, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(100, 30, 142, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(101, 30, 143, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(102, 30, 144, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(103, 30, 145, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(104, 30, 146, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(105, 30, 147, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(106, 30, 148, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(107, 30, 149, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(108, 30, 150, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(109, 30, 151, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(110, 30, 182, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(111, 30, 183, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(112, 30, 184, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(113, 30, 185, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(114, 30, 186, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(115, 30, 187, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(116, 30, 188, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(117, 30, 189, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(118, 30, 190, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(119, 30, 191, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(120, 30, 192, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(121, 30, 193, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(122, 30, 194, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(123, 30, 195, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(124, 30, 196, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(125, 30, 197, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(126, 30, 198, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(127, 30, 199, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(128, 30, 200, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(129, 30, 201, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(130, 30, 202, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(131, 30, 203, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(132, 30, 204, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(133, 30, 205, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(134, 30, 206, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(135, 30, 207, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(136, 30, 208, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(137, 30, 209, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(138, 30, 210, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(139, 30, 211, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(140, 30, 212, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(141, 30, 213, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(142, 30, 214, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(143, 30, 215, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(144, 30, 216, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(145, 30, 217, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(146, 30, 218, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(147, 30, 219, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(148, 30, 220, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(149, 30, 221, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(150, 30, 222, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(151, 30, 223, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(152, 30, 224, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(153, 30, 225, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(154, 30, 226, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(155, 30, 227, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(156, 30, 228, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(157, 30, 229, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(158, 30, 230, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(159, 30, 231, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(160, 30, 232, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(161, 30, 233, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(162, 30, 234, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(163, 30, 235, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(164, 30, 236, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(165, 30, 237, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(166, 30, 238, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(167, 30, 239, 0, 0, NULL, '2023-01-07 05:47:01', '2023-01-07 05:47:01'),
-(168, 36, 1, 0, 0, NULL, '2023-01-31 00:41:37', '2023-01-31 00:41:37');
+(184, 54, 3, 0, 0, NULL, '2023-03-29 14:27:26', '2023-03-29 14:27:26'),
+(185, 55, 17, 0, 0, NULL, '2023-03-29 14:29:13', '2023-03-29 14:29:13');
 
 -- --------------------------------------------------------
 
@@ -685,15 +228,6 @@ CREATE TABLE `documentos_temporal` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `documentos_temporal`
---
-
-INSERT INTO `documentos_temporal` (`id`, `documento_id`, `departamentos_destino`, `departamentos_copias`, `tieneCopia`, `leido`, `created_at`, `updated_at`) VALUES
-(9, 22, '1', '3', 1, 0, '2022-11-27 07:04:14', '2022-11-27 07:04:14'),
-(10, 23, '1', NULL, 0, 0, '2022-11-27 08:38:00', '2022-11-27 08:38:00'),
-(11, 26, '3', NULL, 0, 0, '2022-11-27 08:59:51', '2022-11-27 08:59:51');
 
 -- --------------------------------------------------------
 
@@ -807,13 +341,18 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(2, 'App\\Models\\User', 1),
+(1, 'App\\Models\\User', 1),
 (2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 8),
+(2, 'App\\Models\\User', 12),
+(2, 'App\\Models\\User', 14),
+(2, 'App\\Models\\User', 15),
+(3, 'App\\Models\\User', 1),
 (3, 'App\\Models\\User', 7),
 (3, 'App\\Models\\User', 9),
 (3, 'App\\Models\\User', 10),
-(3, 'App\\Models\\User', 11);
+(3, 'App\\Models\\User', 11),
+(3, 'App\\Models\\User', 13);
 
 -- --------------------------------------------------------
 
@@ -908,7 +447,7 @@ CREATE TABLE `personal` (
   `jefe` tinyint(1) NOT NULL DEFAULT 0,
   `descripcion_cargo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `correo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `grado_instruccion` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nivel_id` bigint(20) UNSIGNED NOT NULL,
   `firma` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `departamento_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -919,15 +458,19 @@ CREATE TABLE `personal` (
 -- Volcado de datos para la tabla `personal`
 --
 
-INSERT INTO `personal` (`id`, `nombres_apellidos`, `cedula_identidad`, `cargo`, `cod_nucleo`, `jefe`, `descripcion_cargo`, `correo`, `grado_instruccion`, `firma`, `departamento_id`, `created_at`, `updated_at`) VALUES
-(1, 'Jose Daniel Alvino', '18418501', 'Analista en Sistema', 1, 1, 'Director del Departamento de Computación', 'djvelasq@gmail.com', NULL, NULL, 1, NULL, NULL),
-(2, 'Pedro Tata', '22474093', 'Analista en Sistema', 1, 1, 'Director de Nómina', 'ptatanomina', NULL, '2/firma-y-sello.png', 2, NULL, NULL),
-(3, 'Paulina Lobaton', '16997543', 'analista', 1, 1, 'Jefa de Presupuesto', NULL, NULL, NULL, 3, NULL, NULL),
-(8, 'VALDERRAMA RODRIGUEZ YUDELCYS JOSEFINA', '18414815', 'ASEADOR', 11, 0, NULL, 'rafael5_44@hotmail.com', '1', NULL, 44, '2023-01-22 17:50:32', '2023-01-22 17:50:32'),
-(9, 'MALAVE ROMERO ORLANDO JOSE', '18418553', 'JARDINERO', 21, 1, 'Director de Contabilidad', 'ORLANDOMAlave85@gmail.com', NULL, '18418553/LOGO-SIN-FONDO-ORIENTE-GAITERO.png', 5, '2023-01-22 22:01:52', '2023-01-22 22:01:52'),
-(10, 'CORNIELES RIVAS GERMANI ALEXANDER', '11730649', 'TOPÓGRAFO', 21, 0, NULL, 'GERMANICORNIELES@HOTMAIL.COM', NULL, NULL, 5, '2023-01-22 22:15:45', '2023-01-22 22:15:45'),
-(11, 'ALVAREZ CASARES JOSMAIRA DE LOS ANGELES', '15348682', 'ASISTENTES DE INFORMACIÓN Y  CONTROL ESTUDIANTIL', 21, 0, 'null', 'PRUEBA03@GMAIL.COM', '1', NULL, 187, '2023-01-23 13:54:43', '2023-01-24 02:33:06'),
-(12, 'LOPEZ LUNA EVA CAROLINA', '16037750', 'PROFESOR INSTRUCTOR', 21, 0, NULL, 'eclopezluna@gmail.com', NULL, NULL, 5, '2023-01-23 14:05:17', '2023-01-23 14:05:17');
+INSERT INTO `personal` (`id`, `nombres_apellidos`, `cedula_identidad`, `cargo`, `cod_nucleo`, `jefe`, `descripcion_cargo`, `correo`, `nivel_id`, `firma`, `departamento_id`, `created_at`, `updated_at`) VALUES
+(1, 'Jose Daniel Alvino', '18418501', 'Analista en Sistema', 11, 1, 'Director del Departamento de Computación', 'administrador@test.com', 1, '18418501/kisspng-facsimile-signature-seal-rubber-stamp-document-5ba32c126acf12.8656995715374203064375.png', 44, NULL, '2023-01-31 12:37:06'),
+(2, 'Pedro Tata', '22474093', 'Analista en Sistema', 11, 1, 'Director de Nómina', 'ptatanomina', 0, '2/firma-y-sello.png', 2, NULL, NULL),
+(3, 'Paulina Lobaton', '16997543', 'analista', 11, 1, 'Jefa de Presupuesto', NULL, 0, NULL, 3, NULL, NULL),
+(8, 'VALDERRAMA RODRIGUEZ YUDELCYS JOSEFINA', '18414815', 'ASEADOR', 11, 0, NULL, 'rafael5_44@hotmail.com', 1, NULL, 44, '2023-01-22 17:50:32', '2023-01-22 17:50:32'),
+(9, 'MALAVE ROMERO ORLANDO JOSE', '18418553', 'JARDINERO', 21, 1, 'Director de Contabilidad', 'ORLANDOMAlave85@gmail.com', 1, '18418553/kisspng-ulyanovsk-the-state-and-revolution-russian-revolut-signature-5ac3341a120b68.4021092315227422980739.png', 5, '2023-01-22 22:01:52', '2023-02-22 14:44:21'),
+(10, 'CORNIELES RIVAS GERMANI ALEXANDER', '11730649', 'TOPÓGRAFO', 21, 0, NULL, 'GERMANICORNIELES@HOTMAIL.COM', 0, NULL, 5, '2023-01-22 22:15:45', '2023-01-22 22:15:45'),
+(11, 'ALVAREZ CASARES JOSMAIRA DE LOS ANGELES', '15348682', 'ASISTENTES DE INFORMACIÓN Y  CONTROL ESTUDIANTIL', 21, 0, 'null', 'PRUEBA03@GMAIL.COM', 1, NULL, 187, '2023-01-23 13:54:43', '2023-01-24 02:33:06'),
+(12, 'LOPEZ LUNA EVA CAROLINA', '16037750', 'PROFESOR INSTRUCTOR', 21, 0, NULL, 'eclopezluna@gmail.com', 0, NULL, 5, '2023-01-23 14:05:17', '2023-01-23 14:05:17'),
+(13, 'CAMPOS GARCÍA JESÚS ALONZO', '19156167', 'PROFESOR', 11, 1, 'Director de Rectoria', 'alonso.campos88@gmail.com', 1, '19156167/kisspng-ulyanovsk-the-state-and-revolution-russian-revolut-signature-5ac3341a120b68.4021092315227422980739.png', 17, '2023-01-31 12:34:11', '2023-01-31 12:34:11'),
+(14, 'VIZCAINO GONZALEZ CELEIDYS DEL VALLE', '12225089', 'PROFESOR ASISTENTE', 11, 0, NULL, 'celevizca@gmail.com', 1, NULL, 17, '2023-01-31 12:35:42', '2023-01-31 12:35:42'),
+(15, 'MATA ORIANA', '17214341', 'PROFESOR', 11, 0, 'jefe', 'oriana_mata@hotmail.com', 1, '17214341/kisspng-ulyanovsk-the-state-and-revolution-russian-revolut-signature-5ac3341a120b68.4021092315227422980739.png', 26, '2023-02-13 13:44:37', '2023-02-13 14:14:09'),
+(16, 'OCHOA MARTINEZ GLADYMAR DEL VALLE', '16257491', 'PROFESOR', 21, 0, 'jefe', 'gochoad@udo.edu.ve', 1, '16257491/kisspng-ulyanovsk-the-state-and-revolution-russian-revolut-signature-5ac3341a120b68.4021092315227422980739.png', 14, '2023-02-13 14:15:50', '2023-02-13 14:15:50');
 
 -- --------------------------------------------------------
 
@@ -946,13 +489,6 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `personal_access_tokens`
---
-
-INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
-(39, 'App\\Models\\User', 8, 'TokenCultorApi-', 'd953e9c16d2de48b22f49def5f755c4b735282f281ccdc941a64d26ad4df1d30', '[\"*\"]', '2023-01-31 01:09:45', '2023-01-31 00:15:53', '2023-01-31 01:09:45');
 
 -- --------------------------------------------------------
 
@@ -5889,13 +5425,17 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usuario`, `email`, `password`, `status`, `personal_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'administrador@test.com', '$2y$10$OcVcSLDO2313f2DlKWrMP.EJ3QNG1FKT3Xk0eJmVfQeWSbhlSDYbG', 1, 1, NULL, '2022-10-29 21:32:40', '2023-01-07 20:30:06'),
+(1, 'admin', 'administrador@test.com', '$2y$10$7uGFLbe6Ns36K6..YVOYmOio/9bZoJO4J6zd6AThW/CGbRMIouUde', 1, 1, NULL, '2022-10-29 21:32:40', '2023-01-31 12:52:14'),
 (2, 'ptata', 'ptata@test.com', '$2y$10$TgunH.UfHSgvXHVLh7bQs.tJej4SL89zWCzecougMdfPKDIofgMkm', 1, 2, NULL, '2022-10-29 21:32:40', '2022-10-29 21:32:40'),
 (7, 'yudelcys', 'rafael5_44@hotmail.com', '$2y$10$5ASiC..1Ex3W0CEdrYNSRuGy6dSHlHRSyF68ESQBEscKhLdUnRnJ2', 1, 8, NULL, '2023-01-22 17:50:32', '2023-01-22 17:50:32'),
 (8, 'orlandoJ', 'ORLANDOMAlave85@gmail.com', '$2y$10$OcVcSLDO2313f2DlKWrMP.EJ3QNG1FKT3Xk0eJmVfQeWSbhlSDYbG', 1, 9, NULL, '2023-01-22 22:01:52', '2023-01-22 22:01:52'),
 (9, 'rivas', 'GERMANICORNIELES@HOTMAIL.COM', '$2y$10$Js0gGKJh3C85cZulMcMoIOY8afRpgqA8VMRsKumFfxWlk4wi22GPe', 1, 10, NULL, '2023-01-22 22:15:45', '2023-01-22 22:15:45'),
 (10, 'josmaira', 'PRUEBA03@GMAIL.COM', '$2y$10$CJRaXVu63IbldDSa/KFLJOk.LnCbMlATopkoGoOagj5su8HYaeJVu', 1, 11, NULL, '2023-01-23 13:54:43', '2023-01-24 02:33:06'),
-(11, 'luna', 'eclopezluna@gmail.com', '$2y$10$cU53lgs2uo0N3ahQqY.vhekxFnYMDEMjWR7GfLIpT2isA/snjid8G', 1, 12, NULL, '2023-01-23 14:05:18', '2023-01-23 14:05:18');
+(11, 'luna', 'eclopezluna@gmail.com', '$2y$10$cU53lgs2uo0N3ahQqY.vhekxFnYMDEMjWR7GfLIpT2isA/snjid8G', 1, 12, NULL, '2023-01-23 14:05:18', '2023-01-23 14:05:18'),
+(12, 'alonsoc', 'alonso.campos88@gmail.com', '$2y$10$2Z1KoVeXG90pHTVOzN80w.r6vVbxqkvE7EZfHJ4cZrNVidRD6Oxea', 1, 13, NULL, '2023-01-31 12:34:12', '2023-01-31 12:34:12'),
+(13, 'celevizca', 'celevizca@gmail.com', '$2y$10$9CKCUYGDPqcjdOJMHhPJ3OYVhB61CYNtB2uGYvPQ6XyRooQZr2mvu', 1, 14, NULL, '2023-01-31 12:35:42', '2023-01-31 12:35:42'),
+(14, 'matao', 'oriana_mata@hotmail.com', '$2y$10$WX.wiye2bjnpNr56eAisHOCMQpbPLFpiK47dPzHO1zlsN/SEzADUy', 1, 15, NULL, '2023-02-13 13:44:37', '2023-02-13 13:44:37'),
+(15, 'ochoa', 'gochoad@udo.edu.ve', '$2y$10$ToO6gBJUhvdKllgCaSQ0dOB1jgoIiZuy5G5yooA0SGnCIrdfc2UIC', 1, 16, NULL, '2023-02-13 14:15:50', '2023-02-13 14:15:50');
 
 --
 -- Índices para tablas volcadas
@@ -6103,19 +5643,19 @@ ALTER TABLE `carpetas`
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=310;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
 
 --
 -- AUTO_INCREMENT de la tabla `documentos`
 --
 ALTER TABLE `documentos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `documentos_departamentos`
 --
 ALTER TABLE `documentos_departamentos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT de la tabla `documentos_externos`
@@ -6127,7 +5667,7 @@ ALTER TABLE `documentos_externos`
 -- AUTO_INCREMENT de la tabla `documentos_temporal`
 --
 ALTER TABLE `documentos_temporal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -6175,13 +5715,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `personal`
 --
 ALTER TABLE `personal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_migracion`
@@ -6205,7 +5745,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
