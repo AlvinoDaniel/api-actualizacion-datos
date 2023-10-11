@@ -17,6 +17,7 @@ Route::group([
       Route::get('/borradores', 'borradores');
       Route::get('/por-corregir', 'corregir');
       Route::get('/count', 'bandeja');
+      Route::get('/verificate', 'hasNewDocuments');
     });
   });
 });

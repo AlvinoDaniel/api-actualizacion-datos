@@ -15,6 +15,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\BandejaEnviadosCollection;
 use App\Http\Resources\BandejaRecibidosCollection;
 use App\Http\Resources\BandejaPorCorregirCollection;
+use Illuminate\Support\Carbon;
 
 class BandejaController extends AppBaseController
 {
@@ -135,6 +136,34 @@ class BandejaController extends AppBaseController
                 [
                     'recibidos' => count($recibidos),
                     'por_corregir' => count($por_corregir),
+                ],
+                $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+      /**
+     * VERIFICAR SI EXISTE UN NUEVO DOCUMENTO RECIBIDO.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function hasNewDocuments(Request $request)
+    {
+        $time = $request['time'] || Carbon::today()->toDateTimeLocalString();
+        try {
+            $departamento_user = Auth::user()->personal->departamento_id;
+            $recibidos = DocumentosDepartamento::where('departamento_id', $departamento_user)
+            ->where('leido', 0)
+            ->whereDate('created_at', '>', $time)
+            ->get();
+
+            $HAS_NEW = count($recibidos) > 0;
+            $message = 'Nuevo documentos';
+            return $this->sendResponse(
+                [
+                    'new' => $HAS_NEW
                 ],
                 $message);
         } catch (\Throwable $th) {
