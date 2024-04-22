@@ -37,6 +37,7 @@ class DepartamentoRequest extends FormRequest
                 "required",
                 Rule::unique('departamentos')->ignore($this->route('id'))
             ],
+            'cod_nucleo'            => "required|exists:nucleo,codigo_concatenado",
             'correo'                => "nullable|email",
             'permiso_secretaria'    => "nullable|boolean",
         ];

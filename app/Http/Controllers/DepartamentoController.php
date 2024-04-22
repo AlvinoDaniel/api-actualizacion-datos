@@ -37,6 +37,17 @@ class DepartamentoController extends AppBaseController
         }
     }
 
+    public function list()
+    {
+        try {
+            $departamentos = Departamento::orderBy('cod_nucleo', 'asc')->get();
+            $message = 'Lista de Departamentos';
+            return $this->sendResponse(['departamentos' => $departamentos], $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -57,7 +68,7 @@ class DepartamentoController extends AppBaseController
                 'Departamento Registrado exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError('Hubo un error al intentar Registrar el Departamento');
+            return $this->sendError($th->getMessage());
         }
     }
 
@@ -118,7 +129,7 @@ class DepartamentoController extends AppBaseController
             return $this->sendError(
                 $th->getCode() > 0
                     ? $th->getMessage()
-                    : 'Hubo un error al intentar Actualizar el Departamento'
+                    : 'Hubo un error al intentar Eliminar el Departamento'
             );
         }
     }

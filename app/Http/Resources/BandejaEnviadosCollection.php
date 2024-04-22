@@ -19,6 +19,7 @@ class BandejaEnviadosCollection extends ResourceCollection
             return [
                 'id'              => $item->id,
                 'asunto'          => $item->asunto,
+                'contenido'       => $item->contenido,
                 'tipo_documento'  => $item->tipo_documento,
                 'estatus'         => $item->estatus,
                 'fecha_enviado'   => $item->fecha_enviado,

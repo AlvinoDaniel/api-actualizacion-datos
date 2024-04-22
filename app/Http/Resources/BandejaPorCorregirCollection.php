@@ -23,6 +23,7 @@ class BandejaPorCorregirCollection extends ResourceCollection
             return [
                 'id'              => $item->id,
                 'asunto'          => $item->asunto,
+                'contenido'       => $item->contenido,
                 'tipo_documento'  => $item->tipo_documento,
                 'estatus'         => $item->estatus,
                 'leido'           => $item->temporal->leido,

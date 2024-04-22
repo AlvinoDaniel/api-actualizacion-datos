@@ -24,6 +24,7 @@ class Departamento extends Model
         'codigo',
         'correo',
         'cod_nucleo',
+        'direccion',
     ];
 
     protected $with = ['jefe', 'nucleo'];
