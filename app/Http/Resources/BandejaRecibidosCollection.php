@@ -25,6 +25,8 @@ class BandejaRecibidosCollection extends ResourceCollection
                 'leido'           => $item->pivot->leido,
                 'copia'           => $item->pivot->copia,
                 'propietario'     => $item->propietario,
+                'destinatario'    => $item->destinatario,
+                'asignado'        => $item->es_asignado,
                 'anexos'          => count($item->anexos),
 
             ];

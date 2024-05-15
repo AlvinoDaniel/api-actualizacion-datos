@@ -38,25 +38,29 @@ class DocumentoRepository {
      * Crear Documento
      */
     public function crearDocumento($data, $destino, $dataCopias){
-        $ultimo_registro = Documento::select('nro_documento')
-            ->where('estatus','enviado')
-            ->where('departamento_id', $data['departamento_id'])
-            ->orderBy('id')->get()->last();
-        if($ultimo_registro){
-            $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
-        }
-        else {
-            $id_nuevo = str_pad('1', 4, '0', STR_PAD_LEFT);
-        }
-
-
-        $data['user_id'] = Auth::user()->id;
-
-        $data['nro_documento'] = $id_nuevo;
+        // $ultimo_registro = Documento::select('nro_documento')
+        //     ->where('estatus','enviado')
+        //     ->where('departamento_id', $data['departamento_id'])
+        //     ->orderBy('id')->get()->last();
+        // if($ultimo_registro){
+        //     $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
+        // }
+        // else {
+        //     $id_nuevo = str_pad('1', 4, '0', STR_PAD_LEFT);
+        // }
 
 
         try {
+            $data['user_id'] = Auth::user()->id;
+
             DB::beginTransaction();
+
+            $dptoUser = Departamento::find($data['departamento_id']);
+            $dptoUser->update([
+                "correlativo" => Auth::user()->personal->departamento->incrementingCorrelativo()
+            ]);
+            $dptoUser->refresh();
+            $data['nro_documento'] = $dptoUser->getCorrelativo();
             $documento = Documento::create($data);
 
             foreach ($destino as $dpto_destino) {
@@ -83,7 +87,7 @@ class DocumentoRepository {
             return $documento;
         } catch (\Throwable $th) {
             DB::rollBack();
-            throw new Exception('Hubo un error al intentar Enviar el documento.');
+            throw new Exception('Hubo un error al intentar Enviar el documento.'.$th->getMessage());
             //
         }
     }
@@ -325,6 +329,15 @@ class DocumentoRepository {
             // DB::rollBack();
             throw new Exception($th->getMessage());
         }
+    }
+
+    public function obtenerDestinatario($document){
+        $action = [
+            "circular"  => $document->enviados,
+            "oficio"    => $document->enviados[0],
+        ];
+
+        return $action[$document->tipo_documento] ?? [];
     }
 
 

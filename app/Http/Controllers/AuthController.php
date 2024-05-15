@@ -99,6 +99,7 @@ class AuthController extends AppBaseController
       $rolesCollection = collect($user->roles);
       $pluckedRoles = $rolesCollection->pluck('name');
       // $user = Auth::user()->personal->departamento_id;
+      $user->personal->departamento->load(['dptoSuperior', 'subDepartamentos']);
       $data = [
         'id'                => $user->id,
         'fullName'          => $user->personal->nombres_apellidos,
@@ -174,15 +175,15 @@ class AuthController extends AppBaseController
       return $this->sendError('Los datos suministrados no coinciden con ningun personal registrado.');
     }
     return $this->sendResponse([
-      'r' => true, 
-      'ur' => base64_encode($user->id) 
+      'r' => true,
+      'ur' => base64_encode($user->id)
    ], 'Se ha enviado el correo exitosamente.');
 
     $reset_link_send = $user->sendPasswordResetLink();
     if($reset_link_send){
         return $this->sendResponse([
-         'r' => $reset_link_send, 
-         'ur' => Crypt::encryptString($user->id) 
+         'r' => $reset_link_send,
+         'ur' => Crypt::encryptString($user->id)
       ], 'Se ha enviado el correo exitosamente.');
 
     }

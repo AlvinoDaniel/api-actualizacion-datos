@@ -94,6 +94,9 @@ class DepartamentoController extends AppBaseController
     {
 
         $data = $request->except('permiso_secretaria');
+        if($request->has('correlativo')){
+            $data['correlativo'] = $request->correlativo;
+        }
         // $config_dpto = array();
         // $config_dpto['permiso_enviar_secretaria'] = empty($request->permiso_secretaria) ? 0 : $request->permiso_secretaria;
         // $data['configuracion'] = json_encode($config_dpto);

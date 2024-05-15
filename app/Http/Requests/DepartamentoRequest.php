@@ -39,6 +39,7 @@ class DepartamentoRequest extends FormRequest
             ],
             'cod_nucleo'            => "required|exists:nucleo,codigo_concatenado",
             'correo'                => "nullable|email",
+            'correlativo'           => "nullable|numeric",
             'permiso_secretaria'    => "nullable|boolean",
         ];
     }

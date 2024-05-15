@@ -100,11 +100,11 @@ class BandejaController extends AppBaseController
     {
         try {
             $departamento_user = Auth::user()->personal->departamento_id;
-            $departamento = Departamento::with('recibidos')->find( $departamento_user);
+            $departamento = Departamento::with(['recibidos', 'asignados'])->find( $departamento_user);
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => new BandejaRecibidosCollection($departamento->recibidos)
+                    'documentos' => new BandejaRecibidosCollection($departamento->recibidos->merge($departamento->asignados))
                 ],
                 $message);
         } catch (\Throwable $th) {

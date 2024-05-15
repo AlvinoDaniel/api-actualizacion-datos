@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\Models\Departamento;
 use App\Models\DocumentosDepartamento;
 use App\Models\DocumentosTemporal;
@@ -18,6 +19,8 @@ class Documento extends Model
     const ESTATUS_ENVIADO_ALL = 'enviado_all';
     const ESTATUS_BORRADOR = 'borrador';
     const ESTATUS_POR_CORREGIR = 'por_corregir';
+    const TIPO_CIRCULAR = 'circular';
+    const TIPO_OFICIO = 'oficio';
 
     protected $fillable=[
         'asunto',
@@ -31,7 +34,7 @@ class Documento extends Model
         'user_id',
     ];
 
-    protected $with = ['propietario', 'anexos'];
+    protected $with = ['propietario', 'anexos', 'destinatario'];
 
     public function propietario()
     {
@@ -53,6 +56,10 @@ class Documento extends Model
         return $this->belongsToMany(Departamento::class, 'documentos_departamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps()->wherePivot('copia', false);
     }
 
+    public function destinatario(){
+        return $this->enviados();
+    }
+
     public function dptoCopias()
     {
         return $this->belongsToMany(Departamento::class, 'documentos_departamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps()->wherePivot('copia', true);
@@ -62,6 +69,20 @@ class Documento extends Model
     {
         return $this->hasOne(documentosTemporal::class);
 
+    }
+
+    public function asignado()
+    {
+        return $this->morphOne(DocumentoAsignado::class, 'documento', 'documento_type', 'documento_id');
+    }
+
+    public function getEsAsignadoAttribute(){
+        return $this->asignado()->exists();
+    }
+
+    public function respuesta()
+    {
+        return $this->hasOne(DocumentoRespuesta::class, 'id_documento');
     }
 
 }

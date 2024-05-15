@@ -15,12 +15,17 @@ class CreateDocumentosExternosTable extends Migration
     {
         Schema::create('documentos_externos', function (Blueprint $table) {
             $table->id();
-            $table->string('correo_destino');
-            $table->string('persona_destino');
-            $table->string('institucion_destino');
-            $table->foreignId('documento_id')
-            ->constrained('documentos');
-            $table->timestamps();
+            $table->string('numero_oficio')->unique();
+            $table->foreignId('id_remitente')
+            ->constrained('remitentes_externos');
+            $table->string('contenido');
+            $table->string('estatus')->nullable();
+            $table->date('fecha_oficio')->nullable()->default(null);
+            $table->foreignId('departamento_receptor')
+                ->constrained('departamentos');
+            $table->foreignId('documento_respuesta')
+                ->constrained('documentos');
+            $table->date('fecha_entrada')->default(null);
         });
     }
 

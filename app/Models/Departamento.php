@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use App\Models\Documento;
 use App\Models\Personal;
 use App\Models\Carpeta;
@@ -25,12 +26,30 @@ class Departamento extends Model
         'correo',
         'cod_nucleo',
         'direccion',
+        'id_departamento_superior',
+        'correlativo'
+    ];
+
+    protected $appends = [
+        'can_assign'
     ];
 
     protected $with = ['jefe', 'nucleo'];
 
+    public function dptoSuperior() {
+        return $this->belongsTo(self::class, 'id_departamento_superior');
+    }
+
+    public function subDepartamentos() {
+        return $this->hasMany(self::class, 'id_departamento_superior');
+    }
+
     public function documentos() {
         return $this->hasMany(Documento::class, 'departamento_id');
+    }
+
+    public function documentos_externos() {
+        return $this->hasMany(DocumentoExterno::class, 'departamento_receptor');
     }
 
     public function carpetas() {
@@ -43,7 +62,15 @@ class Departamento extends Model
 
     public function recibidos()
     {
-        return $this->belongsToMany(Documento::class, 'documentos_departamentos')->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps();
+        return $this->belongsToMany(Documento::class, 'documentos_departamentos')
+        ->withPivot('leido', 'copia', 'fecha_leido')->withTimestamps();
+    }
+
+    public function asignados()
+    {
+        return $this->belongsToMany(Documento::class, 'documentos_asignados')
+            ->withPivot('leido', 'fecha_leido')
+            ->wherePivot('documento_type', Documento::class);
     }
 
     public function grupos()
@@ -61,5 +88,19 @@ class Departamento extends Model
 
     public function nucleo() {
         return $this->hasOne(Nucleo::class, 'codigo_concatenado', 'cod_nucleo');
+    }
+
+    public function incrementingCorrelativo(){
+        return $this->correlativo + 1;
+    }
+
+    public function getCorrelativo(){
+        $nro = str_pad($this->correlativo, 4, '0', STR_PAD_LEFT);
+        $dateNow = new Carbon();
+        return $nro.'-'.$dateNow->year;
+    }
+
+    public function getCanAssignAttribute(){
+        return self::where('id_departamento_superior', $this->id)->get()->count() > 0;
     }
 }
