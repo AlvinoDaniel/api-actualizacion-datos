@@ -21,6 +21,7 @@ class CreateDocumentosExternosTable extends Migration
             $table->string('contenido');
             $table->string('estatus')->nullable();
             $table->date('fecha_oficio')->nullable()->default(null);
+            $table->boolean('responder')->default(false);
             $table->foreignId('departamento_receptor')
                 ->constrained('departamentos');
             $table->foreignId('documento_respuesta')

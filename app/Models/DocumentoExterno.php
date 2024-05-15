@@ -19,8 +19,13 @@ class DocumentoExterno extends Model
         'fecha_oficio',
         'departamento_receptor',
         'documento_respuesta',
+        'responder',
         'fecha_entrada',
     ];
+
+    const ESTATUS_RECIBIDO = "En Proceso";
+    const ESTATUS_TRAMITADO = "Tramitado";
+    const SIGLAS_EXTERNO = "ESN";
 
     public $timestamps = false;
 
@@ -41,5 +46,7 @@ class DocumentoExterno extends Model
         return $this->morphOne(DocumentoAsignado::class, 'documento');
     }
 
-
+    static function generarCorrelativo(){
+        return '';
+    }
 }
