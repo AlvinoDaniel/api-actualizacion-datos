@@ -182,4 +182,16 @@ class DepartamentoController extends AppBaseController
         }
     }
 
+    public function subDepartaments()
+    {
+        try {
+            $departamentos = $this->repository->subDepartaments();
+            $message = 'Lista de Sub Departamentos';
+            return $this->sendResponse(['departamentos' => $departamentos], $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+    
 }

@@ -56,4 +56,12 @@ class DepartamentoRepository extends BaseRepository implements DepartamentoRepos
         ->get();
   }
 
+  public function subDepartaments(){
+    $user_nucleo = Auth::user()->personal->cod_nucleo;
+    $departamento = Departamento::with(['subDepartamentos'])
+        ->find(Auth::user()->personal->departamento->id);
+    
+    return $departamento;
+  }
+
 }

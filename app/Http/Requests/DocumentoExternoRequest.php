@@ -29,9 +29,28 @@ class DocumentoExternoRequest extends FormRequest
             'documento_remitente'   => "required|string",
             'email_remitente'       => "required|email",
             'telefono_remitente'    => "nullable|string",
-            'nro_doc'               => "nullable|string",
+            'nro_doc'               => "nullable|string|unique:App\Models\DocumentoExterno,numero_oficio",
             'responder'             => "required|boolean",
             'fecha_emision'         => "required|date",
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'nro_doc'               => 'Número de Oficio',
+            'documento_remitente'   => 'Documento de Identidad',
+            'email_remitente'   => 'Correo Electrónico',
+            'telefono_remitente'   => 'Teléfono contacto',
+            'responder'   => 'Require resuesta',
+            'fecha_emision'   => 'Fecha de emisión',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nro_doc.unique'  => 'El Número de Oficio ya está registrado.',
         ];
     }
 }

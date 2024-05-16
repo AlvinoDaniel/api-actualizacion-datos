@@ -18,6 +18,7 @@ Route::group([
       Route::get('/por-corregir', 'corregir');
       Route::get('/count', 'bandeja');
       Route::get('/verificate', 'hasNewDocuments');
+      Route::get('/externos', 'externos');
     });
   });
 });

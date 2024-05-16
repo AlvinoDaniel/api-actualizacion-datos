@@ -73,6 +73,13 @@ class Departamento extends Model
             ->wherePivot('documento_type', Documento::class);
     }
 
+    public function asignadosExternos()
+    {
+        return $this->belongsToMany(Documento::class, 'documentos_asignados')
+            ->withPivot('leido', 'fecha_leido')
+            ->wherePivot('documento_type', DocumentoExterno::class);
+    }
+
     public function grupos()
     {
         return $this->belongsToMany(Grupo::class, 'grupos_departamentos');

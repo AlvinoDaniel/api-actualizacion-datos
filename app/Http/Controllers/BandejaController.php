@@ -170,4 +170,26 @@ class BandejaController extends AppBaseController
             return $this->sendError($th->getMessage());
         }
     }
+
+     /**
+     * OBTENER DOCUMENTOS EXTERNOS REGISTRADO AL DEPARTAMENTO LOGUEADO.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function externos()
+    {
+        try {
+            $departamento_user = Auth::user()->personal->departamento_id;
+            $departamento = Departamento::with(['documentos_externos', 'asignadosExternos'])->find( $departamento_user);
+            $message = 'Lista de Documentos';
+            return $this->sendResponse(
+                [
+                    'documentos' => $departamento->documentos_externos->merge($departamento->asignadosExternos)
+                ],
+                $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
 }

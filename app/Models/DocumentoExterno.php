@@ -33,7 +33,7 @@ class DocumentoExterno extends Model
     protected $with = ['remitente', 'respuesta', ];
 
     public function remitente() {
-        return $this->belongsTo(RemitenteExterno::class);
+        return $this->belongsTo(RemitenteExterno::class, 'id_remitente');
     }
 
     public function dptoReceptor() {
