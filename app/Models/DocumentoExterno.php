@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Carbon;
 
 class DocumentoExterno extends Model
 {
@@ -29,6 +30,8 @@ class DocumentoExterno extends Model
 
     public $timestamps = false;
 
+    protected $with = ['remitente', 'respuesta', ];
+
     public function remitente() {
         return $this->belongsTo(RemitenteExterno::class);
     }
@@ -47,6 +50,11 @@ class DocumentoExterno extends Model
     }
 
     static function generarCorrelativo(){
-        return '';
+        $countDocs = self::where('numero_oficio', 'like', self::SIGLAS_EXTERNO.'%')->get()->count();
+
+        $correlativo = str_pad($countDocs + 1, 4, '0', STR_PAD_LEFT);
+        $dateNow = new Carbon();
+
+        return self::SIGLAS_EXTERNO.' '.$correlativo.'-'.$dateNow->year;
     }
 }

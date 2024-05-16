@@ -33,8 +33,8 @@ class DocumentoExternoRepository {
     /**
      * Crear Documento
      */
-    public function crearDocumento(DocumentoRequest $request){
-      
+    public function crearDocumento($request){
+
         $remitenteData = [
             "nombre_legal"              => $request->remitente,
             "documento_identidad"       => $request->documento_remitente,
@@ -49,7 +49,7 @@ class DocumentoExternoRepository {
             "responder"                 => $request->responder,
             "fecha_entrada"             => Carbon::now(),
             "estatus"                   => DocumentoExterno::ESTATUS_RECIBIDO,
-            "numero_oficio"             => $request->has('nro_doc') ? $request->nro_doc : DocumentoExterno::generarCorrelativo() 
+            "numero_oficio"             => $request->has('nro_doc') ? $request->nro_doc : DocumentoExterno::generarCorrelativo()
         ];
 
         try {
@@ -62,37 +62,7 @@ class DocumentoExternoRepository {
             return $documento;
         } catch (\Throwable $th) {
             DB::rollBack();
-            throw new Exception('Hubo un error al intentar registrar el documento.');
+            throw new Exception($th->getMessage());
         }
     }
-   
-   public function obtenerDocumento($id){
-    try {
-
-       $documento = Documento::with($relaciones)->find($id);
-       if(!$documento) {
-          throw new Exception('El documento con id '.$id.' no existe.',422);
-       }
-       $documento->propietario->load('nucleo');
-       $url = $documento->propietario->jefe->firma;
-       $existFile = $url !== null ? Storage::disk('firmas')->exists($url) : null;
-       if($existFile){
-            $image = Storage::disk('firmas')->get($url);
-            $mimeType = Storage::disk('firmas')->mimeType($url);
-            $imageConverted = base64_encode($image);
-            $imageToBase64 = "data:{$mimeType};base64,{$imageConverted}";
-
-            Arr::add($documento->propietario->jefe, 'baseUrlFirma', $imageToBase64);
-       } else {
-            Arr::add($documento->propietario->jefe, 'baseUrlFirma', null);
-       }
-       return $documento;
-    } catch (\Throwable $th) {
-      throw new Exception($th->getMessage(), $th->getCode());
-    }
-   }
- 
-   
-
-
 }

@@ -25,7 +25,8 @@ class CreateDocumentosExternosTable extends Migration
             $table->foreignId('departamento_receptor')
                 ->constrained('departamentos');
             $table->foreignId('documento_respuesta')
-                ->constrained('documentos');
+                ->nullable()
+                ->constrained('documentos','id');
             $table->date('fecha_entrada')->default(null);
         });
     }

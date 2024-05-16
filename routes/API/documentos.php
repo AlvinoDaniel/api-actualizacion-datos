@@ -2,6 +2,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\DocumentoExternoController;
 
 
 
@@ -21,6 +22,19 @@ Route::group([
       Route::get('/descargar-anexo/{id}', 'downloadAnexo');
       Route::get('/generar-documento/{id}', 'genareteDocument');
       Route::delete('/eliminar-documento/{id}', 'destroyDocument');
+    });
+  });
+});
+
+Route::group([
+	'middleware'  => 'api',
+  'prefix'      => 'documento-externo'
+], function () {
+
+  Route::middleware(['auth:sanctum'])->group(function () {
+    Route::controller(DocumentoExternoController::class)->group(function () {
+      Route::post('/registrar', 'store');
+      Route::get('/{id}', 'show');
     });
   });
 });

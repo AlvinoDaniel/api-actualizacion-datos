@@ -27,12 +27,11 @@ class DocumentoExternoRequest extends FormRequest
             'contenido'             => "required",
             'remitente'             => "required|string",
             'documento_remitente'   => "required|string",
-            'email_remitente'       => "nullable|email",
+            'email_remitente'       => "required|email",
             'telefono_remitente'    => "nullable|string",
             'nro_doc'               => "nullable|string",
             'responder'             => "required|boolean",
             'fecha_emision'         => "required|date",
-            
         ];
     }
 }

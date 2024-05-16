@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class RemitenteExterno extends Model
 {
     use HasFactory;
+    protected $table = 'remitentes_externos';
+
+    protected $fillable=[
+        'nombre_legal',
+        'documento_identidad',
+        'correo',
+        'telefono_contacto',
+    ];
+
 }
