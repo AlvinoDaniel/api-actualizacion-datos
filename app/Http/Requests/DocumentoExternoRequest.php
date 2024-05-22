@@ -25,6 +25,7 @@ class DocumentoExternoRequest extends FormRequest
     {
         return [
             'contenido'             => "required",
+            'asunto'                => "required",
             'remitente'             => "required|string",
             'documento_remitente'   => "required|string",
             'email_remitente'       => "required|email",

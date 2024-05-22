@@ -15,6 +15,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\BandejaEnviadosCollection;
 use App\Http\Resources\BandejaRecibidosCollection;
 use App\Http\Resources\BandejaPorCorregirCollection;
+use App\Http\Resources\BandejaExternosCollection;
 use Illuminate\Support\Carbon;
 
 class BandejaController extends AppBaseController
@@ -185,7 +186,7 @@ class BandejaController extends AppBaseController
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => $departamento->documentos_externos->merge($departamento->asignadosExternos)
+                    'documentos' => new BandejaExternosCollection($departamento->documentos_externos->merge($departamento->asignadosExternos))
                 ],
                 $message);
         } catch (\Throwable $th) {

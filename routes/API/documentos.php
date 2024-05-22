@@ -34,6 +34,7 @@ Route::group([
   Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller(DocumentoExternoController::class)->group(function () {
       Route::post('/registrar', 'store');
+      Route::get('/generar-documento/{id}', 'genareteDocument');
       Route::get('/{id}', 'show');
     });
   });

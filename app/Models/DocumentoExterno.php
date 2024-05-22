@@ -16,6 +16,7 @@ class DocumentoExterno extends Model
         'numero_oficio',
         'id_remitente',
         'contenido',
+        'asunto',
         'estatus',
         'fecha_oficio',
         'departamento_receptor',

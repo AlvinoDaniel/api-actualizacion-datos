@@ -18,7 +18,8 @@ class CreateDocumentosExternosTable extends Migration
             $table->string('numero_oficio')->unique();
             $table->foreignId('id_remitente')
             ->constrained('remitentes_externos');
-            $table->string('contenido');
+            $table->longText('contenido');
+            $table->string('asunto');
             $table->string('estatus')->nullable();
             $table->date('fecha_oficio')->nullable()->default(null);
             $table->boolean('responder')->default(false);

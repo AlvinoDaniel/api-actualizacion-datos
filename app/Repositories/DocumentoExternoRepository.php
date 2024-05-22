@@ -44,6 +44,7 @@ class DocumentoExternoRepository {
 
         $data = [
             "contenido"                 => $request->contenido,
+            "asunto"                    => $request->asunto,
             "departamento_receptor"     => Auth::user()->personal->departamento_id,
             "fecha_oficio"              => $request->fecha_emision,
             "responder"                 => $request->responder,
