@@ -27,6 +27,8 @@ class BandejaExternosCollection extends ResourceCollection
                 'respuesta'             => $item->respuesta,
                 'requiere_respuesta'    => $item->responder,
                 'numero_oficio'         => $item->numero_oficio,
+                'importante'            => $item->importante,
+                'tipo'                  => $item->tipo,
             ];
         });
     }

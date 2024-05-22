@@ -23,6 +23,8 @@ class DocumentoExterno extends Model
         'documento_respuesta',
         'responder',
         'fecha_entrada',
+        'tipo',
+        'importante',
     ];
 
     const ESTATUS_RECIBIDO = "En Proceso";
