@@ -70,6 +70,17 @@ class DocumentoController extends AppBaseController
             'departamentos' => $departamentos_copias
         ];
         try {
+            if($request->respuesta === 'true' && $request->tipo_respuesta === Documento::TIPO_RESPUESTA_EXTERNO){
+                $documento = $this->repository->registrarRepuestaExterno($data, [
+                    "id_respuesta"  => $request->id_respuesta,
+                    "doc_externo"   => $request->doc_respuesta,
+                    "aprobado"      => $request->aprobado,
+                ]);
+                return $this->sendResponse(
+                    $documento,
+                    'Documento guardado exitosamente'
+                );
+            }
             $this->validarDepartamentos($departamentos_destino);
             if($request->copias){
                 $this->validarDepartamentos($departamentos_copias);
@@ -77,6 +88,15 @@ class DocumentoController extends AppBaseController
             $documento = $this->repository->crearDocumento($data, $departamentos_destino, $dataCopia);
             if($request->hasFile('anexos')) {
                 $this->repository->attachAnexos($request->file('anexos'), $documento->id);
+            }
+            if($request->respuesta === 'true'){
+                $dataResponse = [
+                    "id_respuesta"  => $request->id_respuesta,
+                    "doc"           => $documento->id,
+                    "doc_respuesta" => $request->doc_respuesta,
+                    "aprobado"      => $request->aprobado,
+                ];
+                $respuesta =  $this->repository->registrarRepuesta($dataResponse);
             }
             return $this->sendResponse(
                 $documento,
@@ -112,6 +132,20 @@ class DocumentoController extends AppBaseController
             'tieneCopia'            => $hasCopia,
         ];
         try {
+            if($request->respuesta === 'true' && $request->tipo_respuesta === Documento::TIPO_RESPUESTA_EXTERNO){
+                $data['estatus'] = Documento::ESTATUS_POR_APROBAR;
+                $documento = $this->repository->registrarRepuestaExterno($data, [
+                    "id_respuesta"  => $request->id_respuesta,
+                    "doc_externo"   => $request->doc_respuesta,
+                    "aprobado"      => $request->aprobado,
+                ]);
+                return $this->sendResponse(
+                    $documento,
+                    'Respuesta guardado exitosamente'
+                );
+            }
+
+
             $this->validarDepartamentos($departamentos_destino);
             if($request->copias){
                 $this->validarDepartamentos($departamentos_copias);
@@ -119,6 +153,15 @@ class DocumentoController extends AppBaseController
             $documento = $this->repository->crearTemporalDocumento($data, $dataTemporal);
             if($request->hasFile('anexos')) {
                 $this->repository->attachAnexos($request->file('anexos'), $documento->id);
+            }
+            if($request->respuesta === 'true'){
+                $dataResponse = [
+                    "id_respuesta"  => $request->id_respuesta,
+                    "doc"           => $documento->id,
+                    "doc_respuesta" => $request->doc_respuesta,
+                    "aprobado"      => $request->aprobado,
+                ];
+                $respuesta =  $this->repository->registrarRepuesta($dataResponse);
             }
             return $this->sendResponse(
                 $documento,
@@ -208,6 +251,19 @@ class DocumentoController extends AppBaseController
             'tieneCopia'            => $hasCopia,
         ];
         try {
+            if($request->respuesta === 'true' && $request->tipo_respuesta === Documento::TIPO_RESPUESTA_EXTERNO){
+                $data['estatus'] = $request->estatus === 'enviar' ? $status[$request->estatus] : Documento::ESTATUS_POR_APROBAR;
+                $documento = $this->repository->registrarRepuestaExterno($data, [
+                    "id_respuesta"  => $request->id_respuesta,
+                    "doc_externo"   => $request->doc_respuesta,
+                    "aprobado"      => $request->aprobado,
+                ], $id);
+                return $this->sendResponse(
+                    $documento,
+                    'Respuesta guardado exitosamente'
+                );
+            }
+
             $this->validarDepartamentos($departamentos_destino);
             if($hasCopia){
                 $this->validarDepartamentos($departamentos_copias);
@@ -215,6 +271,15 @@ class DocumentoController extends AppBaseController
             $documento = $this->repository->updateTemporalDocumento($data, $dataTemporal, $id);
             if($request->hasFile('anexos')) {
                 $this->repository->attachAnexos($request->file('anexos'), $documento->id);
+            }
+            if($request->respuesta === 'true'){
+                $dataResponse = [
+                    "id_respuesta"  => $request->id_respuesta,
+                    "doc"           => $documento->id,
+                    "doc_respuesta" => $request->doc_respuesta,
+                    "aprobado"      => $request->aprobado,
+                ];
+                $respuesta =  $this->repository->registrarRepuesta($dataResponse);
             }
             $mensaje = $request->estatus === Documento::ESTATUS_ENVIADO ? 'Documento enviado exitosamente' : 'Documento guardado exitosamente';
             return $this->sendResponse(

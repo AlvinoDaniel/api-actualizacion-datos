@@ -19,6 +19,8 @@ Route::group([
       Route::get('/count', 'bandeja');
       Route::get('/verificate', 'hasNewDocuments');
       Route::get('/externos', 'externos');
+      Route::get('/externos-salida', 'externosSalida');
+      Route::get('/externos-por-aprobar', 'externosPorAprobar');
     });
   });
 });

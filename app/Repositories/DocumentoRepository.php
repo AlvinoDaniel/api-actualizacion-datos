@@ -8,6 +8,9 @@ use App\Models\Anexo;
 use App\Models\Documento;
 use Illuminate\Support\Arr;
 use App\Models\Departamento;
+use App\Models\DocumentoRepuestaExterno;
+use App\Models\DocumentoRespuesta;
+use App\Models\DocumentoRespuestaExterno;
 use Illuminate\Support\Facades\DB;
 use App\Models\DocumentosTemporal;
 use Illuminate\Support\Facades\Auth;
@@ -38,18 +41,6 @@ class DocumentoRepository {
      * Crear Documento
      */
     public function crearDocumento($data, $destino, $dataCopias){
-        // $ultimo_registro = Documento::select('nro_documento')
-        //     ->where('estatus','enviado')
-        //     ->where('departamento_id', $data['departamento_id'])
-        //     ->orderBy('id')->get()->last();
-        // if($ultimo_registro){
-        //     $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
-        // }
-        // else {
-        //     $id_nuevo = str_pad('1', 4, '0', STR_PAD_LEFT);
-        // }
-
-
         try {
             $data['user_id'] = Auth::user()->id;
 
@@ -172,17 +163,13 @@ class DocumentoRepository {
             }
 
             if($data['estatus'] === Documento::ESTATUS_ENVIADO){
-                $ultimo_registro = Documento::select('nro_documento')
-                ->where('estatus','enviado')
-                ->where('id','<>', $id)
-                ->where('departamento_id', $data['departamento_id'])
-                ->orderBy('id')->get()->last();
-                if($ultimo_registro){
-                    $id_nuevo = str_pad($ultimo_registro->nro_documento + 1, 4, '0', STR_PAD_LEFT);
-                }
-                else {
-                    $id_nuevo = str_pad('1', 4, '0', STR_PAD_LEFT);
-                }
+
+                $dptoUser = Departamento::find($data['departamento_id']);
+                $dptoUser->update([
+                    "correlativo" => Auth::user()->personal->departamento->incrementingCorrelativo()
+                ]);
+                $dptoUser->refresh();
+                $id_nuevo = $dptoUser->getCorrelativo();
 
                 if($dataTemporal['departamentos_destino'] === 'all') {
                     $propietario = Auth::user()->personal->departamento_id;
@@ -340,5 +327,67 @@ class DocumentoRepository {
         return $action[$document->tipo_documento] ?? [];
     }
 
+    public function registrarRepuesta($data){
+        try {
+            DB::beginTransaction();
+                $dataRespuestaInt = [
+                    "id_documento"          => $data['doc'],
+                    "documento_respuesta"   => $data['doc_respuesta'],
+                    "aprobado"              => $data['aprobado'],
+                ];
+                if($data['aprobado'] === 1){
+                    $dataRespuestaInt['fecha_respuesta'] = Carbon::now();
+                }
+
+                $respuesta = DocumentoRespuesta::updateOrCreate([
+                    "id"  => $data['id_respuesta']
+                ],$dataRespuestaInt);
+
+            DB::commit();
+            return $respuesta;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new Exception($th->getMessage());
+            // throw new Exception($th->getMessage());
+        }
+    }
+    public function registrarRepuestaExterno($data, $dataResponse, $id_documento = null){
+        try {
+            DB::beginTransaction();
+                $data['user_id'] = Auth::user()->id;
+                if($data['estatus'] === Documento::ESTATUS_ENVIADO){
+                    $dptoUser = Departamento::find($data['departamento_id']);
+                    $dptoUser->update([
+                        "correlativo" => Auth::user()->personal->departamento->incrementingCorrelativo()
+                    ]);
+                    $dptoUser->refresh();
+                    $data['nro_documento'] = $dptoUser->getCorrelativo();
+                }
+                $documento = Documento::updateOrCreate([
+                    "id"  => $id_documento
+                ],$data);
+
+                $dataRespuestaExt = [
+                    "id_documento_externo"  => $dataResponse['doc_externo'],
+                    "id_documento"          => $documento->id,
+                    "aprobado"              => $dataResponse['aprobado'],
+                ];
+
+                if($dataResponse['aprobado'] === 1){
+                    $dataRespuestaExt['fecha_respuesta'] = Carbon::now();
+                }
+
+                $respuesta = DocumentoRepuestaExterno::updateOrCreate([
+                    "id"  => $dataResponse['id_respuesta']
+                ],$dataRespuestaExt);
+
+            DB::commit();
+            return $documento;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new Exception($th->getMessage());
+            // throw new Exception($th->getMessage());
+        }
+    }
 
 }

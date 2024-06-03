@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use App\Models\Documento;
 use App\Models\Personal;
@@ -109,5 +110,12 @@ class Departamento extends Model
 
     public function getCanAssignAttribute(){
         return self::where('id_departamento_superior', $this->id)->get()->count() > 0;
+    }
+
+    public function documentosExternosEnviados(){
+        return $this->documentos()
+        ->whereHas('respuestaExterno', function (Builder $query) {
+            $query->where('aprobado', 1);
+        })->get();
     }
 }

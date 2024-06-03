@@ -13,10 +13,9 @@ class DocumentoRespuesta extends Model
     protected $fillable=[
         'id_documento',
         'documento_respuesta',
+        'aprobado',
         'fecha_respuesta',
     ];
-
-    public $timestamps = false;
 
     public function respuesta() {
         return $this->belongsTo(Documento::class, 'documento_respuesta');

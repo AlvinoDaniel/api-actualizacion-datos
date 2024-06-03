@@ -28,7 +28,7 @@ class DocumentoRequest extends FormRequest
             // 'asunto'                => "required",
             'contenido'             => "required",
             'tipo_documento'        => "required",
-            'departamentos_destino' => "required|string",
+            'departamentos_destino' => "nullable|string",
             'departamentos_copias'  => "nullable|string",
             'copias'                => "required|boolean",
             'estatus'                => [

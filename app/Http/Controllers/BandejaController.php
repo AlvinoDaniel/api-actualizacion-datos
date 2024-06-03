@@ -16,6 +16,7 @@ use App\Http\Resources\BandejaEnviadosCollection;
 use App\Http\Resources\BandejaRecibidosCollection;
 use App\Http\Resources\BandejaPorCorregirCollection;
 use App\Http\Resources\BandejaExternosCollection;
+use App\Http\Resources\BandejaExternoSalidaCollection;
 use Illuminate\Support\Carbon;
 
 class BandejaController extends AppBaseController
@@ -37,7 +38,11 @@ class BandejaController extends AppBaseController
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
-                    'documentos' => new BandejaEnviadosCollection($departamento->documentos),
+                    'documentos' => new BandejaEnviadosCollection(
+                        $departamento->documentos->filter(function ($item) {
+                            return !$item->is_external;
+                        })
+                    ),
                 ],
                 $message);
         } catch (\Throwable $th) {
@@ -187,6 +192,51 @@ class BandejaController extends AppBaseController
             return $this->sendResponse(
                 [
                     'documentos' => new BandejaExternosCollection($departamento->documentos_externos->merge($departamento->asignadosExternos))
+                ],
+                $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+     /**
+     * OBTENER DOCUMENTOS RECIBIDOS AL DEPARTAMENTO LOGUEADO.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function externosSalida()
+    {
+        try {
+            $departamento_user = Auth::user()->personal->departamento_id;
+            $departamento = Departamento::find( $departamento_user);
+            $message = 'Lista de Documentos';
+            return $this->sendResponse(
+                [
+                    'documentos' =>  $departamento->documentosExternosEnviados()
+                ],
+                $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+     /**
+     * OBTENER DOCUMENTOS RECIBIDOS AL DEPARTAMENTO LOGUEADO.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function externosPorAprobar()
+    {
+        try {
+            $departamento_user = Auth::user()->personal->departamento_id;
+            $departamento = Departamento::with(['documentos' => function ($query) {
+                $query->where('estatus', Documento::ESTATUS_POR_APROBAR);
+            }])->find( $departamento_user);
+            $message = 'Lista de Documentos';
+            return $this->sendResponse(
+                [
+                    'documentos' => $departamento->documentos
                 ],
                 $message);
         } catch (\Throwable $th) {

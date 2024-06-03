@@ -30,7 +30,8 @@ class BandejaPorCorregirCollection extends ResourceCollection
                 'fecha_creado'    => $item->created_at,
                 'anexos'          => count($item->anexos),
                 'enviados'        => Departamento::whereIn('id', $dptoDestino)->get(),
-                'dpto_copias'     => $item->temporal->tieneCopia === 1 ? Departamento::whereIn('id', $dptoCopias)->get() : []
+                'dpto_copias'     => $item->temporal->tieneCopia === 1 ? Departamento::whereIn('id', $dptoCopias)->get() : [],
+                'respuesta'       => $item->respuesta
             ];
         });
     }

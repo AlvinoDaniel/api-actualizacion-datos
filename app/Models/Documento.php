@@ -19,8 +19,11 @@ class Documento extends Model
     const ESTATUS_ENVIADO_ALL = 'enviado_all';
     const ESTATUS_BORRADOR = 'borrador';
     const ESTATUS_POR_CORREGIR = 'por_corregir';
+    const ESTATUS_POR_APROBAR = 'por_aprobar';
     const TIPO_CIRCULAR = 'circular';
     const TIPO_OFICIO = 'oficio';
+    const TIPO_RESPUESTA_INTERNO = 'in';
+    const TIPO_RESPUESTA_EXTERNO = 'ex';
 
     protected $fillable=[
         'asunto',
@@ -34,7 +37,9 @@ class Documento extends Model
         'user_id',
     ];
 
-    protected $with = ['propietario', 'anexos', 'destinatario'];
+    protected $with = ['propietario', 'anexos', 'destinatario', 'respuesta'];
+
+    protected $appends = ['is_external'];
 
     public function propietario()
     {
@@ -84,5 +89,15 @@ class Documento extends Model
     {
         return $this->hasOne(DocumentoRespuesta::class, 'id_documento');
     }
+
+    public function respuestaExterno()
+    {
+        return $this->hasOne(DocumentoRepuestaExterno::class, 'id_documento');
+    }
+
+    public function getIsExternalAttribute(){
+        return !is_null($this->respuestaExterno);
+    }
+
 
 }

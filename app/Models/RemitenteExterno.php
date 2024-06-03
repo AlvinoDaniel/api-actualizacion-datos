@@ -17,4 +17,8 @@ class RemitenteExterno extends Model
         'telefono_contacto',
     ];
 
+    public function documentos(){
+        return $this->hasMany(DocumentoExterno::class, 'id_remitente');
+    }
+
 }

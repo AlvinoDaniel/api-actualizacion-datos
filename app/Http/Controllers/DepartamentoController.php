@@ -175,8 +175,13 @@ class DepartamentoController extends AppBaseController
     {
         try {
             $departamentos = $this->repository->departamentsForWritre();
+            $externos = $this->repository->externalForWritre();
             $message = 'Lista de Departamentos';
-            return $this->sendResponse(['departamentos' => $departamentos], $message);
+            return $this->sendResponse([
+                    'departamentos' => $departamentos,
+                    'externos' => $externos,
+                ],
+                $message);
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage());
         }
@@ -193,5 +198,5 @@ class DepartamentoController extends AppBaseController
         }
     }
 
-    
+
 }
