@@ -8,6 +8,7 @@ use App\Models\Anexo;
 use App\Models\Documento;
 use Illuminate\Support\Arr;
 use App\Models\Departamento;
+use App\Models\DocumentoExterno;
 use App\Models\DocumentoRepuestaExterno;
 use App\Models\DocumentoRespuesta;
 use App\Models\DocumentoRespuestaExterno;
@@ -375,6 +376,10 @@ class DocumentoRepository {
 
                 if($dataResponse['aprobado'] === 1){
                     $dataRespuestaExt['fecha_respuesta'] = Carbon::now();
+                    $docExterno = DocumentoExterno::find($dataResponse['doc_externo']);
+                    $docExterno->update([
+                        "estatus"   => DocumentoExterno::ESTATUS_TRAMITADO
+                    ]);
                 }
 
                 $respuesta = DocumentoRepuestaExterno::updateOrCreate([
