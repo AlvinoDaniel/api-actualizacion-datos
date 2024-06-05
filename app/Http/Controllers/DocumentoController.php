@@ -189,6 +189,9 @@ class DocumentoController extends AppBaseController
                 case 'enviado':
                     $relaciones = ['enviados', 'dptoCopias'];
                     break;
+                case 'enviado_externo':
+                    $relaciones = ['respuestaExterno.documentoExterno.remitente'];
+                    break;
 
                 default:
                     $relaciones = [];

@@ -375,8 +375,7 @@ class DocumentoRepository {
                     "aprobado"              => $dataResponse['aprobado'],
                 ];
 
-                if($dataResponse['aprobado'] === 1){
-                    $dataRespuestaExt['fecha_respuesta'] = Carbon::now();
+                if($dataResponse['aprobado'] === '1'){
                     $docExterno = DocumentoExterno::find($dataResponse['doc_externo']);
                     $docExterno->update([
                         "estatus"   => DocumentoExterno::ESTATUS_TRAMITADO

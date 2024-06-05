@@ -47,7 +47,7 @@ class DocumentoExternoController extends AppBaseController
     public function show($id)
     {
         try {
-            $documento = DocumentoExterno::find($id);
+            $documento = DocumentoExterno::with(['respuesta.respuesta'])->find($id);
             return $this->sendResponse(
                 $documento,
                 'Documento Externo'
