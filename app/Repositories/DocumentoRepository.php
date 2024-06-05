@@ -363,6 +363,7 @@ class DocumentoRepository {
                     ]);
                     $dptoUser->refresh();
                     $data['nro_documento'] = $dptoUser->getCorrelativo();
+                    $data['fecha_enviado'] = Carbon::now();
                 }
                 $documento = Documento::updateOrCreate([
                     "id"  => $id_documento

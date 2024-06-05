@@ -16,8 +16,6 @@ class DocumentoRepuestaExterno extends Model
         'aprobado',
     ];
 
-    protected $with = ['documentoExterno'];
-
     public function respuesta() {
         return $this->belongsTo(Documento::class, 'id_documento');
     }

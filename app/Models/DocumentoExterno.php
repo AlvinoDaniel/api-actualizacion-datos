@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 class DocumentoExterno extends Model
@@ -43,8 +44,8 @@ class DocumentoExterno extends Model
         return $this->belongsTo(Departamento::class, 'departamento_receptor');
     }
 
-    public function respuesta() {
-        return $this->belongsTo(Documento::class, 'documento_respuesta');
+    public function respuesta(): HasOne {
+        return $this->hasOne(DocumentoRepuestaExterno::class, 'id_documento_externo');
     }
 
     public function asignado(): MorphOne
