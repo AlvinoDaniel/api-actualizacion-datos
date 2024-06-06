@@ -423,6 +423,10 @@ class DocumentoController extends AppBaseController
                    array_push($copiasNombres, $value->nombre);
                 }
             }
+            if($documento->is_external){
+                $documento->load(['respuestaExterno.documentoExterno.remitente']);
+            }
+            // return $this->sendResponse($documento, '');
             $pdf = \PDF::loadView('pdf.documento', [
                 'dptoPropietario'   => $documento->propietario->nombre,
                 'dptoSiglas'        => $documento->propietario->siglas,
@@ -430,6 +434,8 @@ class DocumentoController extends AppBaseController
                 'dptoCopias'        => implode(', ',$copiasNombres),
                 'hasCopias'         => $hasCopias ,
                 'contenido'         => $documento->contenido,
+                'isExternal'        => $documento->is_external,
+                'remitente'         => $documento->is_external ? $documento->respuestaExterno->documentoExterno->remitente : null,
                 'isCircular'        => $documento->tipo_documento === 'circular',
                 'isOficio'          => $documento->tipo_documento === 'oficio',
                 'nucleo'            => $documento->propietario->nucleo->nombre ?? '',
@@ -437,7 +443,9 @@ class DocumentoController extends AppBaseController
                 'propietarioJefe'   => $documento->propietario->jefe->nombres_apellidos,
                 'propietarioCargo'  => $documento->propietario->jefe->descripcion_cargo,
                 'baseUrlFirma'      => $documento->propietario->jefe->baseUrlFirma,
-                'destino'           => $documento->tipo_documento === 'circular' ? $this->getNames($documento->enviados, $documento->estatus) : $documento->enviados[0]->jefe,
+                'destino'           => $documento->tipo_documento === 'circular' 
+                    ? $this->getNames($documento->enviados, $documento->estatus) 
+                    : $documento->enviados[0]->jefe ?? '',
 
             ]);
             return $pdf->download('Documento_Recibido.pdf');

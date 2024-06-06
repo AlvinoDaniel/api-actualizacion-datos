@@ -240,8 +240,13 @@
             <div class="page-addressee">
 
               <span>Ciudadano(a):</span>
-              <span class="font-bold">{{$destino->nombres_apellidos}}</span>
-              <span class="font-bold">{{$destino->descripcion_cargo}}</span>
+              @if($isExternal)
+                <span class="font-bold">{{$remitente->nombre_legal}}</span>
+                <span class="font-bold">{{$remitente->documento_identidad}}</span>
+              @else
+                <span class="font-bold">{{$destino->nombres_apellidos}}</span>
+                <span class="font-bold">{{$destino->descripcion_cargo}}</span>
+              @endif
               <span>Su Despacho.- </span>
             </div>
             @endIf
