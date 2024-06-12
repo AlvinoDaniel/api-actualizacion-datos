@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DocumentoRequest;
 use App\Repositories\DocumentoRepository;
 use App\Http\Controllers\AppBaseController;
-
+use App\Http\Requests\AsignarDocumentoRequest;
 use Exception;
 
 class DocumentoController extends AppBaseController
@@ -456,6 +456,19 @@ class DocumentoController extends AppBaseController
                 //     ? $th->getMessage()
                 //     : 'Hubo un error al intentar Obtener el documento'
             );
+        }
+    }
+
+    public function assignDoc(AsignarDocumentoRequest $request){
+        try {
+            $asignado = $this->repository->asignarDocumento($request);
+            return $this->sendResponse(
+                $asignado,
+                'Documento asignado Exitosamente.'
+            );
+        } catch (\Throwable $th) {
+            // return $this->sendError('Lo sentimos, hubo un error al intentar asignar el documento.');
+            return $this->sendError($th->getMessage());
         }
     }
 

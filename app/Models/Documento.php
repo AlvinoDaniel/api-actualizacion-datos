@@ -24,6 +24,9 @@ class Documento extends Model
     const TIPO_OFICIO = 'oficio';
     const TIPO_RESPUESTA_INTERNO = 'in';
     const TIPO_RESPUESTA_EXTERNO = 'ex';
+    const ESTADO_ASIGNADO = 'ASIGNADO';
+    const ESTADO_EN_PROCESO = 'EN PROCESO';
+    const ESTADO_PROCESDO = 'PROCESADO';
 
     protected $fillable=[
         'asunto',
@@ -31,13 +34,14 @@ class Documento extends Model
         'contenido',
         'tipo_documento',
         'estatus',
+        'estado',
         'fecha_enviado',
         'departamento_id',
         'copias',
         'user_id',
     ];
 
-    protected $with = ['propietario', 'anexos', 'destinatario', 'respuesta'];
+    protected $with = ['propietario', 'anexos', 'destinatario', 'respuesta', 'asignadoA'];
 
     protected $appends = ['is_external'];
 
@@ -76,13 +80,14 @@ class Documento extends Model
 
     }
 
-    public function asignado()
+    public function asignadoA()
     {
-        return $this->morphOne(DocumentoAsignado::class, 'documento', 'documento_type', 'documento_id');
+        return $this->morphOne(DocumentoAsignado::class, 'documentos_asignados', 'documento_type', 'documento_id')
+        ->join('departamentos', 'departamentos.id', 'documentos_asignados.departamento_id');
     }
 
     public function getEsAsignadoAttribute(){
-        return $this->asignado()->exists();
+        return $this->asignadoA()->exists();
     }
 
     public function respuesta()

@@ -19,6 +19,7 @@ Route::group([
       Route::post('/actualizar/{id}', 'update');
       Route::post('/eliminar-anexo/{id}', 'destroyAnexo');
       Route::post('/agregar-anexo', 'addAnexo');
+      Route::post('/asignar', 'assignDoc');
       Route::get('/descargar-anexo/{id}', 'downloadAnexo');
       Route::get('/generar-documento/{id}', 'genareteDocument');
       Route::delete('/eliminar-documento/{id}', 'destroyDocument');

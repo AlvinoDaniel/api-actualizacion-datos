@@ -352,6 +352,7 @@ class DocumentoRepository {
             // throw new Exception($th->getMessage());
         }
     }
+
     public function registrarRepuestaExterno($data, $dataResponse, $id_documento = null){
         try {
             DB::beginTransaction();
@@ -392,6 +393,23 @@ class DocumentoRepository {
             DB::rollBack();
             throw new Exception($th->getMessage());
             // throw new Exception($th->getMessage());
+        }
+    }
+
+    public function asignarDocumento($request){
+        try {
+            $documento  = Documento::find($request->documento);
+
+            $asignado = $documento->asignadoA()->create([
+                "departamento_id"   => $request->departamento,
+                "fecha_asignado"   => Carbon::now(),
+            ]);
+            $documento->update([
+                "estado"  => Documento::ESTADO_ASIGNADO
+            ]);
+            return $asignado;
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
