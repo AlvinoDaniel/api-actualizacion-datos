@@ -43,7 +43,7 @@ class Documento extends Model
 
     protected $with = ['propietario', 'anexos', 'destinatario', 'respuesta', 'asignadoA'];
 
-    protected $appends = ['is_external'];
+    protected $appends = ['is_external', 'es_asignado'];
 
     public function propietario()
     {
