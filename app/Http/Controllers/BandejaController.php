@@ -85,7 +85,7 @@ class BandejaController extends AppBaseController
             $departamento_user = Auth::user()->personal->departamento_id;
             $departamento = Departamento::with(['documentos' => function ($query) {
                 $query->where('estatus', Documento::ESTATUS_POR_CORREGIR);
-            }])->find( $departamento_user);
+            }, 'documentos.esRespuesta', 'documentos.esRespuestaAsignado'])->find( $departamento_user);
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [
@@ -232,7 +232,7 @@ class BandejaController extends AppBaseController
             $departamento_user = Auth::user()->personal->departamento_id;
             $departamento = Departamento::with(['documentos' => function ($query) {
                 $query->where('estatus', Documento::ESTATUS_POR_APROBAR);
-            }])->find( $departamento_user);
+            }, 'documentos.respuestaExterno.documentoExterno.remitente'])->find( $departamento_user);
             $message = 'Lista de Documentos';
             return $this->sendResponse(
                 [

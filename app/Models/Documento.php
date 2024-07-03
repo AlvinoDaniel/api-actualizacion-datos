@@ -80,9 +80,20 @@ class Documento extends Model
 
     }
 
+    public function esRespuesta()
+    {
+        return $this->hasOne(DocumentoRespuesta::class, 'documento_respuesta');
+    }
+
+    public function esRespuestaAsignado()
+    {
+        return $this->hasOne(DocumentoAsignado::class, 'id_documento_respuesta');
+    }
+
     public function asignadoA()
     {
         return $this->morphOne(DocumentoAsignado::class, 'documentos_asignados', 'documento_type', 'documento_id')
+        ->select('documentos_asignados.*', 'departamentos.nombre', 'departamentos.siglas', 'departamentos.id_departamento_superior')
         ->join('departamentos', 'departamentos.id', 'documentos_asignados.departamento_id');
     }
 
@@ -93,6 +104,11 @@ class Documento extends Model
     public function respuesta()
     {
         return $this->hasOne(DocumentoRespuesta::class, 'id_documento');
+    }
+
+    public function respuestaAsignado()
+    {
+        return $this->hasOne(DocumentoAsignado::class, 'documento_id');
     }
 
     public function respuestaExterno()

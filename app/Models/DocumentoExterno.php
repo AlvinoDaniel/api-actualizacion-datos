@@ -34,6 +34,10 @@ class DocumentoExterno extends Model
 
     public $timestamps = false;
 
+    protected $casts = [
+        'importante' => 'boolean',
+    ];
+
     protected $with = ['remitente', 'respuesta', ];
 
     public function remitente() {
