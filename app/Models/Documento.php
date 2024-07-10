@@ -9,6 +9,7 @@ use App\Models\Departamento;
 use App\Models\DocumentosDepartamento;
 use App\Models\DocumentosTemporal;
 use App\Models\Anexo;
+use Illuminate\Support\Facades\Auth;
 
 class Documento extends Model
 {
@@ -43,7 +44,7 @@ class Documento extends Model
 
     protected $with = ['propietario', 'anexos', 'destinatario', 'respuesta', 'asignadoA'];
 
-    protected $appends = ['is_external', 'es_asignado'];
+    protected $appends = ['is_external', 'es_asignado', 'is_copy'];
 
     public function propietario()
     {
@@ -118,6 +119,10 @@ class Documento extends Model
 
     public function getIsExternalAttribute(){
         return !is_null($this->respuestaExterno);
+    }
+
+    public function getIsCopyAttribute(){
+       return $this->dptoCopias()->where('departamento_id', Auth::user()->personal->departamento_id)->get()->count() > 0;
     }
 
 
