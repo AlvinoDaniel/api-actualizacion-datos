@@ -8,6 +8,7 @@ use App\Models\Anexo;
 use App\Models\Documento;
 use Illuminate\Http\Request;
 use App\Traits\DepartamentoTrait;
+use App\Traits\DocumentoPdfTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AnexoRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ use Exception;
 class DocumentoController extends AppBaseController
 {
     use DepartamentoTrait;
+    use DocumentoPdfTrait;
 
     private $repository;
 
@@ -214,6 +216,8 @@ class DocumentoController extends AppBaseController
             if($request->asignado === 'true'){
                 $this->repository->leidoDocumentoAsignado($id);
             }
+
+            // $documento["pdf"] = $this->genareteDocumentBase64($documento);
 
             return $this->sendResponse(
                 $documento,
