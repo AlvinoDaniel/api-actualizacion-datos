@@ -40,7 +40,7 @@ class DepartamentoController extends AppBaseController
     public function list()
     {
         try {
-            $departamentos = Departamento::orderBy('cod_nucleo', 'asc')->get();
+            $departamentos = Departamento::with(['dptoSuperior'])->orderBy('cod_nucleo', 'asc')->get();
             $message = 'Lista de Departamentos';
             return $this->sendResponse(['departamentos' => $departamentos], $message);
         } catch (\Throwable $th) {

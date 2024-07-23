@@ -41,6 +41,7 @@ class DepartamentoRequest extends FormRequest
             'correo'                => "nullable|email",
             'correlativo'           => "nullable|numeric",
             'permiso_secretaria'    => "nullable|boolean",
+            'id_departamento_superior' => "nullable|exists:departamentos,id",
         ];
     }
 }
