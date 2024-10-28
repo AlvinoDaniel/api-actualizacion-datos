@@ -17,10 +17,13 @@ class CreatePersonalMigracionTable extends Migration
             $table->id();
             $table->string('nombres');
             $table->string('cedula_identidad');
-            $table->string('cargo');
+            $table->string('cargo_opsu')->nullable();
+            $table->string('tipo_personal')->nullable();
+            $table->string('codigo_unidad_admin')->nullable();
+            $table->string('codigo_unidad_ejec')->nullable();
             $table->string('cod_nucleo',2);
             $table->string('correo')->nullable();
-            $table->string('grado_instruccion')->nullable();
+            $table->string('telefono')->nullable();
             $table->timestamps();
         });
     }

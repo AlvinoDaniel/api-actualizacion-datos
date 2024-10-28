@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarpetasTable extends Migration
+class CreateTipoPersonalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateCarpetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('carpetas', function (Blueprint $table) {
+        Schema::create('tipo_personal', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->foreignId('departamento_id')
-            ->constrained('departamentos');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateCarpetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carpertas');
+        Schema::dropIfExists('nivel');
     }
 }

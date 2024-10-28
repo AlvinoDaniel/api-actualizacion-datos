@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Interfaces\PersonalRepositoryInterface;
+use App\Repositories\PersonalRepository;
 use App\Http\Requests\PersonalRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,9 +15,10 @@ class PersonalController extends AppBaseController
 {
     private $repository;
 
-    public function __construct(PersonalRepositoryInterface $personalRepository)
+    public function __construct(PersonalRepository $personalRepository)
     {
         $this->repository = $personalRepository;
+        $this->middleware('verifiedBoss');
     }
 
     /**
@@ -28,7 +29,7 @@ class PersonalController extends AppBaseController
     public function index()
     {
         try {
-            $personal = $this->repository->all(['departamento']);
+            $personal = $this->repository->personalByUnidad();
             $message = 'Lista de Trabajadores';
             return $this->sendResponse(['personal' => $personal], $message);
         } catch (\Throwable $th) {
@@ -47,7 +48,7 @@ class PersonalController extends AppBaseController
     {
         $data = $request->all();
         try {
-            $personal = $this->repository->registrar($data);
+            $personal = $this->repository->registrarPersonal($data);
             return $this->sendResponse(
                 $personal,
                 'Personal Registrado exitosamente.'

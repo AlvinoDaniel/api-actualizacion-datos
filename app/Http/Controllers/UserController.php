@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\User;
 use App\Models\Nivel;
-use App\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -25,27 +25,9 @@ class UserController extends AppBaseController
 {
     private $repository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->middleware('auth:api');
         $this->repository = $userRepository;
-    }
-
-    /**
-     * Listar Usuarios
-     *
-     * [Se retorna la lista de los usuarios registrados.]
-     *
-     *
-    */
-    public function index(){
-        try {
-            $usuarios = $this->repository->all(['personal']);
-            $message = 'Lista de Usuarios';
-            return $this->sendResponse(['usuarios' => $usuarios], $message);
-        } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage());
-        }
     }
 
     /**
@@ -66,91 +48,15 @@ class UserController extends AppBaseController
 
     public function store(UserRequest $request){
         $data = $request->all();
-        $isJefe = in_array('jefe', $request->rol);
         try {
-            if($isJefe){
-                $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
-                if(!$hasJefe){
-                    return $this->sendError("Ya existe un usuario Jefe en el Departamento.");
-                }
-            }
             $user = $this->repository->registrarUsuario($data);
             return $this->sendResponse(
                 $user,
                 'Usuario Registrado exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage());
+            return $this->sendError($th->getMessage(), $th->getCode() ?? 404);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        try {
-            $user = $this->repository->findById($id);
-            $user->load(['personal', 'roles']);
-            return $this->sendResponse(
-                $user,
-                'Usuario Obtenido'
-            );
-        } catch (\Throwable $th) {
-            return $this->sendError(
-                $th->getMessage()
-                // $th->getCode() > 0
-                //     ? $th->getMessage()
-                //     : 'Hubo un error al intentar Obtener el documento'
-            );
-        }
-    }
-
-    /**
-     * Actualizar usuario
-     *
-     * [Se actualiza la infomacion de un usuario.]
-     *
-     * @bodyParam  email email Correo de usuario. Example: jose@gmail.com
-     * @bodyParam  username pseudonimo del usuario.
-     * @bodyParam  name string Nombre del usuario.
-     * @bodyParam  apellido string Nombre del usuario.
-     * @bodyParam  rol array Nombre del rol que se desea asignar. Example: ["administrador","estandar"]
-     *
-     *
-    */
-
-    public function update(UserUpdateRequest $request,$id){
-
-        $data = $request->all();
-        $data['hasFile'] = $request->hasFile('firma');
-        $roles = $request->rol;
-        $isJefe = in_array('jefe', $roles);
-        try {
-            $user = $this->repository->actualizarUsuario($data, $id);
-            // if($isJefe && !$user->hasRole('jefe')){
-            //     $hasJefe = $this->repository->verificarJefatura($data['departamento_id']);
-            //     if(!$hasJefe){
-            //         return $this->sendError("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
-            //     }
-            // }
-
-                return $this->sendResponse(
-                    $user,
-                    'Usuario Actualzado exitosamente.'
-                );
-            } catch (\Throwable $th) {
-                return $this->sendError(
-                    $th->getMessage()
-                    // $th->getCode() > 0
-                    //     ? $th->getMessage()
-                    //     : 'Hubo un error al intentar Actualizar el Usuario'
-                );
-            }
-
     }
 
     /**
@@ -196,67 +102,19 @@ class UserController extends AppBaseController
         }
     }
 
-     /**
-     * Eliminar usuario
-     *
-     * [Se Elemina un usuario.]
-     *
-     *
-     *
-    */
-
-    public function delete($id){
+    public function update(UserUpdateRequest $request){
+        $data = $request->all();
         try {
-            $user = $this->repository->findById($id);
-            $user->syncRoles([]);
-            $this->repository->delete($id);
-            return $this->sendSuccess(
-                'Usuario Eliminado Exitosamente.'
+            $personal = $this->repository->actualizarUsuario($data);
+            return $this->sendResponse(
+                $personal,
+                'Usuario Actualizado exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError(
-                $th->getCode() > 0
-                    ? $th->getMessage()
-                    : 'Hubo un error al intentar Eliminar el Usuario'
-            );
+            return $this->sendError('Hubo un error al intentar Actualizar el Personal');
         }
     }
 
-    public function roles(){
-        $tipo_accion = 'Listar Roles';
-        try {
-            $all_roles = Role::select('id','name')->get();
-            $message = 'Lista de Roles.';
-            return $this->sendResponse(['roles' => $all_roles], $message);
-        } catch (\Throwable $th) {
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
-            return $this->sendError('Ocurrio un error al intentar obtener el listado de roles');
-        }
-    }
-
-    public function nivel(){
-
-        try {
-            $niveles = Nivel::all();
-            $message = 'Lista de Niveles.';
-            return $this->sendResponse(['niveles' => $niveles], $message);
-        } catch (\Throwable $th) {
-            $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-                $th->getCode(),
-                $msg_error,
-                $tipo_accion,
-                'error'
-             );
-            return $this->sendError('Ocurrio un error al intentar obtener el listado de niveles');
-        }
-    }
 
     public function backupDownload(){
         try {
@@ -265,13 +123,16 @@ class UserController extends AppBaseController
             return Storage::disk('backup')->download($files[0]);
         } catch (\Throwable $th) {
             $msg_error = $th->getMessage().' - CT: '.$th->getFile().' - LN: '.$th->getLine();
-            $this->generateLog(
-               $th->getCode(),
-               $msg_error,
-               $tipo_accion,
-               'error'
-            );
             return $this->sendError('Ocurrio un error al intentar crear el Respaldo');
+        }
+    }
+
+    public function searchWorker($cedula){
+        try {
+            $personal = $this->repository->search($cedula);
+            return $this->sendResponse(['personal' => $personal], '');
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(), $th->getCode() ?? 404);
         }
     }
 }

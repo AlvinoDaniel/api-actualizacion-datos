@@ -46,14 +46,8 @@ class RouteServiceProvider extends ServiceProvider
             ->group( function () {
 
                 $files = array(
-                    "carpeta",
-                    "configuracion",
-                    "grupos",
-                    "departamentos",
                     "personal",
                     "users",
-                    "documentos",
-                    "bandeja"
                 );
 
                 require base_path('routes/api.php');

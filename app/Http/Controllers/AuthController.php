@@ -38,35 +38,22 @@ class AuthController extends AppBaseController
       $tipo_accion =  'Login';
 
       try {
-         $user = User::where('email', $request->username_email)
-                  ->orWhere('usuario', $request->username_email)
+         $user = User::where('cedula', $request->cedula)
                   ->first();
          if(!$user){
-            return $this->sendError('El Email/Usuario no existe en nuestros registros.');
+            return $this->sendError('El Funcionario no existe en nuestros registros.');
          }
 
          if (!Hash::check($request->password, $user->password)) {
-            return $this->sendError('Las credenciales no concuerdan. Email o Contraseña inválida',);
+            return $this->sendError('Las credenciales no concuerdan. Usuario o Contraseña inválida',);
          }
 
          $token = $user->createToken('TokenCultorApi-'.$user->name)->plainTextToken;
          $message = 'Usuario Autenticado exitosamente.';
 
-         // $this->generateLog(
-         //    '200',
-         //    $message,
-         //    $tipo_accion,
-         //    'success'
-         // );
          return $this->sendResponse(['token' => $token ], $message);
 
       } catch (\Throwable $th) {
-         // $this->generateLog(
-         //    $th->getCode(),
-         //    $th->getMessage(),
-         //    $tipo_accion,
-         //    'error'
-         // );
          return $this->sendError('Ocurrio un error, contacte al administrador');
       }
    }
@@ -81,22 +68,8 @@ class AuthController extends AppBaseController
     */
    public function me()
    {
-      $user = Auth::user()->load(['personal.departamento', 'roles']);
-      $rolesCollection = collect($user->roles);
-      $pluckedRoles = $rolesCollection->pluck('name');
-      // $user = Auth::user()->personal->departamento_id;
-      $data = [
-        'id'                => $user->id,
-        'fullName'          => $user->personal->nombres_apellidos,
-        'email'             => $user->email,
-        'usuario'           => $user->usuario,
-        'status'            => $user->status,
-        'departamento'      => $user->personal->departamento,
-        'rol_id'            => $user->roles[0]->id,
-        'rol'               => $pluckedRoles->all(),
-    ];
-      return $this->sendResponse([ 'user' => $data ], 'Datos de Usuario Logeado');
-      // return $this->sendResponse([ 'user' => $user ], 'Datos de Usuario Logeado');
+      $user = Auth::user()->load(['personal']);
+      return $this->sendResponse([ 'user' => $user ], 'Datos de Usuario Logeado');
    }
 
      /**
@@ -153,4 +126,5 @@ class AuthController extends AppBaseController
          return $this->sendError('La contraseña actual no coincide con nuestros registros.', 422);
       }
    }
+
 }

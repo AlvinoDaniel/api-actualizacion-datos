@@ -28,17 +28,25 @@ class PersonalRequest extends FormRequest
             'cedula_identidad'  => [
                 "required",
                 "numeric",
+                "min:5",
                 Rule::unique('personal')->ignore($this->route('id'))
             ],
-            'departamento_id'   => [
-                "required",
-                "exists:departamentos,id",
-            ],
-            'nombres_apellidos'   => "required",
-            'cargo'     => "required",
-            'nucleo'    => "required",
-            'correo'    => "nullable|email",
-            'firma'     => "nullable|image",
+            'nombres_apellidos'     => "required",
+            'cargo_opsu'            => "required",
+            'correo'                => "required|email",
+            'telefono'              => "required",
+            'tipo_personal'         => "required",
+            'telefono'              => "required",
+            'pantalon'              => "required",
+            'camisa'                => "required",
+            'zapato'                => "required",
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'cedula_identidad.unique' => 'El Funcionario seleccionado ya está registrado.',
         ];
     }
 }

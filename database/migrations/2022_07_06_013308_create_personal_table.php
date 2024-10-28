@@ -17,16 +17,18 @@ class CreatePersonalTable extends Migration
             $table->id();
             $table->string('nombres_apellidos');
             $table->string('cedula_identidad');
-            $table->string('cargo');
+            $table->string('tipo_personal');
+            $table->string('codigo_unidad_admin');
+            $table->string('codigo_unidad_ejec');
+            $table->string('cargo_opsu');
             $table->foreignId('cod_nucleo');
             $table->boolean('jefe')->default(0);
-            $table->string('descripcion_cargo')->nullable();
+            $table->string('cargo_jefe')->nullable();
             $table->string('correo')->nullable();
-            $table->string('firma')->nullable();
-            $table->foreignId('departamento_id')
-                ->constrained('departamentos');
-            $table->foreignId('nivel_id')
-            ->constrained('nivel')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('pantalon')->nullable();
+            $table->string('camisa')->nullable();
+            $table->integer('zapato')->nullable();
             $table->timestamps();
         });
     }

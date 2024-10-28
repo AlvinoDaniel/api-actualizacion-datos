@@ -20,9 +20,7 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'cedula_identidad.unique' => 'El personal seleccionado ya tiene un usuario registrado.',
-            'rol.*.exists' => 'Uno de los Roles seleccionado no existe.',
-            'rol.between' => 'Solo puede asignar máximo 2 roles por usuario.',
+            'cedula.unique' => 'El Funcionario seleccionado ya tiene un usuario registrado.',
         ];
     }
 
@@ -35,44 +33,14 @@ class UserRequest extends FormRequest
     {
         // dd(Rule::unique('users', 'personal_id')->ignore($this->route('id')));
         return [
-            'email'  => [
-                "required",
-                "email",
-                Rule::unique('users')->ignore($this->route('id'))
-            ],
-            'usuario'  => [
-                "required",
-                Rule::unique('users')->ignore($this->route('id'))
-            ],
             'password'      => 'required|min:5',
-            'status'        => 'nullable|boolean',
-            'rol'           => [
-                "required", 
-                "array", 
-                "between:1,2",
-                function ($attribute, $value, $fail) {
-                    $hasAdmin = in_array('administrador', $value);
-                    $lengthRoles = count($value);
-                    if ($lengthRoles === 2 && $hasAdmin) {
-                        $fail('Combinanción inválida, debe asignar como mínimo el rol administrativo');
-                    }
-                },
-            ],
-            'rol.*'         => 'exists:roles,name',
-            'cedula_identidad'  => [
+            'cedula'  => [
                 "required",
                 "numeric",
-                Rule::unique('personal')->ignore($this->route('id'))
+                "min:5",
+                Rule::unique('users')
             ],
-            'departamento_id'   => [
-                "required",
-                "exists:departamentos,id",
-            ],
-            'nombres_apellidos'   => "required",
-            'cargo'     => "required",
-            'nucleo'    => "required",
-            'correo'    => "nullable|email",
-            'firma'     => "nullable|image",
+            'personal_id'   => 'required|exists:personal,id'
         ];
     }
 

@@ -2,20 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\BaseRepository;
 use App\Models\User;
 use App\Models\Personal;
-use App\Models\Departamento;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 use Exception;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
-
-
-class UserRepository extends BaseRepository implements UserRepositoryInterface {
+class UserRepository extends BaseRepository {
 
   /**
    * @var Model
@@ -37,144 +30,66 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
    * @param Array $departamentos
    * @param Array $data
    */
-  public function verificarJefatura($departamento_id){
+  public function search($cedula){
 
     try {
-    //   $personal = Personal::find($departamento_id);
+      $personal = Personal::where('cedula_identidad', $cedula)->first();
 
-      $usuariosJefe =  User::whereHas('personal' , function (Builder $query) use($departamento_id) {
-          $query->where('departamento_id', $departamento_id);
-        })
-        ->whereHas('roles', function (Builder $query) {
-          $query->where('name', 'jefe');
-        })
-        ->get();
-       return $usuariosJefe->count() === 1 ? false : true;
+      if(!$personal){
+        throw new Exception('El funcionario que desea registrar no tiene acceso a este Módulo.', 422);
+      }
+
+      $usuario=  User::where('cedula', $cedula)->first();
+
+      if($usuario){
+        throw new Exception('El funcionario ya tiene un usuario registrado.', 422);
+      }
+
+
+      return $personal;
     } catch (\Throwable $th) {
-       throw new Exception($th->getMessage());
+       throw new Exception($th->getMessage(), $th->getCode());
     }
  }
 
  public function registrarUsuario($data){
 
-    $personalData = [
-        'nombres_apellidos'     => $data['nombres_apellidos'],
-        'cedula_identidad'      => $data['cedula_identidad'],
-        'cargo'                 => $data['cargo'],
-        'correo'                => $data['email'],
-        'cod_nucleo'            => $data['nucleo'],
-        'departamento_id'       => $data['departamento_id'],
-        'grado_instruccion'     => $data['grado_instruccion'],
-        'jefe'                  => $data['rol'] === 'jefe' ? 1 : 0,
-    ];
-
     $userData = [
-        'email'                 => $data['email'],
-        'usuario'               => $data['usuario'],
+        'cedula'                => $data['cedula'],
         'password'              => $data['password'],
+        'personal_id'           => $data['personal_id'],
         'status'                => 1,
     ];
-
-    $roles = $data['rol'];
-    $hasRolJefe = in_array('jefe', $roles);
-
-    if($hasRolJefe){
-        $firma = $data['firma'];
-        $personalData['descripcion_cargo'] = $data['cargo_jefe'];
-        $fileName = $firma->getClientOriginalName();
-        $isExist = Storage::disk('firmas')->exists('/'.$data['cedula_identidad'].'/'.$fileName);
-        if(!$isExist) {
-            $path = Storage::disk('firmas')->putFileAs('/'.$data['cedula_identidad'], $firma, $fileName);
-            $personalData['firma'] = $path;
-        }
-    }
     try {
-        // DB::beginTransaction();
+        $usuario=  User::where('cedula', $data['cedula'])->first();
 
-        $personal = Personal::create($personalData);
-        $userData['personal_id'] = $personal->id;
+        if($usuario){
+          throw new Exception('El funcionario ya tiene un usuario registrado.', 422);
+        }
 
         $user = User::create($userData);
-        $user->assignRole($roles);
-
         return $user;
-
-        // DB::commit();
     } catch (\Throwable $th) {
-        // DB::rollBack();
-        throw new Exception($th->getMessage());
-        //throw $th;
+        throw new Exception($th->getMessage(), $th->getCode());
     }
 
  }
- public function actualizarUsuario($data, $id){
-    $user = User::find($id);
-    $personal = Personal::find($user->personal_id);
 
-    $personalData = [
-        'nombres_apellidos'     => $data['nombres_apellidos'],
-        'cedula_identidad'      => $data['cedula_identidad'],
-        'cargo'                 => $data['cargo'],
-        'correo'                => $data['email'],
-        'cod_nucleo'            => $data['nucleo'],
-        'departamento_id'       => $data['departamento_id'],
-        'grado_instruccion'     => $data['grado_instruccion'],
-        'jefe'                  => $data['rol'] === 'jefe' ? 1 : 0,
-        'descripcion_cargo'     => $data['cargo_jefe']
-    ];
+ public function actualizarUsuario($request){
 
-    $userData = [
-        'email'                 => $data['email'],
-        'usuario'               => $data['usuario'],
-        'password'              => $data['password'],
-    ];
-
-    $roles = $data['rol'];
-    $hasRolJefe = in_array('jefe', $roles);
-    if($hasRolJefe && !$user->hasRole('jefe')){
-        $hasJefe = $this->verificarJefatura($data['departamento_id']);
-        if(!$hasJefe){
-            throw new Exception("No se puede actualizar el rol. Ya existe un usuario Jefe en el Departamento.");
-        }
-    }
-
-    if($data['hasFile']){
-        $firma = $data['firma'];
-        $fileName = $firma->getClientOriginalName();
-        $isExist = Storage::disk('firmas')->exists($user->path);
-        if($isExist) {
-            Storage::disk('anexos')->delete($user->path);
-        }
-        $path = Storage::disk('firmas')->putFileAs('/'.$data['cedula_identidad'], $firma, $fileName);
-        $personalData['firma'] = $path;
-    }
-
+    $data_personal = Auth::user()->personal;
     try {
-        // DB::beginTransaction();
+        $personal =  Personal::find($data_personal->id);
 
-        foreach ($personalData as $campo => $value) {
-            if(!empty($value)){
-                $personal->update([$campo => $value]);
-            }
-        }
-
-        foreach ($userData as $campo => $value) {
-            if(!empty($value)){
-                $user->update([$campo => $value]);
-            }
-        }
-
-        $user->syncRoles($roles);
-
-        return $personalData;
-
-        // DB::commit();
+        $personal->update($request);
+        $personal->refresh();
+        return $personal;
     } catch (\Throwable $th) {
-        // DB::rollBack();
-        throw new Exception($th->getMessage());
-        //throw $th;
+        throw new Exception($th->getMessage(), $th->getCode());
     }
 
  }
+
+
 
 }

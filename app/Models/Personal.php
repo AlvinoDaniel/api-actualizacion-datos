@@ -21,45 +21,38 @@ class Personal extends Model
     protected $fillable=[
         'nombres_apellidos',
         'cedula_identidad',
-        'cargo',
-        'correo',
-        'jefe',
-        'descripcion_cargo',
+        'tipo_personal',
+        'codigo_unidad_admin',
+        'codigo_unidad_ejec',
+        'cargo_opsu',
         'cod_nucleo',
-        'firma',
-        'departamento_id',
-        'grado_instruccion',
+        'jefe',
+        'cargo_jefe',
+        'correo',
+        'telefono',
+        'pantalon',
+        'camisa',
+        'zapato',
     ];
 
-    protected $appends = ['firma_base_url'];
-    protected $with = ['nivel'];
+    protected $casts = [
+        'jefe' => 'boolean',
+    ];
+
+    protected $appends = ['has_update'];
 
     public function usuario()
     {
         return $this->hasOne(User::class);
     }
 
-    public function nivel()
-    {
-        return $this->hasOne(Nivel::class, 'id', 'grado_instruccion');
-    }
+    public function getHasUpdateAttribute() {
+        // return $this['cedula_identidad'];
+        $fields = collect($this->fillable);
 
-    public function departamento() {
-        return $this->belongsTo(Departamento::class);
-    }
-
-    public function getFirmaBaseUrlAttribute() {
-        $existFile = $this->firma !== null ? Storage::disk('firmas')->exists($this->firma) : null;
-        if($existFile){
-            $image = Storage::disk('firmas')->get($this->firma);
-            $mimeType = Storage::disk('firmas')->mimeType($this->firma);
-            $imageConverted = base64_encode($image);
-            $imageToBase64 = "data:{$mimeType};base64,{$imageConverted}";
-
-            return $imageToBase64;
-        }
-
-       return null;
+        return $fields->every(function ($value, $key) {
+            return $this[$value] !== null;
+        });
     }
 
 
