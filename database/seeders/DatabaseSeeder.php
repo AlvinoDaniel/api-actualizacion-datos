@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TipoPersonal;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,9 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            RolesTableSeeder::class,
-            UserSeeder::class,
+            // UserSeeder::class,
             NucleosSeeder::class,
+            AreaTrabajoSeeder::class,
+            TipoCalzadoSeeder::class,
+            TipoPersonalSeeder::class,
+            TipoPrendaSeeder::class,
         ]);
     }
 }

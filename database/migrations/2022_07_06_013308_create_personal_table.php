@@ -17,6 +17,7 @@ class CreatePersonalTable extends Migration
             $table->id();
             $table->string('nombres_apellidos');
             $table->string('cedula_identidad');
+            $table->string('sexo');
             $table->string('tipo_personal');
             $table->string('codigo_unidad_admin');
             $table->string('codigo_unidad_ejec');
@@ -26,6 +27,9 @@ class CreatePersonalTable extends Migration
             $table->string('cargo_jefe')->nullable();
             $table->string('correo')->nullable();
             $table->string('telefono')->nullable();
+            $table->foreignId('area_trabajo');
+            $table->foreignId('tipo_calzado');
+            $table->foreignId('prenda_extra');
             $table->string('pantalon')->nullable();
             $table->string('camisa')->nullable();
             $table->integer('zapato')->nullable();

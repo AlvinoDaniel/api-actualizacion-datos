@@ -33,6 +33,10 @@ class Personal extends Model
         'pantalon',
         'camisa',
         'zapato',
+        'area_trabajo',
+        'tipo_calzado',
+        'prenda_extra',
+        'sexo',
     ];
 
     protected $casts = [

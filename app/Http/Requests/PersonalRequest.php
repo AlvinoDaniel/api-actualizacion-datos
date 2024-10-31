@@ -40,6 +40,10 @@ class PersonalRequest extends FormRequest
             'pantalon'              => "required",
             'camisa'                => "required",
             'zapato'                => "required",
+            'sexo'                  => "required",
+            'area_trabajo'          => "required|exist:area_trabajo,id",
+            'tipo_calzado'          => "required|exist:tipo_calzado,id",
+            'prenda_extra'          => "required|exist:prenda_extra,id",
         ];
     }
 

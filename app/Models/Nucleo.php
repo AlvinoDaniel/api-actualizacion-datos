@@ -19,7 +19,4 @@ class Nucleo extends Model
         'direccion',
     ];
 
-    public function departamento() {
-        return $this->belongsTo(Departamento::class);
-    }
 }

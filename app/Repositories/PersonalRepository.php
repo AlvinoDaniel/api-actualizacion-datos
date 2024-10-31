@@ -50,18 +50,22 @@ class PersonalRepository extends BaseRepository {
     $unidad_ejec = Auth::user()->personal->codigo_unidad_ejec;
     $nucleo = Auth::user()->personal->cod_nucleo;
     $data = [
-        'nombres_apellidos' => $request[ 'nombres_apellidos'],
-        'cedula_identidad' => $request['cedula_identidad'],
-        'tipo_personal' => $request['tipo_personal'],
+        'nombres_apellidos'   => $request[ 'nombres_apellidos'],
+        'cedula_identidad'    => $request['cedula_identidad'],
+        'tipo_personal'       => $request['tipo_personal'],
         'codigo_unidad_admin' => $unidad_admin,
-        'codigo_unidad_ejec' => $unidad_ejec,
-        'cargo_opsu' => $request['cargo_opsu'],
-        'cod_nucleo' => $nucleo,
-        'correo' => $request['correo'],
-        'telefono' => $request['telefono'],
-        'pantalon' => $request['pantalon'],
-        'camisa' => $request['camisa'],
-        'zapato' => $request['zapato'],
+        'codigo_unidad_ejec'  => $unidad_ejec,
+        'cargo_opsu'          => $request['cargo_opsu'],
+        'cod_nucleo'          => $nucleo,
+        'correo'              => $request['correo'],
+        'telefono'            => $request['telefono'],
+        'pantalon'            => $request['pantalon'],
+        'camisa'              => $request['camisa'],
+        'zapato'              => $request['zapato'],
+        'sexo'                => $request['sexo'],
+        'area_trabajo'        => $request['area_trabajo'],
+        'tipo_calzado'        => $request['tipo_calzado'],
+        'prenda_extra'        => $request['prenda_extra'],
     ];
     try {
       $personal = Personal::create($data);

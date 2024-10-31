@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-use Spatie\Permission\Models\Nucleo;
+use App\Models\Nucleo;
 use Illuminate\Database\Seeder;
 
 class NucleosSeeder extends Seeder
