@@ -22,8 +22,6 @@ class Personal extends Model
         'nombres_apellidos',
         'cedula_identidad',
         'tipo_personal',
-        'codigo_unidad_admin',
-        'codigo_unidad_ejec',
         'cargo_opsu',
         'cod_nucleo',
         'jefe',
@@ -43,11 +41,18 @@ class Personal extends Model
         'jefe' => 'boolean',
     ];
 
+    protected $with = ['unidades'];
+
     protected $appends = ['has_update'];
 
     public function usuario()
     {
         return $this->hasOne(User::class);
+    }
+
+    public function unidades()
+    {
+        return $this->hasMany(PersonalUnidad::class, 'cedula_identidad', 'cedula_identidad');
     }
 
     public function getHasUpdateAttribute() {

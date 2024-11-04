@@ -56,7 +56,7 @@ class UserRepository extends BaseRepository {
 
     $userData = [
         'cedula'                => $data['cedula'],
-        'email'                 => $data['correo'],
+        // 'email'                 => $data['correo'],
         'password'              => $data['password'],
         'personal_id'           => $data['personal_id'],
         'status'                => 1,

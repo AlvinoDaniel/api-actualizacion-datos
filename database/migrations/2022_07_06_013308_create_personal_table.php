@@ -19,8 +19,6 @@ class CreatePersonalTable extends Migration
             $table->string('cedula_identidad');
             $table->string('sexo');
             $table->string('tipo_personal');
-            $table->string('codigo_unidad_admin');
-            $table->string('codigo_unidad_ejec');
             $table->string('cargo_opsu');
             $table->foreignId('cod_nucleo');
             $table->boolean('jefe')->default(0);
