@@ -54,7 +54,7 @@ class PersonalController extends AppBaseController
                 'Personal Registrado exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError('Hubo un error al intentar Registrar el Personal');
+            return $this->sendError($th->getMessage());
         }
     }
 

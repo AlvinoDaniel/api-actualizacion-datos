@@ -6,6 +6,7 @@ use App\Interfaces\PersonalRepositoryInterface;
 use App\Repositories\BaseRepository;
 use App\Models\Personal;
 use App\Models\PersonalMigracion;
+use App\Models\PersonalUnidad;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -46,15 +47,14 @@ class PersonalRepository extends BaseRepository {
   }
 
   public function registrarPersonal($request){
-    $unidad_admin = Auth::user()->personal->codigo_unidad_admin;
-    $unidad_ejec = Auth::user()->personal->codigo_unidad_ejec;
+    $departamento = PersonalUnidad::find($request['unidad']);
+    $unidad_admin = $departamento->codigo_unidad_admin;
+    $unidad_ejec = $departamento->codigo_unidad_ejec;
     $nucleo = Auth::user()->personal->cod_nucleo;
     $data = [
         'nombres_apellidos'   => $request[ 'nombres_apellidos'],
         'cedula_identidad'    => $request['cedula_identidad'],
-        'tipo_personal'       => $request['tipo_personal'],
-        'codigo_unidad_admin' => $unidad_admin,
-        'codigo_unidad_ejec'  => $unidad_ejec,
+        'tipo_personal'       => $request['tipo_personal'],       
         'cargo_opsu'          => $request['cargo_opsu'],
         'cod_nucleo'          => $nucleo,
         'correo'              => $request['correo'],
@@ -68,9 +68,16 @@ class PersonalRepository extends BaseRepository {
         'prenda_extra'        => $request['prenda_extra'],
     ];
     try {
-      $personal = Personal::create($data);
+      DB::beginTransaction();
+        $personal = Personal::create($data);
+        $personal->unidades()->create([
+          'codigo_unidad_admin' => $unidad_admin,
+          'codigo_unidad_ejec'  => $unidad_ejec,
+        ]);
+      DB::commit();
       return $personal;
     } catch (\Throwable $th) {
+      DB::rollBack();
       throw new Exception($th->getMessage());
     }
 }
