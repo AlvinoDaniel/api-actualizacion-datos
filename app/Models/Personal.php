@@ -55,6 +55,11 @@ class Personal extends Model
         return $this->hasMany(PersonalUnidad::class, 'cedula_identidad', 'cedula_identidad');
     }
 
+    public function nucleo()
+    {
+        return $this->hasOne(Nucleo::class, 'codigo_concatenado', 'cod_nucleo');
+    }
+
     public function getHasUpdateAttribute() {
         // return $this['cedula_identidad'];
         $fields = collect($this->fillable);

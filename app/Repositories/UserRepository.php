@@ -33,7 +33,7 @@ class UserRepository extends BaseRepository {
   public function search($cedula){
 
     try {
-      $personal = Personal::where('cedula_identidad', $cedula)->first();
+      $personal = Personal::where('cedula_identidad', $cedula)->where('jefe', true)->first();
 
       if(!$personal){
         throw new Exception('El funcionario que desea registrar no tiene acceso a este Módulo.', 422);
@@ -46,7 +46,10 @@ class UserRepository extends BaseRepository {
       }
 
 
-      return $personal;
+      return [
+        "id"        => $personal->id,
+        "email"     => $personal->correo,
+      ];
     } catch (\Throwable $th) {
        throw new Exception($th->getMessage(), $th->getCode());
     }

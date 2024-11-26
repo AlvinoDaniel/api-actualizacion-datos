@@ -68,7 +68,7 @@ class AuthController extends AppBaseController
     */
    public function me()
    {
-      $user = Auth::user()->load(['personal']);
+      $user = Auth::user()->load(['personal', 'personal.nucleo']);
       return $this->sendResponse([ 'user' => $user ], 'Datos de Usuario Logeado');
    }
 

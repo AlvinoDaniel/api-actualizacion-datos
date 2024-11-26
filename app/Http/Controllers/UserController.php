@@ -127,9 +127,9 @@ class UserController extends AppBaseController
         }
     }
 
-    public function searchWorker($cedula){
+    public function searchWorker(Request $request){
         try {
-            $personal = $this->repository->search($cedula);
+            $personal = $this->repository->search($request['cedula']);
             return $this->sendResponse(['personal' => $personal], '');
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage(), $th->getCode() ?? 404);
