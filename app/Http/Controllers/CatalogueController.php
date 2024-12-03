@@ -46,7 +46,7 @@ class CatalogueController extends AppBaseController
 
         try {
             $data = $query->get();
-            return $this->sendResponse(['table' => $data], 'Datos Obtenidos');
+            return $this->sendResponse($data, 'Datos Obtenidos');
         } catch (\Throwable $th) {
             return $this->sendError('Errror al obtener los datos.');
         }

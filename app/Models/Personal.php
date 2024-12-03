@@ -59,12 +59,17 @@ class Personal extends Model
     {
         return $this->hasOne(Nucleo::class, 'codigo_concatenado', 'cod_nucleo');
     }
+    public function tipoPersonal()
+    {
+        return $this->hasOne(TipoPersonal::class, 'id', 'tipo_personal');
+    }
 
     public function getHasUpdateAttribute() {
-        // return $this['cedula_identidad'];
-        $fields = collect($this->fillable);
 
-        return $fields->every(function ($value, $key) {
+        $fields = collect($this->fillable);
+        $excludeFlieds = ["jefe", "cargo_jefe", "cargo_opsu"];
+        return $fields->every(function ($value, $key) use($excludeFlieds) {
+            if(in_array($value, $excludeFlieds)) return true;
             return $this[$value] !== null;
         });
     }

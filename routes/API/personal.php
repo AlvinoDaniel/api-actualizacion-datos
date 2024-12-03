@@ -16,7 +16,7 @@ Route::group([
       Route::post('/', 'store');
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
-      Route::get('/search', 'search');
+      Route::get('/search/{cedula}', 'search');
     });
   });
 });

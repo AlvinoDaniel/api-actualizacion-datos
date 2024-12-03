@@ -33,12 +33,17 @@ class PersonalRepository extends BaseRepository {
    * Listar todo el personal registrado de la unidad administrativa logueado
    */
   public function personalByUnidad(){
-      $unidad_admin = Auth::user()->personal->codigo_unidad_admin;
-      $unidad_ejec = Auth::user()->personal->codigo_unidad_ejec;
+      $unidades = Auth::user()->personal->unidades->pluck('codigo_unidad_ejec');
+    // dd($unidades);
       try {
-        $personal = Personal::where('codigo_unidad_admin', $unidad_admin)
-            ->where('codigo_unidad_ejec', $unidad_ejec)
-            ->where('cedula_identidad', '<>', Auth::user()->cedula)
+        $personal = DB::table('personal')->select('personal.*', 'tipo_personal.descripcion as tipo_personal_descripcion', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec', 'personal_unidades.id as unidad')
+            ->where('personal.cedula_identidad', '<>', Auth::user()->cedula)
+            ->join('personal_unidades', function ($join) use($unidades) {
+                $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
+                    ->whereIn('personal_unidades.codigo_unidad_ejec', $unidades);
+            })
+            ->leftJoin('tipo_personal', 'personal.tipo_personal', '=', 'tipo_personal.id')
+            ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
             ->get();
         return $personal;
       } catch (\Throwable $th) {
@@ -54,7 +59,7 @@ class PersonalRepository extends BaseRepository {
     $data = [
         'nombres_apellidos'   => $request[ 'nombres_apellidos'],
         'cedula_identidad'    => $request['cedula_identidad'],
-        'tipo_personal'       => $request['tipo_personal'],       
+        'tipo_personal'       => $request['tipo_personal'],
         'cargo_opsu'          => $request['cargo_opsu'],
         'cod_nucleo'          => $nucleo,
         'correo'              => $request['correo'],
@@ -83,9 +88,32 @@ class PersonalRepository extends BaseRepository {
 }
 
   public function searchPersonal($cedula) {
-    $search = PersonalMigracion::where('cedula_identidad', 'like', '%'. $cedula. '%')->get();
+    $personal = Personal::where('cedula_identidad', $cedula)->get();
+
+    if($personal->count() > 0){
+        throw new Exception('El Trabajador ya está registrado.', 422);
+    }
+
+    $search = PersonalMigracion::where('cedula_identidad', 'like', '%'. $cedula. '%')->first();
 
     return $search;
+  }
+
+  public function deletePersonal($id){
+    $personal = Personal::where('id', $id)->first();
+
+    if(!$personal){
+        throw new Exception('El Personal que desea Eliminar no existe', 422);
+    }
+
+    try {
+        PersonalUnidad::where('cedula_identidad', $personal->cedula_identidad)->delete();
+        return $personal->delete();
+      } catch (\Throwable $th) {
+        throw new Exception($th->getMessage());
+      }
+
+
   }
 
 }

@@ -103,16 +103,12 @@ class PersonalController extends AppBaseController
     public function destroy($id)
     {
         try {
-            $this->repository->delete($id);
+            $this->repository->deletePersonal($id);
             return $this->sendSuccess(
                 'Personal Eliminado Exitosamente.'
             );
         } catch (\Throwable $th) {
-            return $this->sendError(
-                $th->getCode() > 0
-                    ? $th->getMessage()
-                    : 'Hubo un error al intentar Actualizar el Departamento'
-            );
+            return $this->sendError($th->getMessage());
         }
     }
 
