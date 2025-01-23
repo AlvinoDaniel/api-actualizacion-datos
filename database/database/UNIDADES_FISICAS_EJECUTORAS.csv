@@ -1,0 +1,324 @@
+﻿NULL;11;RE01010000;Consejo Universitario;A101010100;Consejo Universitario
+NULL;11;RE01020000;Tribunal Académico;A101010200;Tribunal Académico
+NULL;11;RE01030000;Dirección de Contraloria Interna;A101010300;Dirección y/o Delegación de Contraloria Interna
+NULL;11;RE01040000;Comisión Electoral;A101010400;Comisión Electoral
+NULL;11;RE02010000;Rectoría ;A101020100;Rectoría 
+NULL;11;RE02020000;Dirección de Consultoría Jurídica ;A101020400;Dirección y/o Delegación de Consultoría Jurídica 
+NULL;11;RE02030000;Comisión para la Reforma y Evaluación Institucional (Crediudo) ;A101020500;Comisión para la Reforma y Evaluación Institucional (Crediudo) 
+NULL;11;RE02040000;Dirección de Comunicación Corporativa ;A101030200;Comunicación Corporativa 
+NULL;11;RE02050000;Relaciones Inter-Institucionales ;A101020600;Oficina de Relaciones Inter-Institucionales 
+NULL;11;RE02060000;Unidad de Enlace;A101020700;Unidad de Enlace
+NULL;11;RE02070000;Dirección de Planificación;A101070100;Dirección y/o Delegación de Planificación
+NULL;11;RE02080000;Dirección de Planta Física;A101150100;Dirección y/o Delegación de Planta Física
+NULL;11;RE02090000;Dirección de Deportes;A101140200;Dirección y/o Delegación de Deportes
+NULL;11;RE02100000;Dirección de Cultura;A101140300;Dirección y/o Delegación de Cultura
+NULL;11;RE02110000;Dirección de Teleinformática;A101090100;Dirección y/o Delegación de Teleinformática
+NULL;11;RE02120000;Dirección de Museo del Mar;A101130500;Museo del Mar
+NULL;11;RE02130000;Rectorado II;A101020800;Rectorado II
+NULL;11;RE03010000;Vicerrectorado Académico ;A101040100;Vicerrectorado Académico 
+NULL;11;RE03020000;Coordinación General de Postgrado;A101110100;Coordinación General  y/o Delegación de Postgrado
+NULL;11;RE03030000;Coordinación de Investigación;A101120100;Coordinación y/o Comisión de Investigación
+NULL;11;RE03030100;Instituto de Investigaciones de Biomedicina (IIBCA);A101120200;Instituto de Investigaciones de Biomedicina (IIBCA)
+NULL;11;RE03030200;Centro de Investigaciones Ecologicas Guayacan;A101120300;Centro de Investigaciones Ecologicas Guayacan
+NULL;11;RE03040000;Dirección de Desarrollo Estudiantil;A101140100;Dirección y/o Delegación de Desarrollo Estudiantil
+NULL;11;RE03050000;Comisión de Formación de Recursos Humanos;A101040200;Comisión de Formación de Recursos Humanos
+NULL;11;RE03060000;Comisión de Clasificación Docente;A101040300;Comisión de Clasificación Docente
+NULL;11;RE03070000;Dirección de Biblioteca;A101130201;Dirección de Biblioteca
+NULL;11;RE03080000;Dirección de Curricula;A101040400;Dirección y/o Delegación de Curricula
+NULL;11;RE03080100;Coordinación de Servicio Comunitario del Estudiante;A101100704;Coordinación y/o Sección de Servicio Comunitario del Estudiante
+NULL;11;RE03090000;Dirección de Tecnología Educativa;A101130300;Dirección y/o Delegación de Tecnología Educativa
+NULL;11;RE03100000;Centro de Sismología;A101120400;Centro de Sismología
+NULL;11;RE04010000;Vicerrectorado Administrativo;A101050100;Vicerrectorado Administrativo
+NULL;11;RE04020000;Coordinación General de Administración ;A101080100;Coordinación de Administración 
+NULL;11;RE04020100;Coordinación de Servicios Generales;A101150200;Coordinación y/o Sección de Servicios Generales
+NULL;11;RE04020200;Sección de Compras;A101080101;Sección de Compras
+NULL;11;RE04020300;Sección de Almacén;A101080102;Sección de Almacén
+NULL;11;RE04030000;Dirección de Personal;A101060100;Dirección y/o Delegación de Personal
+NULL;11;RE04030100;Departamento de Nómina;A101060200;Departamento de Nómina
+NULL;11;RE04030200;Departamento de Comisión de Clasificación del Personal Administrativo;A101050200;Departamento de Comisión de Clasificación del Personal Administrativo
+NULL;11;RE04030300;Departamento de Evaluación y Seguimiento de Personal;A101060300;Departamento de Evaluación y Seguimiento de Personal
+NULL;11;RE04030400;Departamento de Registro y Estadísticas de Personal;A101060400;Departamento de Registro y Estadísticas de Personal
+NULL;11;RE04030500;Departamento de Registro y Control de Pasivos Laborales de Personal;A101060500;Departamento de Registro y Control de Pasivos Laborales de Personal
+NULL;11;RE04030600;Departamento de Servicio Social del Personal;A101060600;Departamento de Servicio Social del Personal
+NULL;11;RE04040000;Dirección de Presupuesto;A101070200;Dirección y/o Delegación de Presupuesto
+NULL;11;RE04050000;Dirección de Finanzas;A101080200;Dirección y/o Delegación de Finanzas
+NULL;11;RE04050100;Departamento de Servicios Financieros;A101080201;Departamento de Servicios Financieros
+NULL;11;RE04050200;Sección de Caja;A101080202;Sección de Caja
+NULL;11;RE04050300;Departamento de Contabilidad;A101080203;Departamento de Contabilidad
+NULL;11;RE04050400;Sección de Registro de Bienes Muebles e Inmuebles;A101080204;Sección de Registro de Bienes Muebles e Inmuebles
+NULL;11;RE04060000;Dirección de Organización y Sistemas Institucionales;A101070300;Dirección de Organización y Sistemas Institucionales
+NULL;11;RE04070000;Coordinación General de ASMOE;A101050300;Coordinación General de ASMOE
+NULL;11;RE04080000;Dirección de Computación;A101090200;Dirección y/o Delegación de Computación
+NULL;11;RE04090000;Bomberos Universitarios;A101130400;Bomberos Universitarios
+NULL;11;RE05010000;Secretaría ;A101030100;Secretaría 
+NULL;11;RE05020000;Coordiinación General de Control de Estudio;A101130100;Coordiinación General y/o Delegación de Control de Estudio
+NULL;11;RE05030000;Servicios de Publicaciones Institucionales ;A101030300;Servicios de Publicaciones Institucionales 
+NULL;31;NU01000000;Decanato;A101020200;Decanato
+NULL;31;NU01010000;Delegación de Consultoria Jurídica;A101020400;Dirección y/o Delegación de Consultoría Jurídica 
+NULL;31;NU01020000;Delegación de Relaciones Inter-Institucionales;A101020600;Oficina de Relaciones Inter-Institucionales 
+NULL;31;NU01030000;Delegación de Planificación ;A101070100;Dirección y/o Delegación de Planificación
+NULL;31;NU01040000;Delegación de Deportes;A101140200;Dirección y/o Delegación de Deportes
+NULL;31;NU01050000;Delegación de Recursos Humanos;A101040200;Comisión de Formación de Recursos Humanos
+NULL;31;NU01060000;Delegación de Cultura;A101140300;Dirección y/o Delegación de Cultura
+NULL;31;NU01070000;Delegación de Servicios Telemáticos;A101090100;Dirección y/o Delegación de Teleinformática
+NULL;31;NU01080000;Delegación de Publicaciones ;A101030300;Servicios de Publicaciones Institucionales 
+NULL;31;NU01090000;Delegación de Desarrollo Estudiantil;A101140100;Dirección y/o Delegación de Desarrollo Estudiantil
+NULL;31;NU01100000;Coordinación Académica;A101040500;Coordinación Académica
+NULL;31;NU01100100;Coordinación de Postgrdo;A101110100;Coordinación General  y/o Delegación de Postgrado
+NULL;31;NU01100200;Delegación de Control de Estudio;A101130100;Coordiinación General y/o Delegación de Control de Estudio
+NULL;31;NU01100300;Comisión de Investigación;A101120100;Coordinación y/o Comisión de Investigación
+NULL;31;NU01100400;Delegación de Curricula;A101040400;Dirección y/o Delegación de Curricula
+NULL;31;NU01100401;Sección de Servicio Comunitario;A101100704;Coordinación y/o Sección de Servicio Comunitario del Estudiante
+NULL;31;NU01110000;Biblioteca General;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;31;NU01120000;Delegación de Tecnología Educativa;A101130300;Dirección y/o Delegación de Tecnología Educativa
+NULL;31;NU01130000;Delegación de Comunicación Corporativa;A101030200;Comunicación Corporativa 
+NULL;31;NU01140000;Coordinación Administrativa;A101080100;Coordinación de Administración 
+NULL;31;NU01140100;Delegación de Presupuesto;A101070200;Dirección y/o Delegación de Presupuesto
+NULL;31;NU01140200;Delegación de Personal;A101060100;Dirección y/o Delegación de Personal
+NULL;31;NU01140201;Departamento de Nómina;A101060200;Departamento de Nómina
+NULL;31;NU01140300;Delegación de Finanzas;A101080200;Dirección y/o Delegación de Finanzas
+NULL;31;NU01140301;Departamento de Contabilidad;A101080203;Departamento de Contabilidad
+NULL;31;NU01140400;Comedor Universitario;A101140400;Comedor Estudiantil
+NULL;31;NU01140500;Coordinación de Servicios Generales;A101150200;Coordinación y/o Sección de Servicios Generales
+NULL;31;NU01140600;Sección de Compras;A101080101;Sección de Compras
+NULL;31;NU01160100;Escuela de Ciencias Administrativas - Dirección;A101100601;Dirección y Gestion Escuela Área Ciencias Sociales
+NULL;31;NU01160200;Escuela de Ciencias Administrativas - Departamento de Economía y Administración;A101100607;Departamento de Administración Comercial
+NULL;31;NU01160300;Escuela de Ciencias Administrativas - Departamento de Contaduría;A101100608;Departamento de Contaduría Pública
+NULL;31;NU01170100;Escuela de Medicina - Dirección;A101100401;Dirección y Gestión Escuelas Área Ciencias de la Salud
+NULL;31;NU01170200;Escuela de Medicina - Departamento de Ciencias Morfológicas;A101100403;Departamento de Medicina
+NULL;31;NU01170300;Escuela de Medicina - Departamento de Ciencias Fisiológicas;A101100403;Departamento de Medicina
+NULL;31;NU01170400;Escuela de Medicina - Departamento de Microbiología y Parasitología;A101100403;Departamento de Medicina
+NULL;31;NU01170500;Escuela de Medicina - Departamento de Psiquiatría;A101100403;Departamento de Medicina
+NULL;31;NU01170600;Escuela de Medicina - Departamento de Medicina;A101100403;Departamento de Medicina
+NULL;31;NU01170700;Escuela de Medicina - Departamento de Cirugia;A101100403;Departamento de Medicina
+NULL;31;NU01170800;Escuela de Medicina - Departamento de Pediatria;A101100403;Departamento de Medicina
+NULL;31;NU01170900;Escuela de Medicina - Departamento de Medicina Preventiva y Social;A101100403;Departamento de Medicina
+NULL;31;NU01171000;Escuela de Medicina - Departamento de Ginecología y Obstetricia;A101100403;Departamento de Medicina
+NULL;31;NU01171100;Escuela de Medicina - Departamento de Anatomía Patológica;A101100403;Departamento de Medicina
+NULL;31;NU01171200;Escuela de Medicina - Departamento de Radiología;A101100403;Departamento de Medicina
+NULL;31;NU01171300;Escuela de Medicina - Oficina de Educación Medica;A101100403;Departamento de Medicina
+NULL;31;NU01180100;Escuelas Ingeniería y Ciencias Aplicadas - Dirección;A101100201;Dirección y Gestión Escuelas Areas de Ciencias Arquitectura, Ingeniería y Tecnológia
+NULL;31;NU01180200;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería Mecánica;A101100203;Departamento de Ingeniería Mecánica
+NULL;31;NU01180300;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería de Petróleo;A101100205;Departamento de Ingeniería de Petróleo
+NULL;31;NU01180400;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería Civil;A101100207;Departamento de Ingeniería Civil
+NULL;31;NU01180500;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Arquitectura;A101100208;Departamento de Arquitectura
+NULL;31;NU01180600;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería en Computación;A101100209;Departamento de Ingeniería en Computación
+NULL;31;NU01180700;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería de Sistemas Industrial;A101100210;Departamento de Ingeniería de Sistemas
+NULL;31;NU01180900;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería de Química;A101100206;Departamento de Ingeniería Química
+NULL;31;NU011810800;Escuelas Ingeniería y Ciencias Aplicadas - Departamento de Ingeniería de Eléctrica;A101100202;Departamento de Ingeniería Eléctrica
+NULL;31;NU01190100;Unidad de Cursos Básicos - Dirección;A101100701;Unidad de Cursos Básicos - Dirección
+NULL;31;NU01190200;Unidad de Cursos Básicos - Departamento de Ciencias;A101100702;Unidad de Cursos Básicos - Dpto. de Ciencias
+NULL;31;NU01190300;Unidad de Cursos Básicos - Departamento Socio-Humanistico;A101100703;Unidad de Cursos Básicos - Dpto. de Sociohumanidades
+NULL;51;NU01000000;Decanato;A101020200;Decanato
+NULL;51;NU01010000;Delegación de Consultoria Jurídica;A101020400;Dirección y/o Delegación de Consultoría Jurídica 
+NULL;51;NU01020000;Delegación de Relaciones Inter-Institucionales;A101020600;Oficina de Relaciones Inter-Institucionales 
+NULL;51;NU01030000;Delegación de Planificación ;A101070100;Dirección y/o Delegación de Planificación
+NULL;51;NU01040000;Delegación de Deportes;A101140200;Dirección y/o Delegación de Deportes
+NULL;51;NU01050000;Delegación de Recursos Humanos;A101040200;Comisión de Formación de Recursos Humanos
+NULL;51;NU01060000;Delegación de Cultura;A101140300;Dirección y/o Delegación de Cultura
+NULL;51;NU01070000;Delegación de Servicios Telemáticos;A101090100;Dirección y/o Delegación de Teleinformática
+NULL;51;NU01080000;Delegación de Publicaciones ;A101030300;Servicios de Publicaciones Institucionales 
+NULL;51;NU01090000;Delegación de Desarrollo Estudiantil;A101140100;Dirección y/o Delegación de Desarrollo Estudiantil
+NULL;51;NU01100000;Coordinación Académica;A101040500;Coordinación Académica
+NULL;51;NU01100100;Coordinación de Postgrdo;A101110100;Coordinación General  y/o Delegación de Postgrado
+NULL;51;NU01100200;Delegación de Control de Estudio;A101130100;Coordiinación General y/o Delegación de Control de Estudio
+NULL;51;NU01100300;Comisión de Investigación;A101120100;Coordinación y/o Comisión de Investigación
+NULL;51;NU01100400;Delegación de Curricula;A101040400;Dirección y/o Delegación de Curricula
+NULL;51;NU01100401;Sección de Servicio Comunitario;A101100704;Coordinación y/o Sección de Servicio Comunitario del Estudiante
+NULL;51;NU01110000;Biblioteca General;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;51;NU01120000;Delegación de Tecnología Educativa;A101130300;Dirección y/o Delegación de Tecnología Educativa
+NULL;51;NU01130000;Delegación de Comunicación Corporativa;A101030200;Comunicación Corporativa 
+NULL;51;NU01140000;Coordinación Administrativa;A101080100;Coordinación de Administración 
+NULL;51;NU01140100;Delegación de Presupuesto;A101070200;Dirección y/o Delegación de Presupuesto
+NULL;51;NU01140200;Delegación de Personal;A101060100;Dirección y/o Delegación de Personal
+NULL;51;NU01140201;Departamento de Nómina;A101060200;Departamento de Nómina
+NULL;51;NU01140300;Delegación de Finanzas;A101080200;Dirección y/o Delegación de Finanzas
+NULL;51;NU01140301;Departamento de Contabilidad;A101080203;Departamento de Contabilidad
+NULL;51;NU01140400;Comedor Universitario;A101140400;Comedor Estudiantil
+NULL;51;NU01140500;Coordinación de Servicios Generales;A101150200;Coordinación y/o Sección de Servicios Generales
+NULL;51;NU01140600;Sección de Compras;A101080101;Sección de Compras
+NULL;51;NU01160100;Escuela de Medicina - Dirección;A101100401;Dirección y Gestión Escuelas Área Ciencias de la Salud
+NULL;51;NU01160200;Escuela de Medicina - Departamento de Medicina;A101100403;Departamento de Medicina
+NULL;51;NU01160300;Escuela de Medicina - Departamento de Cirugia;A101100403;Departamento de Medicina
+NULL;51;NU01160400;Escuela de Medicina - Departamento de Medicina Preventiva;A101100403;Departamento de Medicina
+NULL;51;NU01160500;Escuela de Medicina - Departamento de Radiología;A101100403;Departamento de Medicina
+NULL;51;NU01160600;Escuela de Medicina - Departamento de Psiquiatría;A101100403;Departamento de Medicina
+NULL;51;NU01160700;Escuela de Medicina - Departamento de Ciencias Fisiológicas;A101100403;Departamento de Medicina
+NULL;51;NU01160800;Escuela de Medicina - Departamento de Ginecología y Obstetricia;A101100403;Departamento de Medicina
+NULL;51;NU01160900;Escuela de Medicina - Departamento de Pediatria;A101100403;Departamento de Medicina
+NULL;51;NU01161000;Escuela de Medicina - Departamento de Microbiología y Parasitología;A101100403;Departamento de Medicina
+NULL;51;NU01161100;Escuela de Medicina - Departamento de Morfología;A101100403;Departamento de Medicina
+NULL;51;NU01161200;Escuela de Medicina - Departamento de Anatomía Patológica;A101100403;Departamento de Medicina
+NULL;51;NU01161300;Escuela de Medicina - Departamento de Enfermería;A101100404;Departamento de Enfermería
+NULL;51;NU01161400;Escuela de Medicina - Departamento de Bioanálisis;A101100402;Departamento de Bioanálisis
+NULL;51;NU01161500;Escuela de Medicina - Oficina de Educación Medica;A101100401;Dirección y Gestión Escuelas Área Ciencias de la Salud
+NULL;51;NU01161600;Escuela de Medicina - Centro Microscopico Electrónico;A101100403;Departamento de Medicina
+NULL;51;NU01161700;Escuela de Medicina - Biblioteca;A101130205;Bibliotecas de Ciencias de la Salud
+NULL;51;NU01170100;Escuela de Ciencias de la Tierra - Dirección;A101100201;Dirección y Gestión Escuelas Areas de Ciencias Arquitectura, Ingeniería y Tecnológia
+NULL;51;NU01170200;Escuela de Ciencias de la Tierra - Departamento de Geología;A101100212;Departamento de Geología
+NULL;51;NU01170300;Escuela de Ciencias de la Tierra - Departamento de Minas y Metalurgicas;A101100213;Departamento de Ingeniería de Minas
+NULL;51;NU01170400;Escuela de Ciencias de la Tierra - Departamento de Geotecnia;A101100211;Departamento de Ingeniería Geológica
+NULL;51;NU01170500;Escuela de Ciencias de la Tierra - Departamento de Ingeniería Civil;A101100207;Departamento de Ingeniería Civil
+NULL;51;NU01180100;Unidad de Cursos Básicos - Dirección;A101100701;Unidad de Cursos Básicos - Dirección
+NULL;51;NU01180200;Unidad de Cursos Básicos - Departamento de Ciencias;A101100702;Unidad de Cursos Básicos - Dpto. de Ciencias
+NULL;51;NU01180300;Unidad de Cursos Básicos - Departamento Socio-Humanistico;A101100703;Unidad de Cursos Básicos - Dpto. de Sociohumanidades
+NULL;53;NU01000000;Extensión UEPO - Dirección;A101020300;Dirección Sub-Núcleos y Extensiones
+NULL;53;NU01030000;Biblioteca;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;53;NU01040000;Administración;A101020300;Dirección Sub-Núcleos y Extensiones
+NULL;41;NU01000000;Decanato;A101020200;Decanato
+NULL;41;NU01010000;Delegación de Consultoria Jurídica;A101020400;Dirección y/o Delegación de Consultoría Jurídica 
+NULL;41;NU01020000;Delegación de Relaciones Inter-Institucionales;A101020600;Oficina de Relaciones Inter-Institucionales 
+NULL;41;NU01030000;Delegación de Planificación ;A101070100;Dirección y/o Delegación de Planificación
+NULL;41;NU01040000;Delegación de Deportes;A101140200;Dirección y/o Delegación de Deportes
+NULL;41;NU01050000;Delegación de Recursos Humanos;A101040200;Comisión de Formación de Recursos Humanos
+NULL;41;NU01060000;Delegación de Cultura;A101140300;Dirección y/o Delegación de Cultura
+NULL;41;NU01070000;Delegación de Servicios Telemáticos;A101090100;Dirección y/o Delegación de Teleinformática
+NULL;41;NU01080000;Delegación de Publicaciones ;A101030300;Servicios de Publicaciones Institucionales 
+NULL;41;NU01090000;Delegación de Desarrollo Estudiantil;A101140100;Dirección y/o Delegación de Desarrollo Estudiantil
+NULL;41;NU01100000;Coordinación Académica;A101040500;Coordinación Académica
+NULL;41;NU01100100;Coordinación de Postgrdo;A101110100;Coordinación General  y/o Delegación de Postgrado
+NULL;41;NU01100200;Delegación de Control de Estudio;A101130100;Coordiinación General y/o Delegación de Control de Estudio
+NULL;41;NU01100300;Comisión de Investigación;A101120100;Coordinación y/o Comisión de Investigación
+NULL;41;NU01100400;Delegación de Curricula;A101040400;Dirección y/o Delegación de Curricula
+NULL;41;NU01100401;Sección de Servicio Comunitario;A101100704;Coordinación y/o Sección de Servicio Comunitario del Estudiante
+NULL;41;NU01110000;Biblioteca General;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;41;NU01120000;Delegación de Tecnología Educativa;A101130300;Dirección y/o Delegación de Tecnología Educativa
+NULL;41;NU01130000;Delegación de Comunicación Corporativa;A101030200;Comunicación Corporativa 
+NULL;41;NU01140000;Coordinación Administrativa;A101080100;Coordinación de Administración 
+NULL;41;NU01140100;Delegación de Presupuesto;A101070200;Dirección y/o Delegación de Presupuesto
+NULL;41;NU01140200;Delegación de Personal;A101060100;Dirección y/o Delegación de Personal
+NULL;41;NU01140201;Departamento de Nómina;A101060200;Departamento de Nómina
+NULL;41;NU01140300;Delegación de Finanzas;A101080200;Dirección y/o Delegación de Finanzas
+NULL;41;NU01140301;Departamento de Contabilidad;A101080203;Departamento de Contabilidad
+NULL;41;NU01140302;Librería Universitaria;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;41;NU01140400;Comedor Universitario;A101140400;Comedor Estudiantil
+NULL;41;NU01140500;Coordinación de Servicios Generales;A101150200;Coordinación y/o Sección de Servicios Generales
+NULL;41;NU01140600;Sección de Compras;A101080101;Sección de Compras
+NULL;41;NU01150100;Escuela de Ciencias del Agro y Del Ambiente - Dirección;A101100301;Dirección y Gestión Escuelas Área Ciencias del Agro y del Mar
+NULL;41;NU01150200;Escuela de Ciencias del Agro y Del Ambiente - Departamento de Ingeniería Agronómica;A101100302;Departamento de Ingeniería Agronómica
+NULL;41;NU01150300;Escuela de Ciencias del Agro y Del Ambiente - Departamento de Ingeniería Ambiental;A101100302;Departamento de Ingeniería Agronómica
+NULL;41;NU01150400;Escuela de Ciencias del Agro y Del Ambiente - Departamento de Producción Animal;A101100303;Departamento de Ingeniería de Producción Animal
+NULL;41;NU01150500;Escuela de Ciencias del Agro y Del Ambiente - Departamento de Tecnología de los Alimentos;A101100304;Departamento de Tecnología de Alimentos
+NULL;41;NU01160100;Escuela de Ingeniería y Ciencias Aplicadas - Dirección ;A101100201;Dirección y Gestión Escuelas Areas de Ciencias Arquitectura, Ingeniería y Tecnológia
+NULL;41;NU01160200;Escuela de Ingeniería y Ciencias Aplicadas - Departameno de Petróleo;A101100205;Departamento de Ingeniería de Petróleo
+NULL;41;NU01160300;Escuela de Ingeniería y Ciencias Aplicadas - Departameno de Ingeniería de Sistemas;A101100210;Departamento de Ingeniería de Sistemas
+NULL;41;NU01170100;Escuela de Ciencias Sociales y Administrativas - Dirección;A101100602;Gestion de la enseñanza en carreras . Ciencias Administrativas
+NULL;41;NU01170200;Escuela de Ciencias Sociales y Administrativas - Departamento de Administración;A101100607;Departamento de Administración Comercial
+NULL;41;NU01170300;Escuela de Ciencias Sociales y Administrativas - Departamento de Contaduría;A101100608;Departamento de Contaduría Pública
+NULL;41;NU01170400;Escuela de Ciencias Sociales y Administrativas - Departamento de Gerencia de Recursos Humanos;A101100612;Departamento de Gerencia de Recursos Humanos
+NULL;41;NU01180100;Instituto de Investigaciones Agropecuarias - Dirección;A101100301;Dirección y Gestión Escuelas Área Ciencias del Agro y del Mar
+NULL;41;NU01180200;Instituto de Investigaciones Agropecuarias - Departamento de Investigaciones Sector Agricola;A101100302;Departamento de Ingeniería Agronómica
+NULL;41;NU01180300;Instituto de Investigaciones Agropecuarias - Departamento de Investigaciones Sector Ambiente Rect. Nat.;A101100302;Departamento de Ingeniería Agronómica
+NULL;41;NU01180400;Instituto de Investigaciones Agropecuarias - Departamento Administración Agro. Ind.;A101100302;Departamento de Ingeniería Agronómica
+NULL;41;NU01190100;Unidad de Cursos Básicos - Dirección;A101100701;Unidad de Cursos Básicos - Dirección
+NULL;41;NU01190200;Unidad de Cursos Básicos - Departamento de Ciencias;A101100702;Unidad de Cursos Básicos - Dpto. de Ciencias
+NULL;41;NU01190300;Unidad de Cursos Básicos - Departamento Socio-Humanistico;A101100703;Unidad de Cursos Básicos - Dpto. de Sociohumanidades
+NULL;61;NU01000000;Decanato;A101020200;Decanato
+NULL;61;NU01010000;Delegación de Consultoria Jurídica;A101020400;Dirección y/o Delegación de Consultoría Jurídica 
+NULL;61;NU01020000;Delegación de Relaciones Inter-Institucionales;A101020600;Oficina de Relaciones Inter-Institucionales 
+NULL;61;NU01030000;Delegación de Planificación ;A101070100;Dirección y/o Delegación de Planificación
+NULL;61;NU01040000;Delegación de Deportes;A101140200;Dirección y/o Delegación de Deportes
+NULL;61;NU01050000;Delegación de Recursos Humanos;A101040200;Comisión de Formación de Recursos Humanos
+NULL;61;NU01060000;Delegación de Cultura;A101140300;Dirección y/o Delegación de Cultura
+NULL;61;NU01070000;Delegación de Servicios Telemáticos;A101090100;Dirección y/o Delegación de Teleinformática
+NULL;61;NU01080000;Delegación de Publicaciones ;A101030300;Servicios de Publicaciones Institucionales 
+NULL;61;NU01090000;Delegación de Desarrollo Estudiantil;A101140100;Dirección y/o Delegación de Desarrollo Estudiantil
+NULL;61;NU01100000;Coordinación Académica;A101040500;Coordinación Académica
+NULL;61;NU01100100;Coordinación de Postgrdo;A101110100;Coordinación General  y/o Delegación de Postgrado
+NULL;61;NU01100200;Delegación de Control de Estudio;A101130100;Coordiinación General y/o Delegación de Control de Estudio
+NULL;61;NU01100300;Comisión de Investigación;A101120100;Coordinación y/o Comisión de Investigación
+NULL;61;NU01100400;Delegación de Curricula;A101040400;Dirección y/o Delegación de Curricula
+NULL;61;NU01100401;Sección de Servicio Comunitario;A101100704;Coordinación y/o Sección de Servicio Comunitario del Estudiante
+NULL;61;NU01110000;Biblioteca General;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;61;NU01120000;Delegación de Tecnología Educativa;A101130300;Dirección y/o Delegación de Tecnología Educativa
+NULL;61;NU01130000;Delegación de Comunicación Corporativa;A101030200;Comunicación Corporativa 
+NULL;61;NU01140000;Coordinación Administrativa;A101080100;Coordinación de Administración 
+NULL;61;NU01140100;Delegación de Presupuesto;A101070200;Dirección y/o Delegación de Presupuesto
+NULL;61;NU01140200;Delegación de Personal;A101060100;Dirección y/o Delegación de Personal
+NULL;61;NU01140201;Departamento de Nómina;A101060200;Departamento de Nómina
+NULL;61;NU01140300;Delegación de Finanzas;A101080200;Dirección y/o Delegación de Finanzas
+NULL;61;NU01140301;Departamento de Contabilidad;A101080203;Departamento de Contabilidad
+NULL;61;NU01140302;Librería Universitaria;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;61;NU01140400;Comedor Universitario;A101140400;Comedor Estudiantil
+NULL;61;NU01140500;Coordinación de Servicios Generales;A101150200;Coordinación y/o Sección de Servicios Generales
+NULL;61;NU01140600;Sección de Compras;A101080101;Sección de Compras
+NULL;61;NU01150000;Instituto de Investigaciones Cientifica;A101120100;Coordinación y/o Comisión de Investigación
+NULL;61;NU01160100;Escuela de Ciencias Aplicadas del Mar - Dirección;A101100301;Dirección y Gestión Escuelas Área Ciencias del Agro y del Mar
+NULL;61;NU01160200;Escuela de Ciencias Aplicadas del Mar - Departamento de Acuacultura Marina;A101100305;Departamento de Acuacultura
+NULL;61;NU01160300;Escuela de Ciencias Aplicadas del Mar - Departamento de Tecnología de los Alimentos;A101100304;Departamento de Tecnología de Alimentos
+NULL;61;NU01170100;Escuela de Hoteleria y Turismo - Dirección;A101100602;Gestion de la enseñanza en carreras . Ciencias Administrativas
+NULL;61;NU01170200;Escuela de Hoteleria y Turismo - Departamento de Servicios Turisticos;A101100609;Departamento de Turismo
+NULL;61;NU01170300;Escuela de Hoteleria y Turismo - Departamento de Turismo;A101100609;Departamento de Turismo
+NULL;61;NU01170400;Escuela de Hoteleria y Turismo - Departamento de Informática;A101100214;Departamento de Informática
+NULL;61;NU01170400;Escuela de Hoteleria y Turismo - Departamento de Estadistica;A101100611;Departamento de Estadística
+NULL;61;NU01170400;Escuela de Hoteleria y Turismo - Cursos Básicos Experimentales;A101100609;Departamento de Turismo
+NULL;61;NU01180100;Unidad de Cursos Básicos - Dirección;A101100701;Unidad de Cursos Básicos - Dirección
+NULL;61;NU01180200;Unidad de Cursos Básicos - Departamento de Ciencias;A101100702;Unidad de Cursos Básicos - Dpto. de Ciencias
+NULL;61;NU01180300;Unidad de Cursos Básicos - Departamento Socio-Humanistico;A101100703;Unidad de Cursos Básicos - Dpto. de Sociohumanidades
+NULL;21;NU01000000;Decanato;A101020200;Decanato
+NULL;21;NU01010000;Delegación de Consultoria Jurídica;A101020400;Dirección y/o Delegación de Consultoría Jurídica 
+NULL;21;NU01020000;Delegación de Relaciones Inter-Institucionales;A101020600;Oficina de Relaciones Inter-Institucionales 
+NULL;21;NU01030000;Delegación de Planificación ;A101070100;Dirección y/o Delegación de Planificación
+NULL;21;NU01040000;Delegación de Deportes;A101140200;Dirección y/o Delegación de Deportes
+NULL;21;NU01050000;Delegación de Recursos Humanos;A101040200;Comisión de Formación de Recursos Humanos
+NULL;21;NU01060000;Delegación de Cultura;A101140300;Dirección y/o Delegación de Cultura
+NULL;21;NU01070000;Delegación de Servicios Telemáticos;A101090100;Dirección y/o Delegación de Teleinformática
+NULL;21;NU01080000;Delegación de Publicaciones ;A101030300;Servicios de Publicaciones Institucionales 
+NULL;21;NU01090000;Delegación de Desarrollo Estudiantil;A101140100;Dirección y/o Delegación de Desarrollo Estudiantil
+NULL;21;NU01100000;Coordinación Académica;A101040500;Coordinación Académica
+NULL;21;NU01100100;Coordinación de Postgrdo;A101110100;Coordinación General  y/o Delegación de Postgrado
+NULL;21;NU01100200;Delegación de Control de Estudio;A101130100;Coordiinación General y/o Delegación de Control de Estudio
+NULL;21;NU01100300;Comisión de Investigación;A101120100;Coordinación y/o Comisión de Investigación
+NULL;21;NU01100400;Delegación de Curricula;A101040400;Dirección y/o Delegación de Curricula
+NULL;21;NU01100401;Sección de Servicio Comunitario;A101100704;Coordinación y/o Sección de Servicio Comunitario del Estudiante
+NULL;21;NU01110000;Biblioteca General;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;21;NU01120000;Delegación de Tecnología Educativa;A101130300;Dirección y/o Delegación de Tecnología Educativa
+NULL;21;NU01130000;Delegación de Comunicación Corporativa;A101030200;Comunicación Corporativa 
+NULL;21;NU01140000;Coordinación Administrativa;A101080100;Coordinación de Administración 
+NULL;21;NU01140100;Delegación de Presupuesto;A101070200;Dirección y/o Delegación de Presupuesto
+NULL;21;NU01140200;Delegación de Personal;A101060100;Dirección y/o Delegación de Personal
+NULL;21;NU01140201;Departamento de Nómina;A101060200;Departamento de Nómina
+NULL;21;NU01140300;Delegación de Finanzas;A101080200;Dirección y/o Delegación de Finanzas
+NULL;21;NU01140301;Departamento de Contabilidad;A101080203;Departamento de Contabilidad
+NULL;21;NU01140302;Librería Universitaria;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;21;NU01140400;Comedor Universitario;A101140400;Comedor Estudiantil
+NULL;21;NU01140500;Coordinación de Servicios Generales;A101150200;Coordinación y/o Sección de Servicios Generales
+NULL;21;NU01140600;Sección de Compras;A101080101;Sección de Compras
+NULL;21;NU01150100;Instituto Oceanográfico - Dirección;A101120500;Instituto Oceanógrafico de Venezuela
+NULL;21;NU01150200;Instituto Oceanográfico - Departamento de Biología Marina;A101100306;Departamento de Biología Marina
+NULL;21;NU01150300;Instituto Oceanográfico - Departamento de Biología Pesquera;A101100307;Departamento de Biología Pesquera
+NULL;21;NU01150400;Instituto Oceanográfico - Departamento de Oceanografía Fisica-Quimica;A101120500;Instituto Oceanógrafico de Venezuela
+NULL;21;NU01150500;Instituto Oceanográfico - Biblioteca;A101130208;Bibliotecas Centrales Áreas Interdisciplinarias
+NULL;21;NU01160100;Escuela de Ciencias - Dirección;A101100101;Dirección y Gestión Escuela de Areas de Ciencias Básicas
+NULL;21;NU01160200;Escuela de Ciencias - Departamento de Química;A101100105;Departamento de Química
+NULL;21;NU01160300;Escuela de Ciencias - Departamento de Física;A101100102;Departamento de Física
+NULL;21;NU01160400;Escuela de Ciencias - Departamento de Biología;A101100104;Departamento de Biología
+NULL;21;NU01160500;Escuela de Ciencias - Departamento de Biónalisis;A101100402;Departamento de Bioanálisis
+NULL;21;NU01160600;Escuela de Ciencias - Departamento de Matemáticas;A101100103;Departamento de Matemáticas
+NULL;21;NU01170100;Escuela de Ciencias Sociales - Dirección;A101100603;Gestion de la enseñanza en carreras . Ciencias Sociales
+NULL;21;NU01170200;Escuela de Ciencias Sociales - Departamento de Sociología;A101100604;Departamento de Sociología
+NULL;21;NU01170300;Escuela de Ciencias Sociales - Departamento de Trabajo Social;A101100605;Departamento de Trabajo Social
+NULL;21;NU01180100;Escuela de Administración - Dirección;A101100602;Gestion de la enseñanza en carreras . Ciencias Administrativas
+NULL;21;NU01180200;Escuela de Administración - Departamento de Administración;A101100607;Departamento de Administración Comercial
+NULL;21;NU01180300;Escuela de Administración - Departamento de Contaduria;A101100608;Departamento de Contaduría Pública
+NULL;21;NU01190100;Escuela de Humanidades y Educación - Dirección;A101100501;Dirección y Gestión Escuelas Área Ciencias de la Educación
+NULL;21;NU01190200;Escuela de Humanidades y Educación - Departamento Curric. Y Adm. Educación;A101100502;Departamento de Educación Integral
+NULL;21;NU01190300;Escuela de Humanidades y Educación - Departamento de Filosofía y Letras;A101100504;Departamento de Educación - Castellano y Literatura
+NULL;21;NU01190400;Escuela de Humanidades y Educación - Departamento de Idiomas Modernos;A101100505;Departamento de Educación - Ingles
+NULL;21;NU01190500;Escuela de Humanidades y Educación - Departamento Psicología e Inv. Educ.;A101100502;Departamento de Educación Integral
+NULL;21;NU01190600;Escuela de Humanidades y Educación - Escuela Primaria Romulo Gallegos;A101100511;Escuela Don Romulo Gallegos
+NULL;21;NU01200100;Unidad de Cursos Básicos - Dirección;A101100701;Unidad de Cursos Básicos - Dirección
+NULL;21;NU01200200;Unidad de Cursos Básicos - Departamento de Ciencias;A101100702;Unidad de Cursos Básicos - Dpto. de Ciencias
+NULL;21;NU01200300;Unidad de Cursos Básicos - Departamento Socio-Humanistico;A101100703;Unidad de Cursos Básicos - Dpto. de Sociohumanidades
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
