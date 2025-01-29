@@ -26,10 +26,10 @@ class PersonalController extends AppBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $personal = $this->repository->personalByUnidad();
+            $personal = $this->repository->personalByUnidad($request);
             $message = 'Lista de Trabajadores';
             return $this->sendResponse(['personal' => $personal], $message);
         } catch (\Throwable $th) {

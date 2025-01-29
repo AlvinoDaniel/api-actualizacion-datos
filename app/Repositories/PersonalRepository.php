@@ -32,15 +32,21 @@ class PersonalRepository extends BaseRepository {
   /**
    * Listar todo el personal registrado de la unidad administrativa logueado
    */
-  public function personalByUnidad(){
-      $unidades = Auth::user()->personal->unidades->pluck('codigo_unidad_ejec');
-    // dd($unidades);
+  public function personalByUnidad($request){
+      $jefe = Auth::user()->personal;
+
+      if(!$request->admin || !$request->ejec){
+        return [];
+      }
+
       try {
-        $personal = DB::table('personal')->select('personal.*', 'tipo_personal.descripcion as tipo_personal_descripcion', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec', 'personal_unidades.id as unidad')
+        $personal = DB::table('personal')->select('personal.*', 'tipo_personal.descripcion as tipo_personal_descripcion', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec')
             ->where('personal.cedula_identidad', '<>', Auth::user()->cedula)
-            ->join('personal_unidades', function ($join) use($unidades) {
+            ->where('personal.cod_nucleo', $jefe->cod_nucleo)
+            ->join('personal_unidades', function ($join) use($request, $jefe) {
                 $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
-                    ->whereIn('personal_unidades.codigo_unidad_ejec', $unidades);
+                ->where('personal_unidades.codigo_unidad_admin', $request->admin)
+                ->where('personal_unidades.codigo_unidad_ejec', $request->ejec);
             })
             ->leftJoin('tipo_personal', 'personal.tipo_personal', '=', 'tipo_personal.id')
             ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
