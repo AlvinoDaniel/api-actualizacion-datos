@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\ChangePasswordRequest;
+// use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -111,7 +111,7 @@ class AuthController extends AppBaseController
      *
     */
 
-   public  function changePassword(ChangePasswordRequest $request)
+   public  function changePassword(Request $request)
    {
       $user = Auth::user();
       $password = Hash::make($request->password);

@@ -21,6 +21,10 @@ Route::group([
 	'middleware' => 'api'
 ], function () {
     Route::post('/search-worker', [UserController::class, 'searchWorker']);
+    Route::post('/search-user', [UserController::class, 'search_email']);
+    Route::post('/send-email-reset', [UserController::class, 'sendEmailReset']);
+    Route::post('/resend-email-reset', [UserController::class, 'resendEmailReset']);
+    Route::post('/reset-password', [UserController::class, 'resetPassword']);
     Route::group([
       'prefix'=>'auth'],function(){
         Route::post('login',[AuthController::class, 'login']);

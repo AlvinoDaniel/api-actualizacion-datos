@@ -26,9 +26,7 @@ class UserRepository extends BaseRepository {
   }
 
   /**
-   * Registrar grupo de un Departamento
-   * @param Array $departamentos
-   * @param Array $data
+   * @param Array $cedula
    */
   public function search($cedula){
 
@@ -46,6 +44,26 @@ class UserRepository extends BaseRepository {
       }
 
 
+      return [
+        "id"        => $personal->id,
+        "email"     => $personal->correo,
+      ];
+    } catch (\Throwable $th) {
+       throw new Exception($th->getMessage(), $th->getCode());
+    }
+ }
+
+  /**
+   * @param Array $cedula
+   */
+  public function search_user($cedula){
+
+    try {
+      $personal = Personal::where('cedula_identidad', $cedula)->where('jefe', true)->first();
+
+      if(!$personal){
+        throw new Exception('El funcionario no esta registrado en nuestro sistema.', 422);
+      }
       return [
         "id"        => $personal->id,
         "email"     => $personal->correo,

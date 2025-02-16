@@ -5,20 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\User;
-use App\Models\Nivel;
+use App\Models\Personal;
+use App\Models\PasswordReset;
 use App\Repositories\UserRepository;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Storage;
 use Artisan;
-use Exception;
+use App\Mail\RecoveryPassword;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class UserController extends AppBaseController
@@ -133,6 +132,89 @@ class UserController extends AppBaseController
             return $this->sendResponse(['personal' => $personal], '');
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage(), $th->getCode() ?? 404);
+        }
+    }
+
+    public function search_email(Request $request) {
+        $cedula = $request->cedula;
+
+        try {
+            $result = $this->repository->search_user($cedula);
+            return $this->sendResponse(
+                $result,
+                'Resultado de la Busqueda.'
+            );
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+    public function sendEmailReset(Request $request) {
+        $request->validate(['email' => 'required|email']);
+
+        $user = PasswordReset::where('email', $request->email)->first();
+        $personal = Personal::where('correo', $request->email)->first();
+        if($user){
+            Mail::to($request->email)->send(new RecoveryPassword($user->token, $personal->nombres_apellidos));
+            return $this->sendResponse([], 'Correo Enviado.');
+        }
+
+        $token = Str::lower(Str::random(6));
+        try {
+            DB::beginTransaction();
+                $reset = PasswordReset::create([
+                    'email' => $request->email,
+                    'token' => $token,
+                    'created_at' => Carbon::now()
+                ]);
+                Mail::to($request->email)->send(new RecoveryPassword($token, $personal->nombres_apellidos));
+            DB::commit();
+            return $this->sendResponse([], 'Correo Enviado.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+    public function resendEmailReset(Request $request) {
+        $request->validate(['email' => 'required|email']);
+        try {
+            $user = PasswordReset::where('email', $request->email)->first();
+            $personal = Personal::where('correo', $request->email)->first();
+            if($user){
+                Mail::to($request->email)->send(new RecoveryPassword($user->token, $personal->nombres_apellidos));
+                return $this->sendResponse([], 'Correo Enviado.');
+            }
+            return $this->sendResponse([], 'Correo Enviado.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError($th->getMessage());
+        }
+    }
+
+    public function resetPassword(Request $request) {
+        $request->validate([
+            'cedula'    => 'required',
+            'password'  => 'required',
+            'toke'      => 'require'
+        ]);
+
+        try {
+            $token = PasswordReset::where('token', Str::lower($request->token))->first();
+            if(!$token){
+                return $this->sendError('El código de validación es incorrecto.');
+            }
+            $user = User::where('cedula', $request->cedula)->first();
+            if(!$user){
+                return $this->sendError('El funcionario no esta registrado en nuestro sistema.');
+            }
+            $user->password = $request->password;
+            $user->save();
+            $token->delete();
+            return $this->sendResponse($user, 'Contraseña actualizada exitosamente.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendError($th->getMessage());
         }
     }
 }
