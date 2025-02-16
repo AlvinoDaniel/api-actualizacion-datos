@@ -36,25 +36,4 @@ class RecoveryPassword extends Mailable
     {
         return $this->view('emails.reset_password');
     }
-
-     /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-          from: new Address('mediconsult@example.com', 'MEDICONSULT'),
-          subject: 'Clientes en riesgo por consumo',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.finanzas.alerta_clientes',
-        );
-    }
 }
