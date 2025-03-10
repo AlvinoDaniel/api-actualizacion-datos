@@ -7,6 +7,7 @@ use App\Repositories\BaseRepository;
 use App\Models\Personal;
 use App\Models\PersonalMigracion;
 use App\Models\PersonalUnidad;
+use App\Models\Unidad;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -120,6 +121,27 @@ class PersonalRepository extends BaseRepository {
       }
 
 
+  }
+
+  public function getUnidad($request){
+    try {
+        if(!$request->admin || !$request->ejec){
+            return null;
+        }
+
+        $unidad = Unidad::with(['nucleo'])
+            ->where('codigo_unidad_admin', $request->admin)
+            ->where('codigo_unidad_ejec', $request->ejec)
+            ->first();
+
+        if(!$unidad){
+            return null;
+        }
+
+        return $unidad;
+    } catch (\Throwable $th) {
+        throw new Exception($th->getMessage());
+    }
   }
 
 }

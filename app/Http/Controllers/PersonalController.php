@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PersonalRepository;
 use App\Http\Requests\PersonalRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Models\Personal;
-use Exception;
+use Carbon\Carbon;
 
 class PersonalController extends AppBaseController
 {
@@ -123,6 +120,32 @@ class PersonalController extends AppBaseController
             );
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage());
+        }
+    }
+
+    public function genareteList(Request $request){
+        try {
+            $personal = $this->repository->personalByUnidad($request);
+            $unidad = $this->repository->getUnidad($request);
+
+            if(!$unidad){
+                return $this->sendError('Unidad Administrativa no existe.');
+            }
+
+            $pdf = \PDF::loadView('pdf.personal_registrado', [
+               'personal'           => $personal,
+                'unidad_admin'      => $unidad?->descripcion_unidad_admin ?? '',
+                'unidad_ejec'       => $unidad?->descripcion_unidad_ejec ?? '',
+                'nucleo'            => $unidad?->nucleo?->nombre ?? '',
+                'fecha'             => Carbon::now()->format('d/m/Y'),
+            ]);
+            return $pdf->download('Personal_registrado.pdf');
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getCode() > 0
+                    ? $th->getMessage()
+                    : 'Hubo un error al intentar Obtener el documento'
+            );
         }
     }
 }

@@ -19,4 +19,9 @@ class Unidad extends Model
         'descripcion_unidad_ejec',
     ];
 
+    public function nucleo()
+    {
+        return $this->hasOne(Nucleo::class, 'codigo_concatenado', 'cod_nucleo');
+    }
+
 }

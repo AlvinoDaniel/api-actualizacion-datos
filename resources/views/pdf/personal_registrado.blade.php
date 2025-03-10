@@ -105,9 +105,13 @@
         }
 
             @page {
-                margin: 1cm 1.8cm;
+                margin: 1cm;
                 font-family: 'Plus Jakarta Sans', sans-serif;
                 font-size: 11pt;
+            }
+
+            .pagenum:before {
+                content: counter(page);
             }
 
             .page p {
@@ -147,7 +151,7 @@
             }
 
             .page-body {
-                margin: 10px 0;
+                margin:0;
                 text-align: justify;
             }
 
@@ -166,13 +170,14 @@
 
             }
             .page-footer {
-                position: absolute;
-                left: 0;
-                bottom: -20px;
+                /* position: absolute; */
+                /* left: 0; */
+                /* bottom: -20px; */
                 font-size: 12px;
                 width: 100%;
                 text-align: center;
                 margin: 0 auto;
+
             }
 
             .page-user-signature {
@@ -186,92 +191,140 @@
                 width: 40%;
                 border-width: 1px 0 0 0;
             }
+        footer {
+            position: fixed;
+            bottom: -0.5cm;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            line-height: normal;
+        }
+        header {
+            position: fixed;
+            top: -0.5cm;
+            right: 0;
+            background-color: #ffffff;
+            line-height: normal;
+        }
 
-.title-header {
-  font-size: 1.2em;
-}
+        .text-center {
+            text-align: center !important;
+        }
 
-.font-bold {
-  font-weight: bold !important;
-}
+        .title-header {
+        font-size: 0.9em;
+        text-align: left !important;
+        font-weight: bold;
+        line-height: 0.7rem;
+        text-transform: uppercase;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        }
 
-.font-medium {
-  font-weight: 400 !important;
-}
+        .font-bold {
+        font-weight: bold !important;
+        }
 
-.font-uppercase {
-  text-transform: uppercase !important;
-}
-        </style>
-    </head>
+        .font-medium {
+        font-weight: 400 !important;
+        }
+
+        .font-uppercase {
+        text-transform: uppercase !important;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10pt;
+        }
+        table.section {
+            border: 0.1em solid #000000;
+            border-radius: .5em;
+            border-spacing: 0px;
+            width: 100%;
+        }
+        table.striped td, th {
+            padding-top: 1em;
+            padding-bottom: 1em;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #000000;
+        }
+
+        /* table.striped > tbody > tr:nth-of-type(odd) > * {
+            background-color: rgba(252, 253, 253, 1);
+        } */
+
+        td {
+            padding: 0.5em;
+        }
+        th {
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        td.justify {
+            text-align: justify;
+        }
+        table td, table th {
+        box-sizing: content-box;
+        vertical-align: middle;
+        }
+        .bordered {
+            border: 0.1em solid #000000;
+        }
+    </style>
+</head>
 
     <body >
-    <div class="page-container">
-    <div id="pageDocument" class="page page-shadow">
-      <div class="page-content">
-        <div>
-          <div class="page-header">
-            <img src="{{ storage_path('app/public/Logo_UDO.png') }}" width="70" height="68">
-            <span>UNIVERSIDAD DE ORIENTE</span>
-            <span>{{$dptoPropietario}}</span>
-            <span>{{$nucleo}}</span>
-          </div>
-          <div class="page-date">
-            <span class="font-bold">{{$dptoSiglas}} N° 001-2023</span>
-            <span>Cumaná, {{$fechaEnviado}}</span>
-          </div>
-            @if($isCircular)
-                <div class="page-header title-header">
-                    <span>CIRCULAR</span>
-                </div>
-                <div class="page-addressee">
-                <p>
-                    <span style="display: inline;">Para:</span>
-                    <span style="display: inline;" class="font-bold font-uppercase"> {{$destino}} </span>
-                </p>
-                <p>
-                    <span style="display: inline;">De: </span>
-                    <span style="display: inline;" class="font-bold font-uppercase">{{$dptoPropietario}} </span>
-                </p>
-                </div>
-            @endIf
-
-            @if($isOficio)
-            <div class="page-addressee">
-
-              <span>Ciudadano(a):</span>
-              <span class="font-bold">{{$destino->nombres_apellidos}}</span>
-              <span class="font-bold">{{$destino->descripcion_cargo}}</span>
-              <span>Su Despacho.- </span>
+        <header>
+            <span class="pagenum"></span>
+        </header>
+        <footer>
+            <div class="page-footer">
+              <span class="font-bold">DEL PUEBLO VENIMOS / HACIA EL PUEBLO VAMOS</span>
+              {{-- <span style="font-size:10px">{{$nucleoDireccion}}</span> --}}
             </div>
-            @endIf
-
-          <div class="page-body"> {!! $contenido !!} </div>
-          <div class="page-sincerely">
-            <span style="margin-bottom:5px; margin-bottom:15px">Atentamente,</span>
-              <img
-                src="{{$baseUrlFirma}}"
-                width="200"
-                style="margin-bottom:5px"
-              >
-            <span class="page-user-signature">
-                {{$propietarioJefe}}
-            </span>
-            <span>{{$propietarioCargo}}</span>
-          </div>
+        </footer>
+        <div class="page-container">
+            <div id="pageDocument" class="page page-shadow">
+            <div class="page-content">
+                <div>
+                <div class="page-header">
+                    <img src="{{ storage_path('app/public/Logo_UDO.png') }}" width="70" height="68">
+                    <span>UNIVERSIDAD DE ORIENTE</span>
+                    <span>{{$nucleo}}</span>
+                </div>
+                <div class="title-header">
+                    <span>UNIDAD ADMINISTRATIVA: {{$unidad_admin}}</span> <br>
+                    <span>UNIDAD EJECUTORA: {{$unidad_ejec}}</span>
+                </div>
+                <div class="page-header" style="font-size: 1em;">
+                    <span>LISTADO DE PERSONAL REGISTRADO A LA FECHA {{$fecha}}</span>
+                </div>
+                <div class="page-body">
+                    <table class="bordered striped">
+                        <thead>
+                        <tr>
+                            <th width="25%">CÉDULA DE IDENTIDAD</th>
+                            <th width="50%">NOMBRES Y APELLIDOS</th>
+                            <th class="text-center">FIRMA</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($personal as $item)
+                            <tr>
+                            <td>{{number_format($item->cedula_identidad, 0, ',', '.')}}</td>
+                            <td>{{$item->nombres_apellidos}}</td>
+                            <td></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+            </div>
         </div>
-         @if($hasCopias)
-          <div class="page-copys">
-            <span class="font-uppercase font-medium">CC: {{$dptoCopias}}</span>
-          </div>
-          @endIf
-      </div>
-      <div class="page-footer">
-        <span class="font-bold">DEL PUEBLO VENIMOS / HACIA EL PUEBLO VAMOS</span>
-        <span style="font-size:10px">{{$nucleoDireccion}}</span>
-      </div>
-    </div>
-  </div>
-
     </body>
 </html>

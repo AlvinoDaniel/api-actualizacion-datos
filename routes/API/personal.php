@@ -14,6 +14,7 @@ Route::group([
     Route::controller(PersonalController::class)->group(function () {
       Route::get('/', 'index');
       Route::post('/', 'store');
+      Route::get('/donwload/list', 'genareteList');
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
       Route::get('/search/{cedula}', 'search');
