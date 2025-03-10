@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
     {
         // dd(Rule::unique('users', 'personal_id')->ignore($this->route('id')));
         return [
-            'password'      => 'required|min:5',
+            'password'      => 'required|min:4',
             'cedula'  => [
                 "required",
                 "numeric",
