@@ -49,20 +49,6 @@ return [
             'visibility' => 'private',
         ],
 
-        'firmas' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/firmas'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-        ],
-
-        'anexos' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/anexos'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-        ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -88,9 +74,7 @@ return [
     */
 
     'links' => [
-        // public_path('storage') => storage_path('app/public'),
-        public_path('firmas') => storage_path('app/public/firmas'),
-        public_path('anexos') => storage_path('app/public/anexos'),
+        public_path('storage') => storage_path('app/public'),
     ],
 
 ];

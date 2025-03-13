@@ -315,8 +315,8 @@
                     <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                             <td class="header">
-                                <a href="" style="display: inline-block;">
-                                    @include('emails.logo')
+                                <a href="http://personal.udo.edu.ve:8080/auth/login/" style="display: inline-block;">
+                                    <img src="{{ $message->embed(public_path('storage/Logo_UDO.png')) }}" class="logo" alt="Udo Logo" />
                                 </a>
                             </td>
                         </tr>

@@ -117,7 +117,7 @@ class UserController extends AppBaseController
 
     public function backupDownload(){
         try {
-            Artisan::call('backup:run');
+            // Artisan::call('backup:run');
             $files = array_reverse(Storage::disk('backup')->files('cultores'));
             return Storage::disk('backup')->download($files[0]);
         } catch (\Throwable $th) {
@@ -159,7 +159,7 @@ class UserController extends AppBaseController
             return $this->sendResponse([], 'Correo Enviado.');
         }
 
-        $token = Str::lower(Str::random(6));
+        $token = Str::upper(Str::random(6));
         try {
             DB::beginTransaction();
                 $reset = PasswordReset::create([
@@ -200,7 +200,7 @@ class UserController extends AppBaseController
         ]);
 
         try {
-            $token = PasswordReset::where('token', Str::lower($request->token))->first();
+            $token = PasswordReset::where('token', Str::upper($request->token))->first();
             if(!$token){
                 return $this->sendError('El código de validación es incorrecto.');
             }

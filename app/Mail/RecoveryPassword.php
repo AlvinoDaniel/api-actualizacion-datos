@@ -35,6 +35,7 @@ class RecoveryPassword extends Mailable
     public function build()
     {
         return $this->from('dircomputacion@udo.edu.ve', 'Dirección de Computación')
+            ->with(['message' => $this])
             ->subject('Recuperar Contraseña')
             ->view('emails.reset_password');
     }
