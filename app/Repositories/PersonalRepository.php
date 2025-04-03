@@ -144,4 +144,31 @@ class PersonalRepository extends BaseRepository {
     }
   }
 
+   /**
+   * Listar todo el personal registrado de la unidad administrativa logueado
+   */
+  public function personalRegistrado($request){
+    try {
+      $personal = DB::table('personal')->select('personal.*', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec', 'unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'unidades_fisicas_ejecutoras.descripcion_unidad_ejec')
+          ->where('personal.jefe', 0)
+          ->whereNotNull('personal.created_at')
+          ->join('personal_unidades', function ($join){
+              $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad');
+          })
+          ->join('unidades_fisicas_ejecutoras', function ($join){
+            $join->on('personal_unidades.codigo_unidad_admin', '=', 'unidades_fisicas_ejecutoras.codigo_unidad_admin')
+            ->where('personal_unidades.codigo_unidad_ejec', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec');
+          })
+          ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado');
+
+      if(isset($request->nucleo)){
+        $personal->where('personal.cod_nucleo', $request["nucleo"]);
+      }
+      $data = $personal->get();
+      return $data;
+    } catch (\Throwable $th) {
+      throw new Exception($th->getMessage());
+    }
+}
+
 }

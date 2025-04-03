@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class Administrador
 {
@@ -18,7 +19,9 @@ class Administrador
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        
+        if (auth()->user()->cedula !== '12659389') {
+            throw new Exception('USUARIO NO AUTORIZADO.', 403);
+        }
 
         return $next($request);
     }

@@ -148,4 +148,21 @@ class PersonalController extends AppBaseController
             );
         }
     }
+    public function genareteReport(Request $request){
+        try {
+            $personal = $this->repository->personalRegistrado($request);
+
+            $pdf = \PDF::loadView('pdf.personal_by_nucleo', [
+               'personal'           => $personal,
+                'fecha'             => Carbon::now()->format('d/m/Y'),
+            ]);
+            return $pdf->download('Personal_by_nucleo.pdf');
+        } catch (\Throwable $th) {
+            return $this->sendError(
+                $th->getCode() > 0
+                    ? $th->getMessage()
+                    : 'Hubo un error al intentar Obtener el documento'
+            );
+        }
+    }
 }
