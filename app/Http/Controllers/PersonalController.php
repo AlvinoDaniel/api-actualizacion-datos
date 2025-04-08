@@ -152,6 +152,13 @@ class PersonalController extends AppBaseController
         try {
             $personal = $this->repository->personalRegistrado($request);
 
+            if(!isset($request->download)){
+                return $this->sendResponse(
+                    $personal,
+                    'Resultado de la Busqueda.'
+                );
+            }
+
             $pdf = \PDF::loadView('pdf.personal_by_nucleo', [
                'personal'           => $personal,
                 'fecha'             => Carbon::now()->format('d/m/Y'),

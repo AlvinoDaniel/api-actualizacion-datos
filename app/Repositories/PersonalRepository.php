@@ -149,17 +149,22 @@ class PersonalRepository extends BaseRepository {
    */
   public function personalRegistrado($request){
     try {
-      $personal = DB::table('personal')->select('personal.*', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec', 'unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'unidades_fisicas_ejecutoras.descripcion_unidad_ejec')
+    $unidades = DB::table('unidades_fisicas_ejecutoras')
+                ->select('codigo_unidad_admin', 'codigo_unidad_ejec', 'descripcion_unidad_admin')
+                ->distinct('codigo_unidad_admin');
+
+      $personal = DB::table('personal')->select('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre', DB::raw('count(personal.id) as personal_reg'))
           ->where('personal.jefe', 0)
           ->whereNotNull('personal.created_at')
-          ->join('personal_unidades', function ($join){
-              $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad');
+          ->join('personal_unidades', function ($join) use($unidades){
+              $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
+              ->joinSub($unidades, 'unidades_fisicas_ejecutoras', function ($join){
+                $join->on('personal_unidades.codigo_unidad_admin', '=', 'unidades_fisicas_ejecutoras.codigo_unidad_admin')
+                ->whereColumn('unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal_unidades.codigo_unidad_ejec');
+              });
           })
-          ->join('unidades_fisicas_ejecutoras', function ($join){
-            $join->on('personal_unidades.codigo_unidad_admin', '=', 'unidades_fisicas_ejecutoras.codigo_unidad_admin')
-            ->where('personal_unidades.codigo_unidad_ejec', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec');
-          })
-          ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado');
+          ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
+          ->groupBy('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre');
 
       if(isset($request->nucleo)){
         $personal->where('personal.cod_nucleo', $request["nucleo"]);

@@ -19,7 +19,7 @@ class Administrador
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if (auth()->user()->cedula !== '12659389') {
+        if (!auth()->user()->is_admin) {
             throw new Exception('USUARIO NO AUTORIZADO.', 403);
         }
 

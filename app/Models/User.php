@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Personal;
+use App\Models\UserAdmin;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['is_admin'];
+
     public function setPasswordAttribute($value){
         $this->attributes['password'] = \Hash::make($value);
     }
@@ -46,5 +49,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Personal::class);
     }
+
+    public function admin()
+    {
+        return $this->hasOne(UserAdmin::class, 'id', 'user_id');
+    }
+
+    public function getIsAdminAttribute($value){
+        return UserAdmin::where('user_id', $this->id)->count() > 0;
+    }
+
 
 }

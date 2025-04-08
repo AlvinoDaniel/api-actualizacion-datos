@@ -301,19 +301,17 @@
                     <table class="bordered striped">
                         <thead>
                         <tr>
-                            <th width="15%">CÉDULA I.</th>
-                            <th width="30%">NOMBRES Y APELLIDOS</th>
                             <th class="text-center">UND EJECUTORA</th>
-                            <th width="10%" class="text-center">NUCLEO</th>
+                            <th width="10%" align="center">PERSONAL</th>
+                            <th class="text-center">NUCLEO</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($personal as $item)
                             <tr>
-                            <td>{{number_format($item->cedula_identidad, 0, ',', '.')}}</td>
-                            <td>{{$item->nombres_apellidos}}</td>
-                            <td>{{$item->descripcion_unidad_ejec}}</td>
-                            <td>{{$item->nombre_nucleo}}</td>
+                                <td>{{$item->descripcion_unidad_admin}}</td>
+                                <td align="center" style="text-align: center">{{$item->personal_reg}}</td>
+                                <td>{{$item->nombre}}</td>
                             </tr>
                         @endforeach
                         </tbody>
