@@ -206,7 +206,7 @@ class PersonalRepository extends BaseRepository {
       if(isset($request->nucleo)){
         $personal->where('personal.cod_nucleo', $request["nucleo"]);
       }
-      $data = !isset($request->download) ? $personal->paginate($perPage) : $personal->get();
+      $data = $personal->get();
       return $data;
     } catch (\Throwable $th) {
       throw new Exception($th->getMessage());
