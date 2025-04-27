@@ -172,4 +172,20 @@ class PersonalController extends AppBaseController
             );
         }
     }
+
+     /**
+     * Listar todo el Personal Por Undidad.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function personalAllUnidad(Request $request)
+    {
+        try {
+            $personal = $this->repository->personalRegistered($request);
+            $message = 'Lista de Trabajadores';
+            return $this->sendResponse($personal, $message);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage());
+        }
+    }
 }

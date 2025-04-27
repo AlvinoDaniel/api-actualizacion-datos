@@ -19,6 +19,7 @@ Route::group([
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
       Route::get('/search/{cedula}', 'search');
+      Route::get('/all-by-unidad', 'personalAllUnidad');
     });
   });
 });

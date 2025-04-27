@@ -58,6 +58,42 @@ class PersonalRepository extends BaseRepository {
       }
   }
 
+  public function personalRegistered($request){
+
+      if(!isset($request->admin) || !isset($request->ejec) || !isset($request->nucleo)){
+        return [];
+      }
+
+      try {
+        $personal = DB::table('personal')->select('personal.*', 'tipo_personal.descripcion as tipo_personal_descripcion', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec')
+            ->where('personal.cod_nucleo', $request->nucleo)
+            ->join('personal_unidades', function ($join) use($request) {
+                $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
+                ->where('personal_unidades.codigo_unidad_admin', $request->admin)
+                ->where('personal_unidades.codigo_unidad_ejec', $request->ejec);
+            })
+            ->leftJoin('tipo_personal', 'personal.tipo_personal', '=', 'tipo_personal.id')
+            ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
+            ->get();
+
+        $jefe = $personal->where('jefe', 1)->first();
+        $personal_all = [];
+
+        foreach ($personal as $item) {
+            if($item->jefe === 0){
+                $personal_all[] = $item;
+            }
+        }
+
+        return [
+            "jefe"      => $jefe,
+            "personal"  => $personal_all,
+        ];
+      } catch (\Throwable $th) {
+        throw new Exception($th->getMessage());
+      }
+  }
+
   public function registrarPersonal($request){
     $departamento = PersonalUnidad::find($request['unidad']);
     $unidad_admin = $departamento->codigo_unidad_admin;
@@ -148,12 +184,13 @@ class PersonalRepository extends BaseRepository {
    * Listar todo el personal registrado de la unidad administrativa logueado
    */
   public function personalRegistrado($request){
+    $perPage = isset($request->perPage) ? $request->perPage : 10;
     try {
     $unidades = DB::table('unidades_fisicas_ejecutoras')
                 ->select('codigo_unidad_admin', 'codigo_unidad_ejec', 'descripcion_unidad_admin')
                 ->distinct('codigo_unidad_admin');
 
-      $personal = DB::table('personal')->select('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre', DB::raw('count(personal.id) as personal_reg'))
+      $personal = DB::table('personal')->select('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec','nucleo.nombre', 'personal.cod_nucleo', DB::raw('count(personal.id) as personal_reg'))
           ->where('personal.jefe', 0)
           ->whereNotNull('personal.created_at')
           ->join('personal_unidades', function ($join) use($unidades){
@@ -164,12 +201,12 @@ class PersonalRepository extends BaseRepository {
               });
           })
           ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
-          ->groupBy('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre');
+          ->groupBy('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal.cod_nucleo');
 
       if(isset($request->nucleo)){
         $personal->where('personal.cod_nucleo', $request["nucleo"]);
       }
-      $data = $personal->get();
+      $data = !isset($request->download) ? $personal->paginate($perPage) : $personal->get();
       return $data;
     } catch (\Throwable $th) {
       throw new Exception($th->getMessage());
