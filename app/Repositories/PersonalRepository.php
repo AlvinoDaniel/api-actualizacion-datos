@@ -43,14 +43,14 @@ class PersonalRepository extends BaseRepository {
       try {
         $personal = DB::table('personal')->select('personal.*', 'tipo_personal.descripcion as tipo_personal_descripcion', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec')
             ->where('personal.cedula_identidad', '<>', Auth::user()->cedula)
-            ->where('personal.cod_nucleo', $jefe->cod_nucleo)
+            // ->where('personal.cod_nucleo', $jefe->cod_nucleo)
             ->join('personal_unidades', function ($join) use($request, $jefe) {
                 $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
                 ->where('personal_unidades.codigo_unidad_admin', $request->admin)
                 ->where('personal_unidades.codigo_unidad_ejec', $request->ejec);
             })
             ->leftJoin('tipo_personal', 'personal.tipo_personal', '=', 'tipo_personal.id')
-            ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
+            ->leftJoin('nucleo', DB::raw("SUBSTR(personal.cod_nucleo, 1,1)"), '=', 'nucleo.codigo_1')
             ->get();
         return $personal;
       } catch (\Throwable $th) {
@@ -66,14 +66,14 @@ class PersonalRepository extends BaseRepository {
 
       try {
         $personal = DB::table('personal')->select('personal.*', 'tipo_personal.descripcion as tipo_personal_descripcion', 'nucleo.nombre as nucleo_nombre', 'personal_unidades.codigo_unidad_admin', 'personal_unidades.codigo_unidad_ejec')
-            ->where('personal.cod_nucleo', $request->nucleo)
+            ->where(DB::raw("SUBSTR(personal.cod_nucleo, 1,1)"), $request->nucleo[0])
             ->join('personal_unidades', function ($join) use($request) {
                 $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
                 ->where('personal_unidades.codigo_unidad_admin', $request->admin)
                 ->where('personal_unidades.codigo_unidad_ejec', $request->ejec);
             })
             ->leftJoin('tipo_personal', 'personal.tipo_personal', '=', 'tipo_personal.id')
-            ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
+            ->leftJoin('nucleo', DB::raw("SUBSTR(personal.cod_nucleo, 1,1)"), '=', 'nucleo.codigo_1')
             ->get();
 
         $jefe = $personal->where('jefe', 1)->first();
@@ -104,7 +104,7 @@ class PersonalRepository extends BaseRepository {
         'cedula_identidad'    => $request['cedula_identidad'],
         'tipo_personal'       => $request['tipo_personal'],
         'cargo_opsu'          => $request['cargo_opsu'],
-        'cod_nucleo'          => $nucleo,
+        'cod_nucleo'          => $request['nucleo'],
         'correo'              => $request['correo'],
         'telefono'            => $request['telefono'],
         'pantalon'            => $request['pantalon'],
@@ -200,11 +200,11 @@ class PersonalRepository extends BaseRepository {
                 ->whereColumn('unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal_unidades.codigo_unidad_ejec');
               });
           })
-          ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
+          ->leftJoin('nucleo', DB::raw("SUBSTR(personal.cod_nucleo, 1,1)"), '=', 'nucleo.codigo_1')
           ->groupBy('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal.cod_nucleo');
 
       if(isset($request->nucleo)){
-        $personal->where('personal.cod_nucleo', $request["nucleo"]);
+        $personal->where(DB::raw("SUBSTR(personal.cod_nucleo, 1,1)"), $request["nucleo"]);
       }
       $data = $personal->get();
       return $data;

@@ -8,6 +8,7 @@ use App\Models\Departamento;
 use App\Models\User;
 use App\Models\Nivel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class Personal extends Model
@@ -43,7 +44,7 @@ class Personal extends Model
 
     protected $with = ['unidades'];
 
-    protected $appends = ['has_update'];
+    protected $appends = ['has_update', 'codigo_nucleo'];
 
     public function usuario()
     {
@@ -57,7 +58,7 @@ class Personal extends Model
 
     public function nucleo()
     {
-        return $this->hasOne(Nucleo::class, 'codigo_concatenado', 'cod_nucleo');
+        return $this->hasOne(Nucleo::class, 'codigo_1', 'codigo_nucleo');
     }
     public function tipoPersonal()
     {
@@ -72,6 +73,10 @@ class Personal extends Model
             if(in_array($value, $excludeFlieds)) return true;
             return $this[$value] !== null;
         });
+    }
+
+    public function getCodigoNucleoAttribute() {
+       return Str::substr($this->cod_nucleo ?? '', 0, 1);
     }
 
 
