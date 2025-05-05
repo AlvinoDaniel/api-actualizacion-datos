@@ -7,6 +7,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\PersonalRepository;
 use App\Http\Requests\PersonalRequest;
 use Carbon\Carbon;
+use App\Exports\ReporteAllExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PersonalController extends AppBaseController
 {
@@ -187,5 +189,24 @@ class PersonalController extends AppBaseController
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage());
         }
+    }
+
+    public function exportAllPersonal(Request $request){
+
+        try {
+         $data = $this->repository->personalReport();
+        //  return $this->sendResponse($data["personal"], '');
+
+         $nameFile =  'REPORTE_PERSONAL_'.Carbon::now()->format('dmy').'.xlsx';
+
+         return Excel::download(new ReporteAllExport($data["personal"], $data["jefes"]), $nameFile);
+
+        } catch (\Throwable $th) {
+           if($th->getCode() === 422){
+             return $this->sendError($th->getMessage(), $th->getCode());
+           }
+           return $this->sendError("Error al obtener los datos del Cliente.".$th->getMessage(), 420);
+        }
+
     }
 }

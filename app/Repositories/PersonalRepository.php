@@ -183,34 +183,55 @@ class PersonalRepository extends BaseRepository {
    /**
    * Listar todo el personal registrado de la unidad administrativa logueado
    */
-  public function personalRegistrado($request){
-    $perPage = isset($request->perPage) ? $request->perPage : 10;
-    try {
-    $unidades = DB::table('unidades_fisicas_ejecutoras')
-                ->select('codigo_unidad_admin', 'codigo_unidad_ejec', 'descripcion_unidad_admin')
-                ->distinct('codigo_unidad_admin');
+    public function personalRegistrado($request){
+        $perPage = isset($request->perPage) ? $request->perPage : 10;
+        try {
+        $unidades = DB::table('unidades_fisicas_ejecutoras')
+                    ->select('codigo_unidad_admin', 'codigo_unidad_ejec', 'descripcion_unidad_admin')
+                    ->distinct('codigo_unidad_admin');
 
-      $personal = DB::table('personal')->select('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec','nucleo.nombre', 'personal.cod_nucleo', DB::raw('count(personal.id) as personal_reg'))
-          ->where('personal.jefe', 0)
-          ->whereNotNull('personal.created_at')
-          ->join('personal_unidades', function ($join) use($unidades){
-              $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
-              ->joinSub($unidades, 'unidades_fisicas_ejecutoras', function ($join){
-                $join->on('personal_unidades.codigo_unidad_admin', '=', 'unidades_fisicas_ejecutoras.codigo_unidad_admin')
-                ->whereColumn('unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal_unidades.codigo_unidad_ejec');
-              });
-          })
-          ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
-          ->groupBy('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal.cod_nucleo');
+        $personal = DB::table('personal')->select('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec','nucleo.nombre', 'personal.cod_nucleo', DB::raw('count(personal.id) as personal_reg'))
+            ->where('personal.jefe', 0)
+            ->whereNotNull('personal.created_at')
+            ->join('personal_unidades', function ($join) use($unidades){
+                $join->on('personal.cedula_identidad', '=', 'personal_unidades.cedula_identidad')
+                ->joinSub($unidades, 'unidades_fisicas_ejecutoras', function ($join){
+                    $join->on('personal_unidades.codigo_unidad_admin', '=', 'unidades_fisicas_ejecutoras.codigo_unidad_admin')
+                    ->whereColumn('unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal_unidades.codigo_unidad_ejec');
+                });
+            })
+            ->leftJoin('nucleo', 'personal.cod_nucleo', '=', 'nucleo.codigo_concatenado')
+            ->groupBy('unidades_fisicas_ejecutoras.descripcion_unidad_admin', 'nucleo.nombre', 'unidades_fisicas_ejecutoras.codigo_unidad_admin', 'unidades_fisicas_ejecutoras.codigo_unidad_ejec', 'personal.cod_nucleo');
 
-      if(isset($request->nucleo)){
-        $personal->where('personal.cod_nucleo', $request["nucleo"]);
-      }
-      $data = $personal->get();
-      return $data;
-    } catch (\Throwable $th) {
-      throw new Exception($th->getMessage());
+        if(isset($request->nucleo)){
+            $personal->where('personal.cod_nucleo', $request["nucleo"]);
+        }
+        $data = $personal->get();
+        return $data;
+        } catch (\Throwable $th) {
+        throw new Exception($th->getMessage());
+        }
     }
-}
+
+    public function personalReport(){
+
+        try {
+          $personal_all = DB::table('personal')->select('personal.cedula_identidad', 'personal.nombres_apellidos', 'personal.jefe')
+          ->where('jefe', 0)
+          ->get();
+
+          $jefes = DB::table('personal')->select('personal.cedula_identidad', 'personal.nombres_apellidos', 'personal.jefe')
+          ->where('jefe', 1)
+          ->join('users', 'personal.cedula_identidad', 'users.cedula')
+          ->get();
+
+          return [
+              "jefes"       => $jefes,
+              "personal"    => $personal_all,
+          ];
+        } catch (\Throwable $th) {
+          throw new Exception($th->getMessage());
+        }
+    }
 
 }

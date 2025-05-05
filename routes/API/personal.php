@@ -16,6 +16,7 @@ Route::group([
       Route::post('/', 'store');
       Route::get('/donwload/list', 'genareteList');
       Route::get('/donwload-by-nucleo/list', 'genareteReport')->middleware('admin');
+      Route::get('/export/list', 'exportAllPersonal')->middleware('admin');
       Route::post('/{id}', 'update');
       Route::delete('/{id}', 'destroy');
       Route::get('/search/{cedula}', 'search');
