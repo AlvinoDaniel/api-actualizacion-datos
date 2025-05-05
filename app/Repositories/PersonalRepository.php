@@ -232,5 +232,6 @@ class PersonalRepository extends BaseRepository {
         } catch (\Throwable $th) {
           throw new Exception($th->getMessage());
         }
+    }
 
 }
