@@ -1,6 +1,3 @@
-@php
-
-@endphp
 <table>
     <thead>
         <tr>
