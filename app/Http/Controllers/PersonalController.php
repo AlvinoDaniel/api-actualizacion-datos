@@ -7,8 +7,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\PersonalRepository;
 use App\Http\Requests\PersonalRequest;
 use Carbon\Carbon;
-use App\Exports\ReporteAllExport;
-use Maatwebsite\Excel\Facades\Excel;
+// use App\Exports\ReporteAllExport;
+// use Maatwebsite\Excel\Facades\Excel;
 
 class PersonalController extends AppBaseController
 {
@@ -199,7 +199,8 @@ class PersonalController extends AppBaseController
 
          $nameFile =  'REPORTE_PERSONAL_'.Carbon::now()->format('dmy').'.xlsx';
 
-         return Excel::download(new ReporteAllExport($data["personal"], $data["jefes"]), $nameFile);
+        //  return Excel::download(new ReporteAllExport($data["personal"], $data["jefes"]), $nameFile);
+         return $this->sendResponse($data, '');
 
         } catch (\Throwable $th) {
            if($th->getCode() === 422){
